@@ -59,7 +59,7 @@ export default function BeforeAfter({ before, after, width, height, className }:
       <span className="pointer-events-none absolute left-3 top-3 rounded-full bg-night/70 px-3 py-1 text-xs font-bold text-snow backdrop-blur">
         {t('gallery.before')}
       </span>
-      <span className="pointer-events-none absolute right-3 top-3 rounded-full bg-emerald px-3 py-1 text-xs font-bold text-night">
+      <span className="pointer-events-none absolute right-3 top-3 rounded-full bg-leaf px-3 py-1 text-xs font-bold text-night">
         {t('gallery.after')}
       </span>
 

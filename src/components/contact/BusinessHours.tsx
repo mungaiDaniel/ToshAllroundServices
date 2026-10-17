@@ -15,7 +15,7 @@ export default function BusinessHours() {
     <Reveal variant="right">
       <section aria-labelledby="hours-title" className="card-light !transform-none p-6 sm:p-8">
         <h2 id="hours-title" className="flex items-center gap-3 text-xl">
-          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-mint text-emerald-deep">
+          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-mint text-brand">
             <Clock size={20} aria-hidden="true" />
           </span>
           {t('contact.hours.title')}
@@ -35,7 +35,7 @@ export default function BusinessHours() {
                 <dt className="flex items-center gap-2">
                   {t(`contact.hours.days.${day}`)}
                   {isToday && (
-                    <span className="rounded-full bg-emerald px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-night">
+                    <span className="rounded-full bg-leaf px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-night">
                       {t('contact.hours.today')}
                     </span>
                   )}

@@ -109,7 +109,7 @@ export default function Lightbox({ items, index, origin, onClose, onIndexChange 
   const stageWidth = `min(92vw, 1100px, calc(70vh * ${ratio}))`
 
   const arrow =
-    'absolute top-1/2 z-10 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-night/60 text-snow backdrop-blur transition-colors [transition-duration:var(--dur-fast)] hover:border-emerald hover:text-emerald sm:flex'
+    'absolute top-1/2 z-10 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-night/60 text-snow backdrop-blur transition-colors [transition-duration:var(--dur-fast)] hover:border-sky hover:text-sky sm:flex'
 
   return createPortal(
     <m.div
@@ -128,7 +128,7 @@ export default function Lightbox({ items, index, origin, onClose, onIndexChange 
         type="button"
         onClick={onClose}
         aria-label={t('gallery.close')}
-        className="absolute right-4 top-4 z-10 flex h-12 w-12 items-center justify-center rounded-full border border-white/15 bg-night/60 text-snow transition-colors [transition-duration:var(--dur-fast)] hover:border-emerald hover:text-emerald"
+        className="absolute right-4 top-4 z-10 flex h-12 w-12 items-center justify-center rounded-full border border-white/15 bg-night/60 text-snow transition-colors [transition-duration:var(--dur-fast)] hover:border-sky hover:text-sky"
       >
         <X size={22} aria-hidden="true" />
       </button>

@@ -14,7 +14,7 @@ export default function NotFound() {
       <NoiseOverlay />
       <div className="mx-auto max-w-2xl px-4 py-24 text-center">
         <Reveal>
-          <p className="font-heading text-7xl font-extrabold text-emerald sm:text-9xl">{t('notFound.code')}</p>
+          <p className="font-heading text-7xl font-extrabold text-sky sm:text-9xl">{t('notFound.code')}</p>
         </Reveal>
         <Reveal delay={0.1}>
           <h1 className="mt-4 text-3xl sm:text-4xl">{t('notFound.title')}</h1>

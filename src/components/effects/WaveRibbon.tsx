@@ -63,10 +63,10 @@ export default function WaveRibbon({ variant = 'calm', className }: WaveRibbonPr
         >
           <defs>
             <linearGradient id={`${id}-${i}`} x1="0" x2="1">
-              <stop offset="0" stopColor="#10b981" stopOpacity="0" />
-              <stop offset="0.35" stopColor="#10b981" />
-              <stop offset="0.7" stopColor="#7c8fd6" />
-              <stop offset="1" stopColor="#7c8fd6" stopOpacity="0" />
+              <stop offset="0" stopColor="#1e6bb8" stopOpacity="0" />
+              <stop offset="0.35" stopColor="#2e9bd6" />
+              <stop offset="0.7" stopColor="#5bb37a" />
+              <stop offset="1" stopColor="#5bb37a" stopOpacity="0" />
             </linearGradient>
           </defs>
           <path

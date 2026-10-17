@@ -1,5 +1,4 @@
-import { m, useScroll, useTransform } from 'framer-motion'
-import { useMemo, useRef } from 'react'
+import { useMemo } from 'react'
 import { useMotionPrefs } from '../../hooks/useMotionPrefs'
 import { usePauseOffscreen } from '../../hooks/usePauseOffscreen'
 import { distance, loopDuration, parallax } from '../../lib/motion'
@@ -65,11 +64,10 @@ function build(variant: 'edges' | 'hero', seed: number, mobile: boolean): Item[]
 }
 
 const bubbleBg =
-  'radial-gradient(circle at 30% 28%, rgba(255,255,255,0.55), rgba(255,255,255,0.08) 22%, rgba(16,185,129,0.10) 60%, rgba(124,143,214,0.22))'
+  'radial-gradient(circle at 30% 28%, rgba(255,255,255,0.55), rgba(255,255,255,0.08) 22%, rgba(91,179,122,0.12) 60%, rgba(46,155,214,0.24))'
 
-function Shape({ item, reduced, scrollY }: { item: Item; reduced: boolean; scrollY: ReturnType<typeof useScroll>['scrollYProgress'] }) {
+function Shape({ item, reduced }: { item: Item; reduced: boolean }) {
   const travel = (item.depth * 2 - 1) * parallax.range * 1.6
-  const y = useTransform(scrollY, [0, 1], [travel, -travel])
   const anim = {
     animationName: reduced ? 'none' : item.kind === 'bubble' ? 'float' : 'twinkle',
     animationDuration: loopDuration(item.loop),
@@ -78,9 +76,9 @@ function Shape({ item, reduced, scrollY }: { item: Item; reduced: boolean; scrol
     ['--fy' as string]: `${-distance.md * (0.5 + item.depth)}px`,
   }
   return (
-    <m.div
-      className="absolute"
-      style={{ left: `${item.x}%`, top: `${item.y}%`, y: reduced ? 0 : y }}
+    <div
+      className={`absolute ${reduced ? '' : 'parallax-layer'}`}
+      style={{ left: `${item.x}%`, top: `${item.y}%`, ['--parallax-range' as string]: `${travel}px` }}
     >
       {item.kind === 'bubble' ? (
         <div
@@ -90,7 +88,7 @@ function Shape({ item, reduced, scrollY }: { item: Item; reduced: boolean; scrol
             height: item.size,
             background: bubbleBg,
             opacity: 0.35 + item.depth * 0.5,
-            boxShadow: 'inset -4px -6px 14px rgba(124,143,214,0.18), 0 0 24px rgba(16,185,129,0.10)',
+            boxShadow: 'inset -4px -6px 14px rgba(46,155,214,0.2), 0 0 24px rgba(91,179,122,0.12)',
             ...anim,
           }}
         />
@@ -103,7 +101,7 @@ function Shape({ item, reduced, scrollY }: { item: Item; reduced: boolean; scrol
           <path fill="currentColor" d="M12 0C12.8 7.5 16.5 11.2 24 12C16.5 12.8 12.8 16.5 12 24C11.2 16.5 7.5 12.8 0 12C7.5 11.2 11.2 7.5 12 0Z" />
         </svg>
       )}
-    </m.div>
+    </div>
   )
 }
 
@@ -111,22 +109,17 @@ function Shape({ item, reduced, scrollY }: { item: Item; reduced: boolean; scrol
 export default function FloatingBubbles({ variant = 'edges', seed = 7, className }: FloatingBubblesProps) {
   const { reduced, mobile } = useMotionPrefs()
   const { ref, pauseProps } = usePauseOffscreen<HTMLDivElement>()
-  const scope = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll({ target: scope, offset: ['start end', 'end start'] })
   const items = useMemo(() => build(variant, seed, mobile), [variant, seed, mobile])
 
   return (
     <div
-      ref={(node) => {
-        ref.current = node
-        scope.current = node
-      }}
+      ref={ref}
       {...pauseProps}
       aria-hidden="true"
       className={`pointer-events-none absolute inset-0 -z-[5] overflow-hidden ${className ?? ''}`}
     >
       {items.map((item, i) => (
-        <Shape key={i} item={item} reduced={reduced} scrollY={scrollYProgress} />
+        <Shape key={i} item={item} reduced={reduced} />
       ))}
     </div>
   )

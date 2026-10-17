@@ -1,7 +1,8 @@
 import { CalendarCheck, Laptop, MessageCircle, SprayCan, type LucideIcon } from 'lucide-react'
-import { images } from '../../data/site'
+import { photos } from '../../data/site'
 import { useTranslation } from '../../hooks/useTranslation'
 import type { TranslationKey } from '../../i18n/LanguageContext'
+import Photo from '../Photo'
 import SectionHeading from '../SectionHeading'
 import Parallax from '../motion/Parallax'
 import Reveal from '../motion/Reveal'
@@ -15,36 +16,19 @@ const points: { icon: LucideIcon; title: TranslationKey; text: TranslationKey }[
 ]
 
 export default function WhyChooseUs() {
-  const { t, language } = useTranslation()
+  const { t } = useTranslation()
   return (
     <section className="section-light py-20 sm:py-24">
       <div className="mx-auto grid max-w-6xl items-center gap-14 px-4 lg:grid-cols-2 lg:gap-20">
-        <Reveal variant="left" className="relative mx-auto w-full max-w-md lg:max-w-none">
-          <div
-            aria-hidden="true"
-            className="absolute -left-6 -top-6 -z-10 h-40 w-40 rounded-full bg-mint"
-          />
-          <Parallax clip speed={0.6} className="aspect-[4/5] rounded-3xl shadow-soft">
-            <img
-              src={images.aboutCleaner.src}
-              alt={images.aboutCleaner.alt[language]}
-              width={1000}
-              height={563}
-              loading="lazy"
-              decoding="async"
-              className="h-full w-full object-cover object-[65%_50%]"
-            />
+        <Reveal variant="left" className="relative mx-auto w-full max-w-sm pb-8 sm:max-w-md lg:max-w-none">
+          <div aria-hidden="true" className="absolute -left-6 -top-6 -z-10 h-40 w-40 rounded-full bg-mint" />
+          <Parallax clip speed={0.6} className="mx-auto aspect-[4/5] w-[86%] -rotate-2 rounded-3xl shadow-soft lg:ml-0">
+            <Photo photo={photos.bathroom} sizes="(min-width: 1024px) 400px, 80vw" />
           </Parallax>
-          <div className="absolute -bottom-6 -right-3 w-36 overflow-hidden rounded-2xl border-4 border-white shadow-soft sm:-right-6 sm:w-44">
-            <img
-              src={images.aboutSupplies.src}
-              alt={images.aboutSupplies.alt[language]}
-              width={1000}
-              height={667}
-              loading="lazy"
-              decoding="async"
-              className="aspect-[4/3] w-full object-cover"
-            />
+          <div className="absolute -bottom-2 right-0 w-[42%] rotate-3 overflow-hidden rounded-2xl border-4 border-white shadow-soft lg:right-[8%]">
+            <div className="aspect-[3/4]">
+              <Photo photo={photos.mopping} sizes="220px" />
+            </div>
           </div>
         </Reveal>
 
@@ -57,7 +41,7 @@ export default function WhyChooseUs() {
           <Stagger as="ul" className="mt-10 grid gap-6 sm:grid-cols-2">
             {points.map(({ icon: Icon, title, text }) => (
               <StaggerItem as="li" key={title} className="flex items-start gap-3">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-mint text-emerald-deep">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-mint text-brand">
                   <Icon size={20} aria-hidden="true" />
                 </span>
                 <div>

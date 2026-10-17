@@ -38,66 +38,180 @@ export const serviceIds = ['residential', 'office', 'retail', 'staircase', 'it']
 
 export type ServiceId = (typeof serviceIds)[number]
 
+/** A photo with an optional smaller version for phones (used as srcset). */
+export interface Photo {
+  src: string
+  /** smaller file for phones, e.g. "-sm.webp" */
+  srcSm?: string
+  /** pixel size of `src` (prevents layout shift) */
+  width: number
+  height: number
+  /** pixel width of `srcSm` */
+  smWidth?: number
+  alt: { de: string; en: string }
+  /** CSS object-position used when the photo is cropped to a frame, e.g. '50% 25%' keeps the face in view */
+  position?: string
+  /** true = stock photo, to be replaced by a real one */
+  placeholder?: boolean
+}
+
+export const logo = {
+  src: '/images/logo/tosh-logo-512.webp',
+  src256: '/images/logo/tosh-logo-256.webp',
+  src96: '/images/logo/tosh-logo-96.webp',
+  alt: {
+    de: 'Logo von Tosh Allround Services: Haus mit Besen und Blatt',
+    en: 'Tosh Allround Services logo: house with a broom and a leaf',
+  },
+} as const
+
+/**
+ * REAL photos of the business owner at work (portrait format).
+ * Each has a large file and a "-sm" file for phones.
+ */
+export const photos = {
+  vacuuming: {
+    src: '/images/team/tosh-residential-vacuuming.webp',
+    srcSm: '/images/team/tosh-residential-vacuuming-sm.webp',
+    width: 900,
+    height: 1600,
+    smWidth: 700,
+    position: '50% 28%',
+    alt: {
+      de: 'Der Reinigungsprofi von Tosh Allround Services saugt lächelnd den Boden eines hellen Wohnzimmers',
+      en: 'The Tosh Allround Services cleaning professional smiling while vacuuming the floor of a bright living room',
+    },
+  },
+  bathroom: {
+    src: '/images/team/tosh-bathroom-cleaning.webp',
+    srcSm: '/images/team/tosh-bathroom-cleaning-sm.webp',
+    width: 900,
+    height: 1600,
+    smWidth: 700,
+    position: '50% 55%',
+    alt: {
+      de: 'Reinigungsprofi in gelben Handschuhen reinigt mit Sprühflasche und Tuch die gefliesten Wände einer Dusche',
+      en: 'Cleaning professional in yellow gloves cleaning the tiled walls of a shower with a spray bottle and cloth',
+    },
+  },
+  mopping: {
+    src: '/images/team/tosh-floor-mopping.webp',
+    srcSm: '/images/team/tosh-floor-mopping-sm.webp',
+    width: 900,
+    height: 1600,
+    smWidth: 700,
+    position: '50% 30%',
+    alt: {
+      de: 'Reinigungsprofi in gelben Handschuhen wischt mit einem Flachwischer den Boden in einem hellen Flur',
+      en: 'Cleaning professional in yellow gloves mopping the floor of a bright hallway with a flat mop',
+    },
+  },
+  itEquipment: {
+    src: '/images/team/tosh-it-equipment-cleaning.webp',
+    srcSm: '/images/team/tosh-it-equipment-cleaning-sm.webp',
+    width: 1124,
+    height: 1599,
+    smWidth: 700,
+    position: '50% 30%',
+    alt: {
+      de: 'Reinigungsprofi in Schutzhandschuhen reinigt an einem weißen Tisch einen Laptop und einen Drucker',
+      en: 'Cleaning professional in protective gloves cleaning a laptop and a printer at a white table',
+    },
+  },
+  clothingCare: {
+    src: '/images/team/tosh-clothing-care-sewing.webp',
+    srcSm: '/images/team/tosh-clothing-care-sewing-sm.webp',
+    width: 900,
+    height: 1600,
+    smWidth: 700,
+    position: '50% 28%',
+    alt: {
+      de: 'Der Mann hinter Tosh Allround Services sitzt lächelnd an einem Tisch mit Nähmaschine, Bügeleisen und Dampfglätter und misst roten Stoff mit einem Maßband',
+      en: 'The man behind Tosh Allround Services smiling at a table with a sewing machine, iron and garment steamer while measuring red fabric with a tape measure',
+    },
+  },
+} satisfies Record<string, Photo>
+
+/**
+ * STOCK placeholders (see public/images/CREDITS.md) – only where no real photo exists yet.
+ * To replace one: swap the file and delete `placeholder: true`. To remove: delete the entry and its file.
+ */
+export const stock = {
+  office: {
+    src: '/images/service-office.webp',
+    srcSm: '/images/service-office-sm.webp',
+    smWidth: 800,
+    width: 1000,
+    height: 800,
+    placeholder: true,
+    position: '50% 40%',
+    alt: {
+      de: 'Reinigungskraft saugt ein modernes Büro',
+      en: 'Cleaner vacuuming a modern office',
+    },
+  },
+  retail: {
+    src: '/images/service-retail.webp',
+    srcSm: '/images/service-retail-sm.webp',
+    smWidth: 800,
+    width: 1000,
+    height: 1500,
+    placeholder: true,
+    position: '50% 35%',
+    alt: {
+      de: 'Reinigungskraft putzt ein Schaufenster',
+      en: 'Cleaner washing a shop window',
+    },
+  },
+} satisfies Record<string, Photo>
+
 export interface Service {
   id: ServiceId
   /** Lucide icon name, resolved in the component that renders it */
   icon: string
-  image: string
+  image: Photo
+  /** optional second photo shown as a tilted overlay (collage) on the Services page */
+  extraImage?: Photo
   /** The company specialty – always highlighted in the UI */
   specialty?: boolean
 }
 
 export const services: Service[] = [
-  { id: 'residential', icon: 'Home', image: '/images/service-residential.webp' },
-  { id: 'office', icon: 'Building2', image: '/images/service-office.webp' },
-  { id: 'retail', icon: 'Store', image: '/images/service-retail.webp' },
-  { id: 'staircase', icon: 'Layers', image: '/images/service-staircase.webp' },
-  { id: 'it', icon: 'Monitor', image: '/images/service-it-equipment.webp', specialty: true },
+  { id: 'residential', icon: 'Home', image: photos.vacuuming, extraImage: photos.bathroom },
+  { id: 'office', icon: 'Building2', image: stock.office },
+  { id: 'retail', icon: 'Store', image: stock.retail },
+  { id: 'staircase', icon: 'Layers', image: photos.mopping },
+  { id: 'it', icon: 'Monitor', image: photos.itEquipment, specialty: true },
 ]
 
-/** Page images. All are stock placeholders (see public/images/CREDITS.md) until real photos arrive. */
-export const images = {
-  hero: {
-    src: '/images/hero-living-room.webp',
-    alt: {
-      de: 'Helles, makellos sauberes Wohnzimmer mit Sofas und großen Fenstern',
-      en: 'Bright, spotless living room with sofas and large windows',
-    },
+export const founder = {
+  name: 'Daniel Gitonga Wahome',
+  image: {
+    src: '/images/team/tosh-it-equipment-cleaning.webp',
+    srcSm: '/images/team/tosh-it-equipment-cleaning-sm.webp',
+    width: 1124,
+    height: 1599,
   },
-  aboutCleaner: {
-    src: '/images/about-cleaner.webp',
-    alt: {
-      de: 'Freundliche Reinigungskraft in gelben Handschuhen bei der Arbeit',
-      en: 'Friendly cleaning professional in yellow gloves at work',
-    },
-  },
-  aboutSupplies: {
-    src: '/images/about-supplies.webp',
-    alt: {
-      de: 'Reinigungswagen mit Sprühflaschen und Reinigungsmitteln',
-      en: 'Cleaning caddy with spray bottles and cleaning products',
-    },
-  },
-  services: {
-    residential: {
-      de: 'Reinigungskraft wischt den Boden in einer hellen Wohnung',
-      en: 'Cleaner mopping the floor of a bright apartment',
-    },
-    office: {
-      de: 'Reinigungskraft saugt ein modernes Büro',
-      en: 'Cleaner vacuuming a modern office',
-    },
-    retail: {
-      de: 'Reinigungskraft putzt ein Schaufenster',
-      en: 'Cleaner washing a shop window',
-    },
-    staircase: {
-      de: 'Saubere Treppe mit Handläufen in einem Treppenhaus',
-      en: 'Clean staircase with handrails in a stairwell',
-    },
-    it: {
-      de: 'Hand reinigt einen Laptop mit einem Mikrofasertuch',
-      en: 'Hand cleaning a laptop with a microfibre cloth',
-    },
-  },
+  /** Education timeline entry (text lives in the translation files) */
+  education: { year: '2002', institution: 'The Kenya Polytechnic University College, Nairobi, Kenya' },
 } as const
+
+export interface Certificate {
+  /** also the translation key: founder.certificates.<id>.{title,institution,alt} */
+  id: string
+  year: string
+  thumb: { src: string; width: number; height: number }
+  full: { src: string; width: number; height: number }
+  pdf: string
+}
+
+/** Qualification documents shown in the certificate viewer. Add an entry here (plus its texts in de.ts / en.ts) to show more. */
+export const certificates: Certificate[] = [
+  {
+    id: 'diploma-electrical-engineering',
+    year: '2002',
+    thumb: { src: '/images/certificates/diploma-electrical-engineering-thumb.webp', width: 600, height: 800 },
+    full: { src: '/images/certificates/diploma-electrical-engineering.webp', width: 1600, height: 2133 },
+    pdf: '/docs/diploma-electrical-engineering.pdf',
+  },
+]

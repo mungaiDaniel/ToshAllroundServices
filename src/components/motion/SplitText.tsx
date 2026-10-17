@@ -30,7 +30,7 @@ export default function SplitText({ text, as = 'h2', by = 'words', delay = 0, cl
       hidden: {},
       show: {
         transition: {
-          staggerChildren: reduced ? 0 : by === 'words' ? stagger.base : stagger.loose * 2,
+          staggerChildren: reduced ? 0 : by === 'words' ? stagger.tight * 0.6 : stagger.base,
           delayChildren: delay,
         },
       },
@@ -52,7 +52,7 @@ export default function SplitText({ text, as = 'h2', by = 'words', delay = 0, cl
         opacity: 1,
         y: 0,
         filter: 'blur(0px)',
-        transition: { duration: duration.slow, ease: ease.out },
+        transition: { duration: duration.base, ease: ease.out },
       },
     }
   }, [reduced, mobile])

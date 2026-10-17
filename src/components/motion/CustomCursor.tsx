@@ -39,7 +39,7 @@ export default function CustomCursor() {
   return (
     <m.div
       aria-hidden="true"
-      className="pointer-events-none fixed left-0 top-0 z-[70] rounded-full border border-emerald/70 bg-emerald/10 mix-blend-normal"
+      className="pointer-events-none fixed left-0 top-0 z-[70] rounded-full border border-sky/70 bg-leaf/10 mix-blend-normal"
       style={{
         x,
         y,

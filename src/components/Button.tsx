@@ -9,7 +9,7 @@ export interface ButtonProps {
   /** external / tel: / mailto: link */
   href?: string
   onClick?: () => void
-  variant?: 'primary' | 'dark' | 'ghost-dark' | 'ghost-light'
+  variant?: 'primary' | 'dark' | 'light' | 'ghost-dark' | 'ghost-light'
   arrow?: boolean
   className?: string
 }

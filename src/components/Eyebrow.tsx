@@ -4,7 +4,7 @@ import type { ReactNode } from 'react'
 export interface EyebrowProps {
   children: ReactNode
   icon?: LucideIcon
-  /** "dark" for dark sections (periwinkle), "light" for white/mint sections (deep emerald, readable) */
+  /** "dark" for dark sections (light blue), "light" for white/mint sections (brand blue, readable) */
   tone?: 'dark' | 'light'
   className?: string
 }

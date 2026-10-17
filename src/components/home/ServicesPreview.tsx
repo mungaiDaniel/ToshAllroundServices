@@ -1,9 +1,12 @@
-import { services } from '../../data/site'
+import { services as allServices } from '../../data/site'
 import { useTranslation } from '../../hooks/useTranslation'
 import SectionHeading from '../SectionHeading'
 import ServiceCard from '../ServiceCard'
 import { Stagger, StaggerItem } from '../motion/Stagger'
 import TiltCard from '../motion/TiltCard'
+
+// the specialty always comes first
+const services = [...allServices].sort((a, b) => Number(Boolean(b.specialty)) - Number(Boolean(a.specialty)))
 
 export default function ServicesPreview() {
   const { t } = useTranslation()
@@ -15,9 +18,9 @@ export default function ServicesPreview() {
           title={t('home.services.title')}
           text={t('home.services.text')}
         />
-        <Stagger className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" gap="loose">
+        <Stagger className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4" gap="loose">
           {services.map((s) => (
-            <StaggerItem key={s.id} className={s.specialty ? 'sm:col-span-2 lg:col-span-2' : ''}>
+            <StaggerItem key={s.id} className={s.specialty ? 'sm:col-span-2 lg:col-span-4' : ''}>
               <TiltCard className="h-full rounded-3xl">
                 <ServiceCard service={s} />
               </TiltCard>

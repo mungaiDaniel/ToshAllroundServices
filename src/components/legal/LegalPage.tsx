@@ -95,7 +95,7 @@ export default function LegalPage({ kind }: { kind: 'impressum' | 'datenschutz' 
               <ol className="mt-3 grid gap-1 text-sm sm:grid-cols-2">
                 {doc.sections.map((s) => (
                   <li key={s.id}>
-                    <a href={`#${s.id}`} className="link-underline py-0.5 hover:text-emerald-deep">
+                    <a href={`#${s.id}`} className="link-underline py-0.5 hover:text-brand">
                       {s.heading}
                     </a>
                   </li>

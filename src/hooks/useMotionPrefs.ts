@@ -2,14 +2,29 @@ import { useReducedMotion } from 'framer-motion'
 import { useSyncExternalStore } from 'react'
 import { breakpoints, isStill } from '../lib/motion'
 
+/** One MediaQueryList (and one listener set) per query, shared by every component that asks. */
+const stores = new Map<string, { mql: MediaQueryList; listeners: Set<() => void> }>()
+
+function store(query: string) {
+  let s = stores.get(query)
+  if (!s) {
+    const mql = window.matchMedia(query)
+    const listeners = new Set<() => void>()
+    mql.addEventListener('change', () => listeners.forEach((l) => l()))
+    s = { mql, listeners }
+    stores.set(query, s)
+  }
+  return s
+}
+
 function useMediaQuery(query: string): boolean {
   return useSyncExternalStore(
     (notify) => {
-      const mql = window.matchMedia(query)
-      mql.addEventListener('change', notify)
-      return () => mql.removeEventListener('change', notify)
+      const { listeners } = store(query)
+      listeners.add(notify)
+      return () => listeners.delete(notify)
     },
-    () => window.matchMedia(query).matches,
+    () => store(query).mql.matches,
     () => false,
   )
 }

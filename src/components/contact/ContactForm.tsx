@@ -74,7 +74,7 @@ const inputCls = (invalid: boolean) =>
   `w-full rounded-2xl border bg-white px-4 py-3 text-sm text-ink placeholder:text-ink-muted/60 transition-[border-color,box-shadow] [transition-duration:var(--dur-fast)] focus:outline-none ${
     invalid
       ? 'border-red-600 focus:shadow-[0_0_0_4px_rgba(220,38,38,0.15)]'
-      : 'border-ink/15 hover:border-ink/30 focus:border-emerald focus:shadow-[0_0_0_4px_rgba(16,185,129,0.2)]'
+      : 'border-ink/15 hover:border-ink/30 focus:border-brand focus:shadow-[0_0_0_4px_rgba(30,107,184,0.2)]'
   }`
 
 function Field({
@@ -128,7 +128,7 @@ function Celebration() {
           <m.span
             key={a}
             aria-hidden="true"
-            className="absolute text-emerald"
+            className="absolute text-leaf"
             initial={{ opacity: 0, scale: 0, x: 0, y: 0 }}
             animate={{
               opacity: [0, 1, 0],
@@ -142,7 +142,7 @@ function Celebration() {
           </m.span>
         ))}
       <m.span
-        className="flex h-20 w-20 items-center justify-center rounded-full bg-emerald text-night shadow-[0_0_40px_var(--glow)]"
+        className="flex h-20 w-20 items-center justify-center rounded-full bg-leaf text-night shadow-[0_0_40px_var(--glow)]"
         initial={{ scale: reduced ? 1 : 0.4, opacity: 0 }}
         animate={{ scale: 1, opacity: 1, transition: { duration: duration.base, ease: ease.out } }}
       >
@@ -340,11 +340,11 @@ export default function ContactForm() {
                 checked={values.consent}
                 onChange={(e) => setValues((v) => ({ ...v, consent: e.target.checked }))}
                 onBlur={blur('consent')}
-                className="mt-1 h-5 w-5 shrink-0 cursor-pointer rounded border-ink/30 accent-emerald"
+                className="mt-1 h-5 w-5 shrink-0 cursor-pointer rounded border-ink/30 accent-brand"
               />
               <label htmlFor={id('consent')} className="cursor-pointer text-sm">
                 {consentBefore}
-                <Link to="/datenschutz" target="_blank" className="link-underline font-bold text-emerald-deep">
+                <Link to="/datenschutz" target="_blank" className="link-underline font-bold text-brand">
                   {t('contact.form.privacyLink')}
                 </Link>
                 {consentAfter}

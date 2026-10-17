@@ -1,55 +1,33 @@
-import { m, useScroll, useSpring, useTransform } from 'framer-motion'
-import { useRef } from 'react'
 import { useMotionPrefs } from '../../hooks/useMotionPrefs'
-import { spring } from '../../lib/motion'
 
 export interface DrawLineProps {
-  /** straight line orientation, or pass a custom path via `d` */
   orientation?: 'vertical' | 'horizontal'
-  d?: string
-  viewBox?: string
   className?: string
 }
 
 /**
- * SVG line that draws itself as the element scrolls through the viewport.
- * Size/position it with className (it fills its box). Colour via `text-*`.
+ * A line that draws itself as it scrolls through the viewport (CSS scroll-driven animation, no JavaScript
+ * while scrolling; shown fully drawn where unsupported or with reduced motion).
+ * Size/position it with className (it fills its box). The faint track uses `text-*` colour.
  */
-export default function DrawLine({ orientation = 'vertical', d, viewBox, className }: DrawLineProps) {
+export default function DrawLine({ orientation = 'vertical', className }: DrawLineProps) {
   const { reduced } = useMotionPrefs()
-  const ref = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start 80%', 'end 55%'] })
-  const pathLength = useSpring(scrollYProgress, spring.progress)
-  const opacity = useTransform(scrollYProgress, [0, 0.02], [0, 1])
-
-  const path = d ?? (orientation === 'vertical' ? 'M1 0 V100' : 'M0 1 H100')
-  const box = viewBox ?? (orientation === 'vertical' ? '0 0 2 100' : '0 0 100 2')
-
+  const vertical = orientation === 'vertical'
   return (
-    <div ref={ref} className={className} aria-hidden="true">
-      <svg viewBox={box} preserveAspectRatio="none" className="h-full w-full overflow-visible">
-        <path
-          d={path}
-          fill="none"
-          stroke="currentColor"
-          strokeOpacity="0.15"
-          strokeWidth="2"
-          vectorEffect="non-scaling-stroke"
-        />
-        <m.path
-          d={path}
-          fill="none"
-          stroke="var(--color-emerald)"
-          strokeWidth="2"
-          strokeLinecap="round"
-          vectorEffect="non-scaling-stroke"
+    <div className={className} aria-hidden="true">
+      <div className="relative h-full w-full">
+        <div className="absolute inset-0 rounded-full bg-current opacity-15" />
+        <div
+          className={`absolute inset-0 rounded-full ${reduced ? '' : vertical ? 'draw-line-y' : 'draw-line-x'}`}
           style={{
-            pathLength: reduced ? 1 : pathLength,
-            opacity: reduced ? 1 : opacity,
-            filter: 'drop-shadow(0 0 6px var(--glow))',
+            background: vertical
+              ? 'linear-gradient(to bottom, var(--color-sky), var(--color-leaf))'
+              : 'linear-gradient(to right, var(--color-sky), var(--color-leaf))',
+            boxShadow: '0 0 8px var(--glow)',
+            transformOrigin: vertical ? 'top' : 'left',
           }}
         />
-      </svg>
+      </div>
     </div>
   )
 }

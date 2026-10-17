@@ -1,4 +1,4 @@
-import { AnimatePresence, m, useMotionValueEvent, useScroll } from 'framer-motion'
+import { AnimatePresence, m } from 'framer-motion'
 import { Languages, Menu, Phone, Sparkles, X } from 'lucide-react'
 import { useEffect, useRef, useState, type KeyboardEvent } from 'react'
 import { createPortal } from 'react-dom'
@@ -8,6 +8,7 @@ import { site } from '../data/site'
 import { useMotionPrefs } from '../hooks/useMotionPrefs'
 import { useTranslation } from '../hooks/useTranslation'
 import { distance, duration, ease, stagger } from '../lib/motion'
+import BrandLogo from './BrandLogo'
 import Button from './Button'
 
 const SCROLL_THRESHOLD = 16
@@ -21,9 +22,7 @@ function Logo({ onClick }: { onClick?: () => void }) {
       aria-label={t('nav.homeLabel')}
       className="group flex items-center gap-2 font-heading text-base font-extrabold sm:text-lg"
     >
-      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald text-night transition-transform [transition-duration:var(--dur-base)] group-hover:rotate-12">
-        <Sparkles size={16} aria-hidden="true" />
-      </span>
+      <BrandLogo size={44} eager className="transition-transform [transition-duration:var(--dur-base)] group-hover:rotate-6" />
       <span>{site.name}</span>
     </Link>
   )
@@ -33,7 +32,6 @@ export default function Navbar() {
   const { t, language, toggleLanguage } = useTranslation()
   const { reduced } = useMotionPrefs()
   const { pathname } = useLocation()
-  const { scrollY } = useScroll()
   const [scrolled, setScrolled] = useState(false)
   // menu is open only for the route it was opened on, so navigating closes it
   const [openAt, setOpenAt] = useState<string | null>(null)
@@ -43,10 +41,24 @@ export default function Navbar() {
   const panelRef = useRef<HTMLDivElement>(null)
   const closeRef = useRef<HTMLButtonElement>(null)
 
-  useMotionValueEvent(scrollY, 'change', (y) => {
-    const next = y > SCROLL_THRESHOLD
-    setScrolled((prev) => (prev === next ? prev : next))
-  })
+  // "scrolled" state for the glass navbar: a passive listener that only reads window.scrollY (no layout work)
+  useEffect(() => {
+    let frame = 0
+    const update = () => {
+      frame = 0
+      const next = window.scrollY > SCROLL_THRESHOLD
+      setScrolled((prev) => (prev === next ? prev : next))
+    }
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update)
+    }
+    update()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      cancelAnimationFrame(frame)
+    }
+  }, [])
 
   // lock page scroll, Escape to close, focus management while the menu is open
   useEffect(() => {
@@ -80,8 +92,8 @@ export default function Navbar() {
   }
 
   const linkCls = ({ isActive }: { isActive: boolean }) =>
-    `link-underline py-1 text-sm font-medium transition-colors [transition-duration:var(--dur-fast)] hover:text-emerald-deep ${
-      isActive ? 'text-emerald-deep [background-size:100%_1.5px]' : ''
+    `link-underline py-1 text-sm font-medium transition-colors [transition-duration:var(--dur-fast)] hover:text-brand ${
+      isActive ? 'text-brand [background-size:100%_1.5px]' : ''
     }`
 
   const panelVariants = {
@@ -128,7 +140,7 @@ export default function Navbar() {
           <button
             type="button"
             onClick={toggleLanguage}
-            aria-label={t('nav.language')}
+            aria-label={`${t('nav.language')}: ${language === 'de' ? 'EN' : 'DE'}`}
             className="flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-bold transition-colors [transition-duration:var(--dur-fast)] hover:bg-mint"
           >
             <Languages size={16} aria-hidden="true" />
@@ -203,7 +215,7 @@ export default function Navbar() {
                       end
                       className={({ isActive }) =>
                         `block rounded-2xl px-4 py-3 font-heading text-2xl font-bold transition-colors [transition-duration:var(--dur-fast)] hover:bg-white/5 ${
-                          isActive ? 'text-emerald' : 'text-snow'
+                          isActive ? 'text-sky' : 'text-snow'
                         }`
                       }
                     >

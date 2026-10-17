@@ -1,5 +1,6 @@
 import { ChevronRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import IdleMount from './effects/IdleMount'
 import AuroraBackground from './effects/AuroraBackground'
 import FloatingBubbles from './effects/FloatingBubbles'
 import NoiseOverlay from './effects/NoiseOverlay'
@@ -19,7 +20,9 @@ export default function PageHeader({ eyebrow, title, breadcrumb }: PageHeaderPro
     <header className="section-dark">
       <AuroraBackground />
       <WaveRibbon variant="calm" />
-      <FloatingBubbles variant="edges" />
+      <IdleMount>
+        <FloatingBubbles variant="edges" />
+      </IdleMount>
       <NoiseOverlay />
       <div className="mx-auto max-w-6xl px-4 pb-24 pt-28 sm:pt-32">
         <nav aria-label="Breadcrumb" className="mb-6 text-xs text-mist">

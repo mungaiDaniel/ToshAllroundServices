@@ -1,19 +1,21 @@
 # Image credits
 
-All images are **temporary placeholders** from [Unsplash](https://unsplash.com), downloaded under the [Unsplash License](https://unsplash.com/license) (free for commercial use, no attribution required). Attribution is recorded here anyway. Only free photos were used – no Unsplash+ images. Replace them with the client's own photos when available.
+## Real photos (client's own)
+
+`logo/` (brand logo) and `team/` (photos of the owner at work) are the client's own assets – no credit needed. `team/tosh-clothing-care-sewing*.webp` is shown in the gallery (category "Textilpflege").
+
+## Stock placeholders
+
+The images listed below are **temporary placeholders** from [Unsplash](https://unsplash.com), downloaded under the [Unsplash License](https://unsplash.com/license) (free for commercial use, no attribution required). Attribution is recorded here anyway. Only free photos were used – no Unsplash+ images. Replace them with the client's own photos when available (then delete the file, its row here and its entry in `src/data/gallery.ts` / `src/data/site.ts`).
 
 Files were resized and converted to WebP (hero ≤ 1920 px, cards ≤ 1000 px, gallery ≤ 1400 px wide, all < 300 KB).
 
+Each stock photo also has a smaller `-sm.webp` copy (640 px wide) for phones; it is the same photo and credit.
+
 | File | Use | Photographer | Source |
 | --- | --- | --- | --- |
-| hero-living-room.webp | Home hero | Spacejoy | https://unsplash.com/photos/x3mSC1WnWhc |
-| service-residential.webp | Residential Cleaning | Vitaly Gariev | https://unsplash.com/photos/2NcTLdFHpH8 |
 | service-office.webp | Commercial Office Cleaning | web seo | https://unsplash.com/photos/CVcIMnH_7so |
 | service-retail.webp | Retail & Shop Cleaning | Josh Marty | https://unsplash.com/photos/mg29fmIYng0 |
-| service-staircase.webp | Staircase & Common Area Cleaning | Julia Taubitz | https://unsplash.com/photos/9olLAM-OIQ8 |
-| service-it-equipment.webp | IT & Office Equipment Cleaning | Giorgio Trovato | https://unsplash.com/photos/21kTPp7jtuA |
-| about-cleaner.webp | About Us | Vitaly Gariev | https://unsplash.com/photos/Y3vDCL7_das |
-| about-supplies.webp | About Us (detail) | Giorgio Trovato | https://unsplash.com/photos/XxAy813D66I |
 | gallery/homes-01.webp | Gallery – Homes | Vitaly Gariev | https://unsplash.com/photos/rD755GB3a-0 |
 | gallery/homes-02.webp | Gallery – Homes | Spacejoy | https://unsplash.com/photos/EVjqpcn79AM |
 | gallery/homes-03.webp | Gallery – Homes | Vitaly Gariev | https://unsplash.com/photos/ViXT4S89hS0 |

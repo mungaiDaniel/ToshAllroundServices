@@ -39,9 +39,9 @@ export default function HowItWorks() {
                 key={title}
                 className="relative flex items-start gap-5 lg:flex-col lg:items-center lg:text-center"
               >
-                <span className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-night text-emerald shadow-[0_0_30px_var(--glow)] ring-4 ring-mint">
+                <span className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-night text-sky shadow-[0_0_30px_var(--glow)] ring-4 ring-mint">
                   <Icon size={24} aria-hidden="true" />
-                  <span className="absolute -right-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full bg-emerald text-xs font-extrabold text-night">
+                  <span className="absolute -right-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full bg-leaf text-xs font-extrabold text-night">
                     {i + 1}
                   </span>
                 </span>

@@ -43,8 +43,12 @@ Design principle: the hero is dark, cinematic and 3D. Inner sections are light (
 ### Colours
 - Night navy (hero, footer, dark sections): #070B1A, #0B1226, card surface #111830
 - Card border on dark: rgba(255,255,255,0.08)
-- Primary accent – fresh emerald/teal: #10B981 (glow: rgba(16,185,129,0.35))
-- Secondary accent – soft blue for labels on dark: #7C8FD6
+- Brand colours come from the logo (Tailwind tokens `brand`, `sky`, `leaf` in src/index.css):
+  - Primary blue `brand` #1E6BB8 – main accent: buttons, links on light backgrounds
+  - Lighter blue `sky` #2E9BD6 – accent on dark backgrounds: links, eyebrow labels, focus rings, glow (glow: rgba(46,155,214,0.35)), progress bar
+  - Fresh green `leaf` #5BB37A – highlights, badges, success states, the IT-specialty glow (glow: rgba(91,179,122,0.38))
+  - Gradients run blue → green (e.g. progress bar, CTA band, wave lines)
+  - Use `text-brand` (not `sky`/`leaf`) for coloured text on white/mint – it has enough contrast; on dark use `sky`
 - Light sections: white #FFFFFF and soft mint #ECFDF5
 - Text on light: navy #0F172A, muted #475569
 - Text on dark: #F8FAFC, muted #94A3B8
@@ -57,7 +61,7 @@ Design principle: the hero is dark, cinematic and 3D. Inner sections are light (
 - Make the body font a single Tailwind token (font-body) so I can switch paragraphs to "Inter" later by changing one line.
 
 ### Visual style
-- Glassmorphism cards on dark sections: dark translucent surface, fine border, rounded-3xl, soft shadow, emerald hover glow.
+- Glassmorphism cards on dark sections: dark translucent surface, fine border, rounded-3xl, soft shadow, blue hover glow.
 - Clean white cards with soft shadows on light sections.
 - Decorative elements themed for cleaning: glass soap bubbles, small sparkles/glints, soft foam shapes, a subtle diagonal light beam (like the screenshot). Used sparingly.
 
@@ -65,6 +69,11 @@ Design principle: the hero is dark, cinematic and 3D. Inner sections are light (
 - Subtle fade/slide-in animations on scroll – never distracting. Respect prefers-reduced-motion.
 - Mobile-first, fully responsive. Most visitors will be on phones.
 - Accessible: good contrast, alt text, keyboard navigation, aria-labels.
+
+## Brand assets
+- Logo: /images/logo/tosh-logo-512.webp (round, transparent; also -256 and -96). Use the BrandLogo component: navbar (44px), footer, and floating in the home hero.
+- Real photos of the owner: /images/team/ (portrait, each with a large file and a "-sm" file for phones). Use the Photo component (srcset + focal point), never stretch: crop with object-cover and a sensible object-position. Data and bilingual alt text live in src/data/site.ts (`photos`), gallery entries in src/data/gallery.ts (real photos first).
+- Stock photos are placeholders (marked `placeholder: true`, credited in public/images/CREDITS.md). Replace them with real photos when available.
 
 ## Code rules
 - Small reusable components in src/components, pages in src/pages.

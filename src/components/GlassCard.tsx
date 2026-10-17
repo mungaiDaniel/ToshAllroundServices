@@ -4,7 +4,7 @@ export interface GlassCardProps {
   children: ReactNode
   /** "dark" = glass on dark sections, "light" = white card on light sections */
   tone?: 'dark' | 'light'
-  /** permanent emerald glow – used for the IT & Office Equipment specialty */
+  /** permanent green glow – used for the IT & Office Equipment specialty */
   specialty?: boolean
   className?: string
 }

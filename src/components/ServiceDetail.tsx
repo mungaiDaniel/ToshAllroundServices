@@ -1,6 +1,7 @@
 import { Building2, Check, Home, Layers, Monitor, Sparkles, Store, type LucideIcon } from 'lucide-react'
-import { images, type Service } from '../data/site'
+import type { Service } from '../data/site'
 import { useTranslation } from '../hooks/useTranslation'
+import Photo from './Photo'
 import { whatsappHref } from '../lib/whatsapp'
 import FloatingBubbles from './effects/FloatingBubbles'
 import Button from './Button'
@@ -19,12 +20,11 @@ interface Props {
 }
 
 function useServiceContent(service: Service) {
-  const { t, language } = useTranslation()
+  const { t } = useTranslation()
   const title = t(`services.${service.id}.title`)
   return {
     t,
     title,
-    alt: images.services[service.id][language],
     details: t(`services.${service.id}.details`),
     items: bullets.map((b) => t(`services.${service.id}.${b}`)),
     quoteHref: whatsappHref(t('servicesPage.quoteMessage').replace('{service}', title)),
@@ -34,7 +34,7 @@ function useServiceContent(service: Service) {
 
 /** The specialty: big, dark, glowing, always shown first. */
 export function FeaturedServiceDetail({ service }: Props) {
-  const { t, title, alt, details, items, quoteHref, Icon } = useServiceContent(service)
+  const { t, title, details, items, quoteHref, Icon } = useServiceContent(service)
   return (
     <Reveal variant="scale">
       <article
@@ -42,23 +42,16 @@ export function FeaturedServiceDetail({ service }: Props) {
         className="glass glass-specialty relative grid scroll-mt-24 overflow-hidden !bg-night text-snow lg:grid-cols-[0.9fr_1.1fr]"
       >
         <FloatingBubbles variant="edges" seed={5} />
-        <Parallax clip speed={0.5} className="aspect-[16/10] lg:aspect-auto lg:min-h-full">
-          <img
-            src={service.image}
-            alt={alt}
-            width={1000}
-            height={667}
-            decoding="async"
-            className="h-full w-full object-cover"
-          />
+        <Parallax clip speed={0.5} className="aspect-[4/5] sm:aspect-[16/11] lg:aspect-auto lg:min-h-[560px]">
+          <Photo photo={service.image} eager sizes="(min-width: 1024px) 45vw, calc(100vw - 2rem)" />
         </Parallax>
         <div className="p-6 sm:p-10 lg:p-12">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald px-3 py-1 text-xs font-bold uppercase tracking-wider text-night">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-leaf px-3 py-1 text-xs font-bold uppercase tracking-wider text-night">
             <Sparkles size={14} aria-hidden="true" />
             {t('common.specialty')}
           </span>
           <h2 className="mt-5 flex items-center gap-3 text-3xl text-snow sm:text-4xl">
-            <Icon size={32} className="shrink-0 text-emerald" aria-hidden="true" />
+            <Icon size={32} className="shrink-0 text-sky" aria-hidden="true" />
             {title}
           </h2>
           <p className="mt-5 text-snow/80">{details}</p>
@@ -70,7 +63,7 @@ export function FeaturedServiceDetail({ service }: Props) {
                 key={item}
                 className="flex items-start gap-3 rounded-2xl border border-white/[0.08] bg-white/[0.04] p-4 text-sm text-snow"
               >
-                <Check size={18} className="mt-0.5 shrink-0 text-emerald" aria-hidden="true" />
+                <Check size={18} className="mt-0.5 shrink-0 text-leaf" aria-hidden="true" />
                 {item}
               </li>
             ))}
@@ -88,28 +81,32 @@ export function FeaturedServiceDetail({ service }: Props) {
 
 /** Regular service: image and text side by side, sliding in from opposite sides. */
 export function ServiceDetail({ service, reverse = false }: Props) {
-  const { t, title, alt, details, items, quoteHref, Icon } = useServiceContent(service)
+  const { t, title, details, items, quoteHref, Icon } = useServiceContent(service)
   return (
     <article
       id={service.id}
       className="grid scroll-mt-24 items-center gap-8 lg:grid-cols-2 lg:gap-16"
     >
       <Reveal variant={reverse ? 'right' : 'left'} className={reverse ? 'lg:order-2' : ''}>
-        <Parallax clip speed={0.5} className="aspect-[4/3] rounded-3xl shadow-soft">
-          <img
-            src={service.image}
-            alt={alt}
-            width={1000}
-            height={667}
-            loading="lazy"
-            decoding="async"
-            className="h-full w-full object-cover"
-          />
-        </Parallax>
+        <div className="relative mx-auto w-full max-w-sm sm:max-w-md lg:max-w-none">
+          {service.extraImage && (
+            <div aria-hidden="true" className="absolute -left-5 -top-5 -z-10 h-36 w-36 rounded-full bg-mint" />
+          )}
+          <Parallax clip speed={0.5} className="mx-auto aspect-[4/5] rounded-3xl shadow-soft lg:max-w-md">
+            <Photo photo={service.image} sizes="(min-width: 1024px) 448px, (min-width: 640px) 448px, calc(100vw - 2rem)" />
+          </Parallax>
+          {service.extraImage && (
+            <div className="absolute -bottom-6 -right-2 w-[42%] rotate-3 overflow-hidden rounded-2xl border-4 border-white shadow-soft sm:-right-4 lg:right-[4%]">
+              <div className="aspect-[3/4]">
+                <Photo photo={service.extraImage} sizes="200px" />
+              </div>
+            </div>
+          )}
+        </div>
       </Reveal>
 
       <Reveal variant={reverse ? 'left' : 'right'}>
-        <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-mint text-emerald-deep">
+        <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-mint text-brand">
           <Icon size={28} aria-hidden="true" />
         </span>
         <h2 className="mt-5 text-2xl sm:text-3xl">{title}</h2>
@@ -119,7 +116,7 @@ export function ServiceDetail({ service, reverse = false }: Props) {
         <Stagger as="ul" gap="tight" className="mt-4 space-y-3">
           {items.map((item) => (
             <StaggerItem as="li" key={item} className="flex items-start gap-3 text-sm">
-              <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-mint text-emerald-deep">
+              <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-mint text-brand">
                 <Check size={13} aria-hidden="true" />
               </span>
               {item}

@@ -22,11 +22,11 @@ export default function TrustBar() {
       >
         {items.map(({ icon: Icon, title, text }) => (
           <StaggerItem as="li" key={title} className="flex items-start gap-4">
-            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-mint text-emerald-deep">
+            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-mint text-brand">
               <Icon size={24} aria-hidden="true" />
             </span>
             <div>
-              <h3 className="text-base">{t(title)}</h3>
+              <p className="font-heading text-base font-bold leading-tight text-ink">{t(title)}</p>
               <p className="mt-1 text-sm text-ink-muted">{t(text)}</p>
             </div>
           </StaggerItem>

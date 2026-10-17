@@ -2,7 +2,7 @@
  * Static film-grain texture: a tiny pre-rendered tile (public/noise.png), no SVG filter and no blend
  * mode, so it costs almost nothing to paint. Fills its `relative` parent.
  */
-export default function NoiseOverlay({ opacity = 0.5 }: { opacity?: number }) {
+export default function NoiseOverlay({ opacity = 0.1 }: { opacity?: number }) {
   return (
     <div
       aria-hidden="true"

@@ -12,9 +12,10 @@
   --color-surface: #111830;
 
   /* Accents */
-  --color-emerald: #10b981;
-  --color-emerald-deep: #047857; /* emerald text on light backgrounds (contrast) */
-  --color-periwinkle: #7c8fd6; /* eyebrow labels on dark */
+  /* Brand colours (from the logo) */
+  --color-brand: #1e6bb8; /* primary blue: buttons, links on light backgrounds */
+  --color-sky: #2e9bd6; /* lighter blue: accents, links and labels on dark backgrounds */
+  --color-leaf: #5bb37a; /* leaf green: highlights, badges, success states */
 
   /* Light surfaces and text */
   --color-mint: #ecfdf5;
@@ -35,7 +36,8 @@
 }
 
 :root {
-  --glow: rgba(16, 185, 129, 0.35);
+  --glow: rgba(46, 155, 214, 0.35);
+  --glow-leaf: rgba(91, 179, 122, 0.38);
   --border-dark: rgba(255, 255, 255, 0.08);
   /* set from src/lib/motion.ts */
   --dur-fast: 0.25s;
@@ -65,7 +67,7 @@
     max-width: 65ch;
   }
   :focus-visible {
-    outline: 2px solid var(--color-emerald);
+    outline: 2px solid var(--color-sky);
     outline-offset: 3px;
   }
 }
@@ -111,17 +113,17 @@ html.lenis body {
       transform var(--dur-base) var(--ease-out);
   }
   .glass:hover {
-    border-color: rgba(16, 185, 129, 0.45);
+    border-color: rgba(46, 155, 214, 0.5);
     box-shadow:
-      0 0 0 1px rgba(16, 185, 129, 0.25),
+      0 0 0 1px rgba(46, 155, 214, 0.28),
       0 18px 60px var(--glow);
   }
   .glass-specialty {
-    border-color: rgba(16, 185, 129, 0.55);
+    border-color: rgba(91, 179, 122, 0.6);
     box-shadow:
-      0 0 0 1px rgba(16, 185, 129, 0.35),
-      0 18px 70px var(--glow);
-    background-image: linear-gradient(160deg, rgba(16, 185, 129, 0.14), transparent 55%);
+      0 0 0 1px rgba(91, 179, 122, 0.4),
+      0 18px 70px var(--glow-leaf);
+    background-image: linear-gradient(160deg, rgba(91, 179, 122, 0.16), transparent 55%);
   }
 
   .card-light {
@@ -151,10 +153,17 @@ html.lenis body {
     transform: translateY(0) scale(0.97);
   }
   .btn-primary {
-    @apply bg-emerald text-night;
+    @apply bg-brand text-white;
   }
   .btn-primary:hover {
     box-shadow: 0 10px 36px var(--glow);
+    background-color: var(--color-sky);
+  }
+  .btn-light {
+    @apply bg-white text-night;
+  }
+  .btn-light:hover {
+    box-shadow: 0 10px 30px rgba(7, 11, 26, 0.3);
   }
   .btn-dark {
     @apply bg-night text-snow;
@@ -166,14 +175,14 @@ html.lenis body {
     @apply border border-white/20 text-snow;
   }
   .btn-ghost-dark:hover {
-    @apply border-emerald/60 bg-white/5;
+    @apply border-sky/60 bg-white/5;
     box-shadow: 0 8px 30px var(--glow);
   }
   .btn-ghost-light {
     @apply border border-ink/15 text-ink;
   }
   .btn-ghost-light:hover {
-    @apply border-emerald bg-mint;
+    @apply border-brand bg-mint;
   }
   .btn .btn-arrow {
     transition: transform var(--dur-fast) var(--ease-out);
@@ -195,11 +204,11 @@ html.lenis body {
   }
 
   .eyebrow {
-    @apply inline-flex items-center gap-2 text-xs font-medium uppercase text-periwinkle;
+    @apply inline-flex items-center gap-2 text-xs font-medium uppercase text-sky;
     letter-spacing: 0.2em;
   }
   .eyebrow-light {
-    @apply text-emerald-deep;
+    @apply text-brand;
   }
 }
 
@@ -263,7 +272,46 @@ html.lenis body {
 }
 @keyframes gradient-shift {
   to {
-    background-position: 200% 50%;
+    background-position: 0 0, 300% 50%;
+  }
+}
+
+/* Scroll-driven effects: pure CSS (no JS while scrolling). Unsupported browsers show the static layout. */
+@keyframes parallax-shift {
+  from {
+    transform: translate3d(0, var(--parallax-range, 0px), 0);
+  }
+  to {
+    transform: translate3d(0, calc(var(--parallax-range, 0px) * -1), 0);
+  }
+}
+@keyframes draw-y {
+  to {
+    transform: scaleY(1);
+  }
+}
+@keyframes draw-x {
+  to {
+    transform: scaleX(1);
+  }
+}
+@supports (animation-timeline: view()) {
+  .parallax-layer {
+    animation: parallax-shift linear both;
+    animation-timeline: view();
+    animation-range: entry 0% exit 100%;
+  }
+  .draw-line-y {
+    transform: scaleY(0);
+    animation: draw-y linear both;
+    animation-timeline: view();
+    animation-range: cover 15% cover 60%;
+  }
+  .draw-line-x {
+    transform: scaleX(0);
+    animation: draw-x linear both;
+    animation-timeline: view();
+    animation-range: cover 15% cover 60%;
   }
 }
 
@@ -293,4 +341,22 @@ html.lenis body {
 [data-motion='still'] *::after {
   animation: none !important;
   transition-duration: 0.01ms !important;
+}
+
+/* Reading-progress bar: driven by the page scroll, no JavaScript */
+@keyframes scroll-progress-grow {
+  to {
+    transform: scaleX(1);
+  }
+}
+@supports (animation-timeline: scroll()) {
+  .scroll-progress {
+    animation: scroll-progress-grow linear both;
+    animation-timeline: scroll(root block);
+  }
+}
+@supports not (animation-timeline: scroll()) {
+  .scroll-progress {
+    display: none;
+  }
 }

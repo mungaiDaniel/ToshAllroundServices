@@ -7,7 +7,7 @@
  * When adding a page: add it to `routes` below, to src/i18n/seo.json, src/hooks/useRouteMeta.ts,
  * src/App.tsx and public/sitemap.xml.
  */
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
+import { readFileSync, writeFileSync, mkdirSync, readdirSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -25,6 +25,13 @@ const routes = {
   '/impressum': 'impressum',
   '/datenschutz': 'datenschutz',
 }
+
+// preload the fonts used above the fold (400 body, 700/800 headings) so text never swaps/shifts
+const fontPreloads = ['400', '700', '800']
+  .map((w) => readdirSync(join(dist, 'assets')).find((f) => f.startsWith(`jetbrains-mono-latin-${w}-normal`) && f.endsWith('.woff2')))
+  .filter(Boolean)
+  .map((f) => `    <link rel="preload" as="font" type="font/woff2" href="/assets/${f}" crossorigin />`)
+  .join('\n')
 
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;')
 const html = readFileSync(join(dist, 'index.html'), 'utf-8')
@@ -56,11 +63,14 @@ for (const [path, key] of Object.entries(routes)) {
   }
   out = replaceTag(out, /(<link rel="canonical" href=")[^"]*(")/, `$1${url}$2`, 'canonical')
 
+  out = out.replace('</head>', `${fontPreloads}
+  </head>`)
+
   // the home page's hero photo is the largest thing on screen: start fetching it immediately
   if (path === '/') {
     out = out.replace(
       '</head>',
-      '    <link rel="preload" as="image" href="/images/hero-living-room.webp" type="image/webp" fetchpriority="high" />\n  </head>',
+      '    <link rel="preload" as="image" href="/images/team/tosh-residential-vacuuming.webp" imagesrcset="/images/team/tosh-residential-vacuuming-sm.webp 700w, /images/team/tosh-residential-vacuuming.webp 900w" imagesizes="(min-width: 1024px) 34vw, (min-width: 640px) 360px, 70vw" type="image/webp" fetchpriority="high" />\n  </head>',
     )
   }
 

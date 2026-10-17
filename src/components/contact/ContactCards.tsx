@@ -23,7 +23,7 @@ function SmallCard({
   const { t } = useTranslation()
   return (
     <div className="card-light flex h-full flex-col p-6 sm:p-7">
-      <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-mint text-emerald-deep">
+      <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-mint text-brand">
         <Icon size={24} aria-hidden="true" />
       </span>
       <h3 className="mt-5 text-lg">{t(title)}</h3>
@@ -66,14 +66,14 @@ export default function ContactCards() {
       <Stagger className="grid gap-6 md:grid-cols-3" gap="loose">
         <StaggerItem>
           <SmallCard icon={Phone} title="contact.phone.title" text="contact.phone.text">
-            <a href={site.phone.href} className="link-underline text-emerald-deep">
+            <a href={site.phone.href} className="link-underline text-brand">
               {site.phone.display}
             </a>
           </SmallCard>
         </StaggerItem>
         <StaggerItem>
           <SmallCard icon={Mail} title="contact.email.title" text="contact.email.text">
-            <a href={`mailto:${site.email}`} className="link-underline break-all text-emerald-deep">
+            <a href={`mailto:${site.email}`} className="link-underline break-all text-brand">
               {site.email}
             </a>
           </SmallCard>
@@ -89,7 +89,7 @@ export default function ContactCards() {
               href={site.mapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="link-underline mt-2 inline-block text-emerald-deep"
+              className="link-underline mt-2 inline-block text-brand"
             >
               {t('common.openInMaps')}
             </a>

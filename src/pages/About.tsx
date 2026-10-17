@@ -2,6 +2,7 @@ import { Eye, Handshake, Quote, ShieldCheck, Smile, Target, type LucideIcon } fr
 import AuroraBackground from '../components/effects/AuroraBackground'
 import FloatingBubbles from '../components/effects/FloatingBubbles'
 import NoiseOverlay from '../components/effects/NoiseOverlay'
+import FounderSection from '../components/founder/FounderSection'
 import CtaBand from '../components/home/CtaBand'
 import Eyebrow from '../components/Eyebrow'
 import Parallax from '../components/motion/Parallax'
@@ -9,14 +10,12 @@ import Reveal from '../components/motion/Reveal'
 import SplitText from '../components/motion/SplitText'
 import { Stagger, StaggerItem } from '../components/motion/Stagger'
 import TiltCard from '../components/motion/TiltCard'
+import Photo from '../components/Photo'
 import PageHeader from '../components/PageHeader'
 import SectionHeading from '../components/SectionHeading'
-import { gallery } from '../data/gallery'
-import { images, site } from '../data/site'
+import { photos, site } from '../data/site'
 import { useTranslation } from '../hooks/useTranslation'
 import type { TranslationKey } from '../i18n/LanguageContext'
-
-const portrait = gallery.find((g) => g.id === 'homes-03')!
 
 const values: { icon: LucideIcon; title: TranslationKey; text: TranslationKey }[] = [
   { icon: ShieldCheck, title: 'about.values.reliability.title', text: 'about.values.reliability.text' },
@@ -26,7 +25,7 @@ const values: { icon: LucideIcon; title: TranslationKey; text: TranslationKey }[
 ]
 
 export default function About() {
-  const { t, language } = useTranslation()
+  const { t } = useTranslation()
 
   return (
     <>
@@ -49,33 +48,21 @@ export default function About() {
             </Reveal>
           </div>
 
-          <Reveal variant="right" className="relative mx-auto w-full max-w-md lg:max-w-none">
-            <div aria-hidden="true" className="absolute -bottom-6 -right-6 -z-10 h-44 w-44 rounded-full bg-mint" />
-            <Parallax clip speed={0.6} className="aspect-[4/5] rounded-3xl shadow-soft">
-              <img
-                src={portrait.src}
-                alt={portrait.alt[language]}
-                width={portrait.width}
-                height={portrait.height}
-                loading="lazy"
-                decoding="async"
-                className="h-full w-full object-cover object-[75%_50%]"
-              />
+          <Reveal variant="right" className="relative mx-auto w-full max-w-sm pb-8 sm:max-w-md lg:max-w-none">
+            <div aria-hidden="true" className="absolute -bottom-2 -right-6 -z-10 h-44 w-44 rounded-full bg-mint" />
+            <Parallax clip speed={0.6} className="mx-auto aspect-[4/5] w-[86%] rotate-2 rounded-3xl shadow-soft lg:mr-0">
+              <Photo photo={photos.mopping} sizes="(min-width: 1024px) 420px, 80vw" />
             </Parallax>
-            <div className="absolute -bottom-6 -left-3 w-36 overflow-hidden rounded-2xl border-4 border-white shadow-soft sm:-left-6 sm:w-44">
-              <img
-                src={images.aboutSupplies.src}
-                alt={images.aboutSupplies.alt[language]}
-                width={1000}
-                height={667}
-                loading="lazy"
-                decoding="async"
-                className="aspect-[4/3] w-full object-cover"
-              />
+            <div className="absolute -bottom-2 left-0 w-[44%] -rotate-3 overflow-hidden rounded-2xl border-4 border-white shadow-soft lg:left-[6%]">
+              <div className="aspect-[3/4]">
+                <Photo photo={photos.itEquipment} sizes="220px" />
+              </div>
             </div>
           </Reveal>
         </div>
       </section>
+
+      <FounderSection />
 
       {/* Mission */}
       <section className="section-dark py-20 sm:py-28">
@@ -84,7 +71,7 @@ export default function About() {
         <NoiseOverlay />
         <div className="mx-auto max-w-4xl px-4 text-center">
           <Reveal>
-            <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl border border-emerald/40 bg-emerald/10 text-emerald shadow-[0_0_40px_var(--glow)]">
+            <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl border border-sky/40 bg-leaf/10 text-sky shadow-[0_0_40px_var(--glow)]">
               <Target size={26} aria-hidden="true" />
             </span>
           </Reveal>
@@ -111,7 +98,7 @@ export default function About() {
               <StaggerItem as="li" key={title}>
                 <TiltCard className="h-full rounded-3xl">
                   <div className="card-light h-full p-6 text-center sm:p-8">
-                    <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-mint text-emerald-deep">
+                    <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-mint text-brand">
                       <Icon size={26} aria-hidden="true" />
                     </span>
                     <h3 className="mt-5 text-lg">{t(title)}</h3>
@@ -128,7 +115,7 @@ export default function About() {
       <section className="section-light py-24 sm:py-32">
         <figure className="mx-auto max-w-4xl px-4 text-center">
           <Reveal variant="scale">
-            <Quote size={56} aria-hidden="true" className="mx-auto fill-emerald/20 text-emerald/50" />
+            <Quote size={56} aria-hidden="true" className="mx-auto fill-sky/20 text-sky/50" />
           </Reveal>
           <blockquote>
             <SplitText

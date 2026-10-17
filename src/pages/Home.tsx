@@ -1,4 +1,5 @@
 import CtaBand from '../components/home/CtaBand'
+import FounderPreview from '../components/home/FounderPreview'
 import GalleryPreview from '../components/home/GalleryPreview'
 import Hero from '../components/home/Hero'
 import ServicesPreview from '../components/home/ServicesPreview'
@@ -13,6 +14,7 @@ export default function Home() {
       <ServicesPreview />
       <WhyChooseUs />
       <GalleryPreview />
+      <FounderPreview />
       <CtaBand />
     </>
   )

@@ -1,45 +1,66 @@
+import { photos, type Photo } from './site'
+
 /**
  * GALLERY DATA – how to add a photo
  *
- * 1. Put the file in /public/images/gallery/ (WebP, ~1400px wide, under ~300 KB).
- * 2. Add an entry to the `gallery` array below (copy an existing one):
+ * 1. Put the file in /public/images/gallery/ (WebP, ~1400px on the long side, under ~300 KB).
+ *    Optional: a smaller "-sm" file for phones (see `srcSm` / `smWidth`).
+ * 2. Add an entry to `realGallery` below (copy an existing one):
  *      id          unique, e.g. 'homes-04'
  *      category    one of `galleryCategories`
  *      src         '/images/gallery/your-file.webp'
- *      width/height  the image's pixel size (prevents layout shift)
+ *      width/height  the image's pixel size (prevents layout shift, drives the masonry layout)
  *      alt         German + English description (for screen readers)
- *      placeholder false for real photos (true = stock photo to swap later)
+ *      position    optional focal point, e.g. '50% 25%'
+ *      placeholder false for real photos
  * 3. Optional before/after pair: add `before: { src: '/images/gallery/xyz-before.webp' }`.
  *    `src` is then the AFTER photo; both photos should have the same size and framing.
- *    The grid shows a "Before/After" badge and the lightbox shows a drag slider.
  * 4. New category? Add it to `galleryCategories` AND add its label under
  *    gallery.categories in src/i18n/de.ts and en.ts.
  *
- * Order in this array = order on the page.
+ * REAL photos come first (realGallery), STOCK placeholders after (stockGallery, all `placeholder: true`).
+ * To remove the stock photos later: set SHOW_PLACEHOLDERS to false (hides them), or delete
+ * `stockGallery` and the files in public/images/gallery/ that are listed in public/images/CREDITS.md.
  */
-export const galleryCategories = ['homes', 'offices', 'shops', 'staircases', 'it'] as const
+export const SHOW_PLACEHOLDERS = true
+
+export const galleryCategories = ['homes', 'offices', 'shops', 'staircases', 'it', 'care'] as const
 
 export type GalleryCategory = (typeof galleryCategories)[number]
 
-export interface GalleryImage {
+export interface GalleryImage extends Photo {
   id: string
   category: GalleryCategory
-  /** the photo (the AFTER photo when `before` is set) */
-  src: string
-  width: number
-  height: number
-  alt: { de: string; en: string }
   /** true = stock photo, swap for the client's real photo (then set to false) */
   placeholder: boolean
   /** optional before/after pair */
   before?: { src: string; alt?: { de: string; en: string } }
 }
 
-export const gallery: GalleryImage[] = [
+const real = (id: string, category: GalleryCategory, photo: Photo): GalleryImage => ({
+  ...photo,
+  id,
+  category,
+  placeholder: false,
+})
+
+/** REAL photos of the business (portrait). Shown first. */
+const realGallery: GalleryImage[] = [
+  real('real-vacuuming', 'homes', photos.vacuuming),
+  real('real-bathroom', 'homes', photos.bathroom),
+  real('real-it', 'it', photos.itEquipment),
+  real('real-mopping', 'staircases', photos.mopping),
+  real('real-sewing', 'care', photos.clothingCare),
+]
+
+/** STOCK placeholders – replace with real photos over time, then delete. */
+const stockGallery: GalleryImage[] = [
   {
     id: 'homes-01',
     category: 'homes',
     src: '/images/gallery/homes-01.webp',
+    srcSm: '/images/gallery/homes-01-sm.webp',
+    smWidth: 800,
     width: 1400,
     height: 788,
     alt: {
@@ -52,6 +73,8 @@ export const gallery: GalleryImage[] = [
     id: 'homes-02',
     category: 'homes',
     src: '/images/gallery/homes-02.webp',
+    srcSm: '/images/gallery/homes-02-sm.webp',
+    smWidth: 800,
     width: 1400,
     height: 788,
     alt: {
@@ -64,6 +87,8 @@ export const gallery: GalleryImage[] = [
     id: 'homes-03',
     category: 'homes',
     src: '/images/gallery/homes-03.webp',
+    srcSm: '/images/gallery/homes-03-sm.webp',
+    smWidth: 800,
     width: 1400,
     height: 788,
     alt: {
@@ -76,6 +101,8 @@ export const gallery: GalleryImage[] = [
     id: 'offices-01',
     category: 'offices',
     src: '/images/gallery/offices-01.webp',
+    srcSm: '/images/gallery/offices-01-sm.webp',
+    smWidth: 800,
     width: 1400,
     height: 933,
     alt: {
@@ -88,6 +115,8 @@ export const gallery: GalleryImage[] = [
     id: 'offices-02',
     category: 'offices',
     src: '/images/gallery/offices-02.webp',
+    srcSm: '/images/gallery/offices-02-sm.webp',
+    smWidth: 800,
     width: 1400,
     height: 933,
     alt: {
@@ -100,6 +129,8 @@ export const gallery: GalleryImage[] = [
     id: 'offices-03',
     category: 'offices',
     src: '/images/gallery/offices-03.webp',
+    srcSm: '/images/gallery/offices-03-sm.webp',
+    smWidth: 800,
     width: 1400,
     height: 933,
     alt: {
@@ -112,6 +143,8 @@ export const gallery: GalleryImage[] = [
     id: 'shops-01',
     category: 'shops',
     src: '/images/gallery/shops-01.webp',
+    srcSm: '/images/gallery/shops-01-sm.webp',
+    smWidth: 800,
     width: 933,
     height: 1400,
     alt: {
@@ -124,6 +157,8 @@ export const gallery: GalleryImage[] = [
     id: 'shops-02',
     category: 'shops',
     src: '/images/gallery/shops-02.webp',
+    srcSm: '/images/gallery/shops-02-sm.webp',
+    smWidth: 800,
     width: 933,
     height: 1400,
     alt: {
@@ -136,6 +171,8 @@ export const gallery: GalleryImage[] = [
     id: 'staircases-01',
     category: 'staircases',
     src: '/images/gallery/staircases-01.webp',
+    srcSm: '/images/gallery/staircases-01-sm.webp',
+    smWidth: 800,
     width: 1050,
     height: 1400,
     alt: {
@@ -148,6 +185,8 @@ export const gallery: GalleryImage[] = [
     id: 'staircases-02',
     category: 'staircases',
     src: '/images/gallery/staircases-02.webp',
+    srcSm: '/images/gallery/staircases-02-sm.webp',
+    smWidth: 800,
     width: 1050,
     height: 1400,
     alt: {
@@ -160,6 +199,8 @@ export const gallery: GalleryImage[] = [
     id: 'it-01',
     category: 'it',
     src: '/images/gallery/it-01.webp',
+    srcSm: '/images/gallery/it-01-sm.webp',
+    smWidth: 800,
     width: 1400,
     height: 933,
     alt: {
@@ -172,6 +213,8 @@ export const gallery: GalleryImage[] = [
     id: 'it-02',
     category: 'it',
     src: '/images/gallery/it-02.webp',
+    srcSm: '/images/gallery/it-02-sm.webp',
+    smWidth: 800,
     width: 1400,
     height: 934,
     alt: {
@@ -181,3 +224,5 @@ export const gallery: GalleryImage[] = [
     placeholder: true,
   },
 ]
+
+export const gallery: GalleryImage[] = [...realGallery, ...(SHOW_PLACEHOLDERS ? stockGallery : [])]

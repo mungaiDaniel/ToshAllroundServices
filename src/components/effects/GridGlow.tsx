@@ -5,7 +5,7 @@ const grid = (alpha: number) =>
   `linear-gradient(rgba(255,255,255,${alpha}) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,${alpha}) 1px, transparent 1px)`
 
 /**
- * Faint grid with an emerald glow that follows the cursor (desktop).
+ * Faint grid with a blue glow that follows the cursor (desktop).
  * Listens on its parent element; place it inside a `relative` section.
  */
 export default function GridGlow({ className }: { className?: string }) {
@@ -46,7 +46,7 @@ export default function GridGlow({ className }: { className?: string }) {
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage: grid(0.28).replaceAll('255,255,255', '16,185,129'),
+            backgroundImage: grid(0.28).replaceAll('255,255,255', '46,155,214'),
             ...size,
             WebkitMaskImage: mask,
             maskImage: mask,

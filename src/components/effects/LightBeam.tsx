@@ -11,14 +11,14 @@ export default function LightBeam({ angle = 24, className }: LightBeamProps) {
   return (
     <div
       aria-hidden="true"
-      className={`pointer-events-none absolute -top-1/4 left-[30%] -z-10 h-[150%] w-[38%] ${className ?? ''}`}
+      className={`pointer-events-none absolute -top-[200px] left-[30%] -z-10 h-[1100px] w-[420px] ${className ?? ''}`}
       style={{ transform: `rotate(${angle}deg)`, transformOrigin: 'top center' }}
     >
       <div
         className="anim h-full w-full"
         style={{
           background:
-            'linear-gradient(90deg, transparent, rgba(236,253,245,0.16) 45%, rgba(16,185,129,0.22) 55%, transparent)',
+            'linear-gradient(90deg, transparent, rgba(236,253,245,0.16) 45%, rgba(46,155,214,0.22) 55%, transparent)',
           animationName: 'beam',
           animationDuration: loopDuration(14),
           animationDirection: 'alternate',
