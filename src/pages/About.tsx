@@ -1,4 +1,4 @@
-import { Eye, Handshake, Quote, ShieldCheck, Smile, Target, type LucideIcon } from 'lucide-react'
+import { Download, Eye, Handshake, Quote, ShieldCheck, Smile, Target, type LucideIcon } from 'lucide-react'
 import AuroraBackground from '../components/effects/AuroraBackground'
 import FloatingBubbles from '../components/effects/FloatingBubbles'
 import NoiseOverlay from '../components/effects/NoiseOverlay'
@@ -45,6 +45,16 @@ export default function About() {
             </Reveal>
             <Reveal delay={0.25}>
               <p className="mt-5">{t('about.p2')}</p>
+            </Reveal>
+            <Reveal delay={0.35}>
+              <a
+                href="/docs/daniel-gitonga-wahome-cv.pdf"
+                download
+                className="mt-7 inline-flex items-center gap-2 rounded-full bg-brand px-5 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-brand/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+              >
+                <Download size={17} aria-hidden="true" />
+                {t('founder.downloadCv')}
+              </a>
             </Reveal>
           </div>
 
