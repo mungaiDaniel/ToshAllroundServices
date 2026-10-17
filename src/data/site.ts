@@ -193,7 +193,7 @@ export const founder = {
     height: 1599,
   },
   /** Education timeline entry (text lives in the translation files) */
-  education: { year: '2002', institution: 'The Kenya Polytechnic University College, Nairobi, Kenya' },
+  education: { year: '1996–2000', institution: 'Mombasa Polytechnic, Kenya' },
 } as const
 
 export interface Certificate {

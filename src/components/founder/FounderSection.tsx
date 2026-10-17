@@ -1,4 +1,4 @@
-import { Briefcase, GraduationCap, Languages, Phone, Sparkles, UserRound, type LucideIcon } from 'lucide-react'
+import { Briefcase, Download, GraduationCap, Languages, Phone, Sparkles, UserRound, type LucideIcon } from 'lucide-react'
 import { useEffect, type ReactNode } from 'react'
 import { useLocation } from 'react-router-dom'
 import { certificates, founder, site } from '../../data/site'
@@ -92,6 +92,12 @@ export default function FounderSection() {
     <section id="gruender" className="section-mint overflow-x-clip scroll-mt-20 py-20 sm:py-24">
       <div className="mx-auto max-w-6xl px-4">
         <SectionHeading eyebrow={t('founder.eyebrow')} title={t('founder.title')} />
+        <div className="mt-5">
+          <a href="/docs/daniel-gitonga-wahome-cv.pdf" download className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-white px-4 py-2 text-sm font-medium text-brand shadow-sm transition hover:border-brand/40 hover:bg-mint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand">
+            <Download size={16} aria-hidden="true" />
+            {t('founder.downloadCv')}
+          </a>
+        </div>
 
         <div className="mt-12 grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
           {/* LEFT: portrait, name, contact */}
@@ -172,7 +178,7 @@ export default function FounderSection() {
                   period: t(`founder.experience.${k}.period`),
                   title: t(`founder.experience.${k}.role`),
                   place: t(`founder.experience.${k}.place`),
-                  placeholder: true,
+                  children: <p className="mt-3 text-sm text-ink-muted">{t(`founder.experience.${k}.details`)}</p>,
                 }))}
               />
             </CvBlock>

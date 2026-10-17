@@ -169,21 +169,22 @@ const en: Translations = {
   founder: {
     eyebrow: 'The founder',
     title: 'Meet the founder',
+    downloadCv: 'Download CV',
     role: 'Founder – Tosh Allround Services',
     photoAlt: 'Daniel Gitonga Wahome, founder of Tosh Allround Services, cleaning IT equipment',
     profile: {
       title: 'Profile',
-      text: 'Founder of Tosh Allround Services in Berlin, combining a technical background in electrical engineering with a passion for clean, well-kept spaces. Known for reliability and attention to detail.',
+      text: 'Cleaning operative and founder of Tosh Allround Services in Berlin, with experience in warehouse and facility cleaning. Combines practical cleaning expertise with a technical background in electrical engineering.',
     },
     education: {
       title: 'Education',
       degree: 'Diploma in Electrical Engineering',
-      note: 'His technical training is why IT & office equipment cleaning is our specialty – electronics are handled safely and with care.',
+      note: 'Diploma in Electrical Engineering and Installations, Mombasa Polytechnic, Kenya (1996–2000). His technical training supports careful IT and office equipment cleaning.',
     },
     experience: {
       title: 'Experience',
-      item1: { period: '[Years]', role: '[Role]', place: '[Company, City]' },
-      item2: { period: '[Years]', role: '[Role]', place: '[Company, City]' },
+      item1: { period: '2015–2024', role: 'Cleaning & Warehouse Assistant', place: 'Nairobi Industrial Area, Kenya', details: 'Maintained warehouse floors and work areas, operated cleaning equipment, managed waste and recycling, and supported hygiene and safety standards.' },
+      item2: { period: 'May 2002–February 2014', role: 'Self-employed Electrician', place: 'Mombasa, Kenya', details: 'Installed, maintained, and repaired electrical systems; interpreted technical drawings and followed electrical safety requirements.' },
     },
     skills: {
       title: 'Skills',
@@ -198,9 +199,9 @@ const en: Translations = {
     },
     languages: {
       title: 'Languages',
-      german: '[German – level]',
-      english: '[English – level]',
-      swahili: '[Swahili – level]',
+      german: 'German – B1',
+      english: 'English – Fluent',
+      swahili: 'Kiswahili – Native',
     },
     certificates: {
       eyebrow: 'Verified qualification',

@@ -167,21 +167,22 @@ const de = {
   founder: {
     eyebrow: 'Der Gründer',
     title: 'Lernen Sie den Gründer kennen',
+    downloadCv: 'Lebenslauf herunterladen',
     role: 'Gründer – Tosh Allround Services',
     photoAlt: 'Daniel Gitonga Wahome, Gründer von Tosh Allround Services, bei der Reinigung von IT-Geräten',
     profile: {
       title: 'Profil',
-      text: 'Gründer von Tosh Allround Services in Berlin – er verbindet einen technischen Hintergrund in der Elektrotechnik mit der Leidenschaft für saubere, gepflegte Räume. Bekannt für Zuverlässigkeit und Liebe zum Detail.',
+      text: 'Reinigungskraft und Gründer von Tosh Allround Services in Berlin mit Erfahrung in der Lager- und Gebäudereinigung. Er verbindet praktische Reinigungserfahrung mit einem technischen Hintergrund in der Elektrotechnik.',
     },
     education: {
       title: 'Ausbildung',
       degree: 'Diplom in Elektrotechnik',
-      note: 'Seine technische Ausbildung ist der Grund, warum die Reinigung von IT- und Bürogeräten unsere Spezialität ist – Elektronik wird sicher und mit Sorgfalt behandelt.',
+      note: 'Diplom in Elektrotechnik und Installationen, Mombasa Polytechnic, Kenia (1996–2000). Seine technische Ausbildung unterstützt die sorgfältige Reinigung von IT- und Bürogeräten.',
     },
     experience: {
       title: 'Berufserfahrung',
-      item1: { period: '[Jahre]', role: '[Position]', place: '[Unternehmen, Ort]' },
-      item2: { period: '[Jahre]', role: '[Position]', place: '[Unternehmen, Ort]' },
+      item1: { period: '2015–2024', role: 'Reinigungs- und Lagerhelfer', place: 'Industriegebiet Nairobi, Kenia', details: 'Reinigung von Lagerböden und Arbeitsbereichen, sicherer Einsatz von Reinigungsgeräten, Abfallentsorgung und Recycling sowie Einhaltung von Hygiene- und Sicherheitsstandards.' },
+      item2: { period: 'Mai 2002–Februar 2014', role: 'Selbstständiger Elektriker', place: 'Mombasa, Kenia', details: 'Installation, Wartung und Reparatur elektrischer Anlagen; Lesen technischer Zeichnungen und Einhaltung elektrischer Sicherheitsvorschriften.' },
     },
     skills: {
       title: 'Kompetenzen',
@@ -196,9 +197,9 @@ const de = {
     },
     languages: {
       title: 'Sprachen',
-      german: '[Deutsch – Niveau]',
-      english: '[Englisch – Niveau]',
-      swahili: '[Suaheli – Niveau]',
+      german: 'Deutsch – B1',
+      english: 'Englisch – fließend',
+      swahili: 'Kisuaheli – Muttersprache',
     },
     certificates: {
       eyebrow: 'Qualifikation',
