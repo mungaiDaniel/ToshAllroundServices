@@ -1,21 +1,45 @@
-import CtaBand from '../components/home/CtaBand'
-import FounderPreview from '../components/home/FounderPreview'
-import GalleryPreview from '../components/home/GalleryPreview'
+import { lazy, Suspense } from 'react'
+import Deferred from '../components/Deferred'
 import Hero from '../components/home/Hero'
-import ServicesPreview from '../components/home/ServicesPreview'
 import TrustBar from '../components/home/TrustBar'
-import WhyChooseUs from '../components/home/WhyChooseUs'
+
+// Everything below the first screen is a separate chunk, loaded when it nears the viewport
+const ServicesPreview = lazy(() => import('../components/home/ServicesPreview'))
+const WhyChooseUs = lazy(() => import('../components/home/WhyChooseUs'))
+const GalleryPreview = lazy(() => import('../components/home/GalleryPreview'))
+const FounderPreview = lazy(() => import('../components/home/FounderPreview'))
+const CtaBand = lazy(() => import('../components/home/CtaBand'))
 
 export default function Home() {
   return (
     <>
       <Hero />
       <TrustBar />
-      <ServicesPreview />
-      <WhyChooseUs />
-      <GalleryPreview />
-      <FounderPreview />
-      <CtaBand />
+      <Deferred minHeight={1100}>
+        <Suspense fallback={null}>
+          <ServicesPreview />
+        </Suspense>
+      </Deferred>
+      <Deferred minHeight={800}>
+        <Suspense fallback={null}>
+          <WhyChooseUs />
+        </Suspense>
+      </Deferred>
+      <Deferred minHeight={700}>
+        <Suspense fallback={null}>
+          <GalleryPreview />
+        </Suspense>
+      </Deferred>
+      <Deferred minHeight={600}>
+        <Suspense fallback={null}>
+          <FounderPreview />
+        </Suspense>
+      </Deferred>
+      <Deferred minHeight={500}>
+        <Suspense fallback={null}>
+          <CtaBand />
+        </Suspense>
+      </Deferred>
     </>
   )
 }
