@@ -1,4 +1,4 @@
-import { motion, useMotionValue, useSpring } from 'framer-motion'
+import { m, useMotionValue, useSpring } from 'framer-motion'
 import { useRef, type PointerEvent, type ReactNode } from 'react'
 import { useMotionPrefs } from '../../hooks/useMotionPrefs'
 import { magnetic, spring } from '../../lib/motion'
@@ -33,7 +33,7 @@ export default function Magnetic({ children, pull = magnetic.pull, className }: 
   }
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       className={className ?? 'inline-block'}
       style={{ x, y }}
@@ -41,6 +41,6 @@ export default function Magnetic({ children, pull = magnetic.pull, className }: 
       onPointerLeave={onLeave}
     >
       {children}
-    </motion.div>
+    </m.div>
   )
 }

@@ -1,4 +1,4 @@
-import { AnimatePresence, motion, useAnimationControls } from 'framer-motion'
+import { AnimatePresence, m, useAnimationControls } from 'framer-motion'
 import { useEffect, useRef, type ReactNode } from 'react'
 import { useMotionPrefs } from '../../hooks/useMotionPrefs'
 import { distance, duration, ease } from '../../lib/motion'
@@ -38,17 +38,17 @@ export default function PageTransition({ routeKey, children }: PageTransitionPro
         initial={false}
         onExitComplete={() => window.scrollTo({ top: 0, behavior: 'instant' })}
       >
-        <motion.div
+        <m.div
           key={routeKey}
           initial={{ opacity: 0, y: reduced ? 0 : distance.sm }}
           animate={{ opacity: 1, y: 0, transition: { duration: duration.base, ease: ease.out } }}
           exit={{ opacity: 0, transition: { duration: duration.fast } }}
         >
           {children}
-        </motion.div>
+        </m.div>
       </AnimatePresence>
       {!reduced && (
-        <motion.div
+        <m.div
           aria-hidden="true"
           className="pointer-events-none fixed inset-0 z-[55] bg-night"
           initial={{ scaleY: 0 }}

@@ -1,5 +1,5 @@
 import {
-  motion,
+  m,
   useMotionTemplate,
   useMotionValue,
   useSpring,
@@ -42,7 +42,7 @@ export default function TiltCard({ children, max = tilt.max, glare = true, class
   }
 
   return (
-    <motion.div
+    <m.div
       className={`group ${className ?? ''}`}
       style={{ rotateX, rotateY, transformPerspective: tilt.perspective, transformStyle: 'preserve-3d' }}
       onPointerMove={onMove}
@@ -50,12 +50,12 @@ export default function TiltCard({ children, max = tilt.max, glare = true, class
     >
       {children}
       {glare && (
-        <motion.div
+        <m.div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 rounded-[inherit] opacity-0 transition-opacity [transition-duration:var(--dur-base)] group-hover:opacity-100"
           style={{ background: glareBg }}
         />
       )}
-    </motion.div>
+    </m.div>
   )
 }

@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { m, useScroll, useTransform } from 'framer-motion'
 import { useRef, type ReactNode } from 'react'
 import { useMotionPrefs } from '../../hooks/useMotionPrefs'
 import { parallax } from '../../lib/motion'
@@ -32,21 +32,21 @@ export default function Parallax({ children, speed = 1, clip = false, className 
     const bleed = Math.abs(range)
     return (
       <div ref={ref} className={`relative overflow-hidden ${className ?? ''}`}>
-        <motion.div
+        <m.div
           className="absolute inset-x-0 will-change-transform"
           style={{ top: -bleed, bottom: -bleed, y }}
         >
           {children}
-        </motion.div>
+        </m.div>
       </div>
     )
   }
 
   return (
     <div ref={ref} className={className}>
-      <motion.div className="will-change-transform" style={{ y }}>
+      <m.div className="will-change-transform" style={{ y }}>
         {children}
-      </motion.div>
+      </m.div>
     </div>
   )
 }

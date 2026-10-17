@@ -14,15 +14,15 @@ Files were resized and converted to WebP (hero ≤ 1920 px, cards ≤ 1000 px, g
 | service-it-equipment.webp | IT & Office Equipment Cleaning | Giorgio Trovato | https://unsplash.com/photos/21kTPp7jtuA |
 | about-cleaner.webp | About Us | Vitaly Gariev | https://unsplash.com/photos/Y3vDCL7_das |
 | about-supplies.webp | About Us (detail) | Giorgio Trovato | https://unsplash.com/photos/XxAy813D66I |
-| gallery-homes-01.webp | Gallery – Homes | Vitaly Gariev | https://unsplash.com/photos/rD755GB3a-0 |
-| gallery-homes-02.webp | Gallery – Homes | Spacejoy | https://unsplash.com/photos/EVjqpcn79AM |
-| gallery-homes-03.webp | Gallery – Homes | Vitaly Gariev | https://unsplash.com/photos/ViXT4S89hS0 |
-| gallery-offices-01.webp | Gallery – Offices | Adolfo Félix | https://unsplash.com/photos/PG8NyM_Mcts |
-| gallery-offices-02.webp | Gallery – Offices | Towfiqu barbhuiya | https://unsplash.com/photos/-9gPKrsbGmc |
-| gallery-offices-03.webp | Gallery – Offices | Christian R | https://unsplash.com/photos/PkFdlMAl85Q |
-| gallery-shops-01.webp | Gallery – Shops | Caroline Badran | https://unsplash.com/photos/Q8G9oX_SsEM |
-| gallery-shops-02.webp | Gallery – Shops | Caroline Badran | https://unsplash.com/photos/wNudbCFp78k |
-| gallery-staircases-01.webp | Gallery – Staircases | Laura Cleffmann | https://unsplash.com/photos/tkekBMw5Y4U |
-| gallery-staircases-02.webp | Gallery – Staircases | Jacqueline Brandwayn | https://unsplash.com/photos/zPzEyqIryxw |
-| gallery-it-01.webp | Gallery – IT Equipment | Quilia | https://unsplash.com/photos/4kjcmPhsGkc |
-| gallery-it-02.webp | Gallery – IT Equipment | Jakub Żerdzicki | https://unsplash.com/photos/MCqZOgLkZVk |
+| gallery/homes-01.webp | Gallery – Homes | Vitaly Gariev | https://unsplash.com/photos/rD755GB3a-0 |
+| gallery/homes-02.webp | Gallery – Homes | Spacejoy | https://unsplash.com/photos/EVjqpcn79AM |
+| gallery/homes-03.webp | Gallery – Homes | Vitaly Gariev | https://unsplash.com/photos/ViXT4S89hS0 |
+| gallery/offices-01.webp | Gallery – Offices | Adolfo Félix | https://unsplash.com/photos/PG8NyM_Mcts |
+| gallery/offices-02.webp | Gallery – Offices | Towfiqu barbhuiya | https://unsplash.com/photos/-9gPKrsbGmc |
+| gallery/offices-03.webp | Gallery – Offices | Christian R | https://unsplash.com/photos/PkFdlMAl85Q |
+| gallery/shops-01.webp | Gallery – Shops | Caroline Badran | https://unsplash.com/photos/Q8G9oX_SsEM |
+| gallery/shops-02.webp | Gallery – Shops | Caroline Badran | https://unsplash.com/photos/wNudbCFp78k |
+| gallery/staircases-01.webp | Gallery – Staircases | Laura Cleffmann | https://unsplash.com/photos/tkekBMw5Y4U |
+| gallery/staircases-02.webp | Gallery – Staircases | Jacqueline Brandwayn | https://unsplash.com/photos/zPzEyqIryxw |
+| gallery/it-01.webp | Gallery – IT Equipment | Quilia | https://unsplash.com/photos/4kjcmPhsGkc |
+| gallery/it-02.webp | Gallery – IT Equipment | Jakub Żerdzicki | https://unsplash.com/photos/MCqZOgLkZVk |

@@ -1,4 +1,4 @@
-import { motion, useScroll, useSpring, useTransform } from 'framer-motion'
+import { m, useScroll, useSpring, useTransform } from 'framer-motion'
 import { useRef } from 'react'
 import { useMotionPrefs } from '../../hooks/useMotionPrefs'
 import { spring } from '../../lib/motion'
@@ -36,7 +36,7 @@ export default function DrawLine({ orientation = 'vertical', d, viewBox, classNa
           strokeWidth="2"
           vectorEffect="non-scaling-stroke"
         />
-        <motion.path
+        <m.path
           d={path}
           fill="none"
           stroke="var(--color-emerald)"

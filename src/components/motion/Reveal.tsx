@@ -1,18 +1,18 @@
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { useMemo, type ReactNode } from 'react'
 import { useMotionPrefs } from '../../hooks/useMotionPrefs'
 import { viewport } from '../../lib/motion'
 import { getRevealVariants, type RevealVariant } from './variants'
 
 const tags = {
-  div: motion.div,
-  span: motion.span,
-  li: motion.li,
-  section: motion.section,
-  article: motion.article,
-  p: motion.p,
-  h2: motion.h2,
-  h3: motion.h3,
+  div: m.div,
+  span: m.span,
+  li: m.li,
+  section: m.section,
+  article: m.article,
+  p: m.p,
+  h2: m.h2,
+  h3: m.h3,
 } as const
 
 export interface RevealProps {

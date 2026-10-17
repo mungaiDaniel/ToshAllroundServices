@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { m, useScroll, useTransform } from 'framer-motion'
 import { useMemo, useRef } from 'react'
 import { useMotionPrefs } from '../../hooks/useMotionPrefs'
 import { usePauseOffscreen } from '../../hooks/usePauseOffscreen'
@@ -78,7 +78,7 @@ function Shape({ item, reduced, scrollY }: { item: Item; reduced: boolean; scrol
     ['--fy' as string]: `${-distance.md * (0.5 + item.depth)}px`,
   }
   return (
-    <motion.div
+    <m.div
       className="absolute"
       style={{ left: `${item.x}%`, top: `${item.y}%`, y: reduced ? 0 : y }}
     >
@@ -103,7 +103,7 @@ function Shape({ item, reduced, scrollY }: { item: Item; reduced: boolean; scrol
           <path fill="currentColor" d="M12 0C12.8 7.5 16.5 11.2 24 12C16.5 12.8 12.8 16.5 12 24C11.2 16.5 7.5 12.8 0 12C7.5 11.2 11.2 7.5 12 0Z" />
         </svg>
       )}
-    </motion.div>
+    </m.div>
   )
 }
 

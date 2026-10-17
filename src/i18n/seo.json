@@ -1,0 +1,70 @@
+{
+  "de": {
+    "home": {
+      "title": "Professionelle Reinigung in Berlin | Tosh Allround Services",
+      "description": "Zuverlässige Reinigung in Berlin: Wohnung, Büro, Laden, Treppenhaus und IT-Geräte. Tosh Allround Services – Ihr Raum, unsere Sorgfalt, unser Versprechen!"
+    },
+    "about": {
+      "title": "Über uns | Tosh Allround Services Berlin",
+      "description": "Lernen Sie Tosh Allround Services kennen: zuverlässige, professionelle Reinigung in Berlin – mit Liebe zum Detail, Respekt und dem Ziel, dass jeder Kunde zufrieden ist."
+    },
+    "services": {
+      "title": "Leistungen: Reinigung in Berlin | Tosh Allround Services",
+      "description": "Wohnungs-, Büro-, Laden- und Treppenhausreinigung sowie unsere Spezialität: die schonende Reinigung von IT- und Bürogeräten. Jetzt Angebot per WhatsApp anfragen."
+    },
+    "gallery": {
+      "title": "Galerie | Tosh Allround Services Berlin",
+      "description": "Einblicke in gepflegte Räume: Wohnungen, Büros, Läden, Treppenhäuser und IT-Arbeitsplätze – sauber und sorgfältig gereinigt in Berlin."
+    },
+    "contact": {
+      "title": "Kontakt & Angebot anfragen | Tosh Allround Services",
+      "description": "Schreiben Sie uns per WhatsApp, rufen Sie an oder nutzen Sie das Kontaktformular. Tosh Allround Services, Richard-Strauss-Straße 34, 14193 Berlin."
+    },
+    "impressum": {
+      "title": "Impressum | Tosh Allround Services",
+      "description": "Impressum und Anbieterkennzeichnung von Tosh Allround Services, Richard-Strauss-Straße 34, 14193 Berlin."
+    },
+    "datenschutz": {
+      "title": "Datenschutzerklärung | Tosh Allround Services",
+      "description": "Informationen zum Datenschutz bei Tosh Allround Services: keine Cookies, kein Tracking, Kontaktformular, Hosting und Ihre Rechte nach DSGVO."
+    },
+    "notFound": {
+      "title": "Seite nicht gefunden | Tosh Allround Services",
+      "description": "Diese Seite wurde nicht gefunden."
+    }
+  },
+  "en": {
+    "home": {
+      "title": "Professional Cleaning in Berlin | Tosh Allround Services",
+      "description": "Reliable cleaning in Berlin for homes, offices, shops, stairwells and IT equipment. Tosh Allround Services – your space, our care, our commitment!"
+    },
+    "about": {
+      "title": "About Us | Tosh Allround Services Berlin",
+      "description": "Get to know Tosh Allround Services: reliable, professional cleaning in Berlin – with attention to detail, respect and the aim of leaving every customer satisfied."
+    },
+    "services": {
+      "title": "Our Services: Cleaning in Berlin | Tosh Allround Services",
+      "description": "Residential, office, shop and stairwell cleaning plus our specialty: gentle cleaning of IT and office equipment. Request a quote on WhatsApp today."
+    },
+    "gallery": {
+      "title": "Gallery | Tosh Allround Services Berlin",
+      "description": "A look at well-kept spaces: homes, offices, shops, stairwells and IT workstations – cleaned carefully and thoroughly in Berlin."
+    },
+    "contact": {
+      "title": "Contact & Request a Quote | Tosh Allround Services",
+      "description": "Message us on WhatsApp, call us or use the contact form. Tosh Allround Services, Richard-Strauss-Straße 34, 14193 Berlin, Germany."
+    },
+    "impressum": {
+      "title": "Legal Notice | Tosh Allround Services",
+      "description": "Legal notice and provider information for Tosh Allround Services, Richard-Strauss-Straße 34, 14193 Berlin."
+    },
+    "datenschutz": {
+      "title": "Privacy Policy | Tosh Allround Services",
+      "description": "Privacy information for Tosh Allround Services: no cookies, no tracking, contact form, hosting and your GDPR rights."
+    },
+    "notFound": {
+      "title": "Page not found | Tosh Allround Services",
+      "description": "This page could not be found."
+    }
+  }
+}

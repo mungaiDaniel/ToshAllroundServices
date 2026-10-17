@@ -1,6 +1,8 @@
 export const site = {
   name: 'Tosh Allround Services',
   domain: 'toshallroundservices.de',
+  /** canonical public URL (no trailing slash) – used for SEO tags */
+  url: 'https://toshallroundservices.de',
   address: {
     street: 'Richard-Strauss-Straße 34',
     zip: '14193',
@@ -13,6 +15,24 @@ export const site = {
   mapsUrl:
     'https://www.google.com/maps/search/?api=1&query=Richard-Strauss-Stra%C3%9Fe+34%2C+14193+Berlin',
 } as const
+
+export const weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'] as const
+
+export type Weekday = (typeof weekdays)[number]
+
+/**
+ * Business hours – PLACEHOLDER VALUES, edit freely.
+ * Use 24h "HH:MM" strings, or `null` for a closed day.
+ */
+export const hours: Record<Weekday, { open: string; close: string } | null> = {
+  mon: { open: '08:00', close: '18:00' },
+  tue: { open: '08:00', close: '18:00' },
+  wed: { open: '08:00', close: '18:00' },
+  thu: { open: '08:00', close: '18:00' },
+  fri: { open: '08:00', close: '18:00' },
+  sat: { open: '09:00', close: '14:00' },
+  sun: null,
+}
 
 export const serviceIds = ['residential', 'office', 'retail', 'staircase', 'it'] as const
 

@@ -1,4 +1,4 @@
-import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'framer-motion'
+import { AnimatePresence, m, useMotionValueEvent, useScroll } from 'framer-motion'
 import { Languages, Menu, Phone, Sparkles, X } from 'lucide-react'
 import { useEffect, useRef, useState, type KeyboardEvent } from 'react'
 import { createPortal } from 'react-dom'
@@ -156,7 +156,7 @@ export default function Navbar() {
       <AnimatePresence>
         {open && (
           <>
-            <motion.div
+            <m.div
               key="backdrop"
               aria-hidden="true"
               className="fixed inset-0 z-50 bg-night/60 backdrop-blur-sm lg:hidden"
@@ -165,7 +165,7 @@ export default function Navbar() {
               exit={{ opacity: 0, transition: { duration: duration.fast } }}
               onClick={() => setOpen(false)}
             />
-            <motion.div
+            <m.div
               key="panel"
               id="mobile-menu"
               ref={panelRef}
@@ -197,7 +197,7 @@ export default function Navbar() {
 
               <ul className="mt-10 flex flex-col gap-2">
                 {navLinks.map((l) => (
-                  <motion.li key={l.to} variants={itemVariants}>
+                  <m.li key={l.to} variants={itemVariants}>
                     <NavLink
                       to={l.to}
                       end
@@ -209,18 +209,18 @@ export default function Navbar() {
                     >
                       {t(l.key)}
                     </NavLink>
-                  </motion.li>
+                  </m.li>
                 ))}
               </ul>
 
-              <motion.div variants={itemVariants} className="mt-auto flex flex-col gap-3">
+              <m.div variants={itemVariants} className="mt-auto flex flex-col gap-3">
                 <Button href={site.phone.href} className="w-full">
                   <Phone size={16} aria-hidden="true" />
                   {t('nav.callNow')}
                 </Button>
                 <p className="text-center text-sm">{site.phone.display}</p>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </>
         )}
       </AnimatePresence>,

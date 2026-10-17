@@ -1,3 +1,22 @@
+/**
+ * GALLERY DATA – how to add a photo
+ *
+ * 1. Put the file in /public/images/gallery/ (WebP, ~1400px wide, under ~300 KB).
+ * 2. Add an entry to the `gallery` array below (copy an existing one):
+ *      id          unique, e.g. 'homes-04'
+ *      category    one of `galleryCategories`
+ *      src         '/images/gallery/your-file.webp'
+ *      width/height  the image's pixel size (prevents layout shift)
+ *      alt         German + English description (for screen readers)
+ *      placeholder false for real photos (true = stock photo to swap later)
+ * 3. Optional before/after pair: add `before: { src: '/images/gallery/xyz-before.webp' }`.
+ *    `src` is then the AFTER photo; both photos should have the same size and framing.
+ *    The grid shows a "Before/After" badge and the lightbox shows a drag slider.
+ * 4. New category? Add it to `galleryCategories` AND add its label under
+ *    gallery.categories in src/i18n/de.ts and en.ts.
+ *
+ * Order in this array = order on the page.
+ */
 export const galleryCategories = ['homes', 'offices', 'shops', 'staircases', 'it'] as const
 
 export type GalleryCategory = (typeof galleryCategories)[number]
@@ -5,19 +24,22 @@ export type GalleryCategory = (typeof galleryCategories)[number]
 export interface GalleryImage {
   id: string
   category: GalleryCategory
+  /** the photo (the AFTER photo when `before` is set) */
   src: string
   width: number
   height: number
   alt: { de: string; en: string }
   /** true = stock photo, swap for the client's real photo (then set to false) */
   placeholder: boolean
+  /** optional before/after pair */
+  before?: { src: string; alt?: { de: string; en: string } }
 }
 
 export const gallery: GalleryImage[] = [
   {
     id: 'homes-01',
     category: 'homes',
-    src: '/images/gallery-homes-01.webp',
+    src: '/images/gallery/homes-01.webp',
     width: 1400,
     height: 788,
     alt: {
@@ -29,7 +51,7 @@ export const gallery: GalleryImage[] = [
   {
     id: 'homes-02',
     category: 'homes',
-    src: '/images/gallery-homes-02.webp',
+    src: '/images/gallery/homes-02.webp',
     width: 1400,
     height: 788,
     alt: {
@@ -41,7 +63,7 @@ export const gallery: GalleryImage[] = [
   {
     id: 'homes-03',
     category: 'homes',
-    src: '/images/gallery-homes-03.webp',
+    src: '/images/gallery/homes-03.webp',
     width: 1400,
     height: 788,
     alt: {
@@ -53,7 +75,7 @@ export const gallery: GalleryImage[] = [
   {
     id: 'offices-01',
     category: 'offices',
-    src: '/images/gallery-offices-01.webp',
+    src: '/images/gallery/offices-01.webp',
     width: 1400,
     height: 933,
     alt: {
@@ -65,7 +87,7 @@ export const gallery: GalleryImage[] = [
   {
     id: 'offices-02',
     category: 'offices',
-    src: '/images/gallery-offices-02.webp',
+    src: '/images/gallery/offices-02.webp',
     width: 1400,
     height: 933,
     alt: {
@@ -77,7 +99,7 @@ export const gallery: GalleryImage[] = [
   {
     id: 'offices-03',
     category: 'offices',
-    src: '/images/gallery-offices-03.webp',
+    src: '/images/gallery/offices-03.webp',
     width: 1400,
     height: 933,
     alt: {
@@ -89,7 +111,7 @@ export const gallery: GalleryImage[] = [
   {
     id: 'shops-01',
     category: 'shops',
-    src: '/images/gallery-shops-01.webp',
+    src: '/images/gallery/shops-01.webp',
     width: 933,
     height: 1400,
     alt: {
@@ -101,7 +123,7 @@ export const gallery: GalleryImage[] = [
   {
     id: 'shops-02',
     category: 'shops',
-    src: '/images/gallery-shops-02.webp',
+    src: '/images/gallery/shops-02.webp',
     width: 933,
     height: 1400,
     alt: {
@@ -113,7 +135,7 @@ export const gallery: GalleryImage[] = [
   {
     id: 'staircases-01',
     category: 'staircases',
-    src: '/images/gallery-staircases-01.webp',
+    src: '/images/gallery/staircases-01.webp',
     width: 1050,
     height: 1400,
     alt: {
@@ -125,7 +147,7 @@ export const gallery: GalleryImage[] = [
   {
     id: 'staircases-02',
     category: 'staircases',
-    src: '/images/gallery-staircases-02.webp',
+    src: '/images/gallery/staircases-02.webp',
     width: 1050,
     height: 1400,
     alt: {
@@ -137,7 +159,7 @@ export const gallery: GalleryImage[] = [
   {
     id: 'it-01',
     category: 'it',
-    src: '/images/gallery-it-01.webp',
+    src: '/images/gallery/it-01.webp',
     width: 1400,
     height: 933,
     alt: {
@@ -149,7 +171,7 @@ export const gallery: GalleryImage[] = [
   {
     id: 'it-02',
     category: 'it',
-    src: '/images/gallery-it-02.webp',
+    src: '/images/gallery/it-02.webp',
     width: 1400,
     height: 934,
     alt: {

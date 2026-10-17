@@ -1,10 +1,6 @@
-import { useTranslation } from '../hooks/useTranslation'
+import LegalPage from '../components/legal/LegalPage'
 
+// ⚠️ Draft legal text – must be reviewed before launch (see src/i18n/legal/de.ts)
 export default function Impressum() {
-  const { t } = useTranslation()
-  return (
-    <section className="mx-auto max-w-6xl px-4 py-16">
-      <h1 className="text-3xl font-bold">{t('pages.impressum.title')}</h1>
-    </section>
-  )
+  return <LegalPage kind="impressum" />
 }

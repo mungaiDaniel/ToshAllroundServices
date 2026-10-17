@@ -1,4 +1,4 @@
-import { motion, type Variants } from 'framer-motion'
+import { m, type Variants } from 'framer-motion'
 import { createContext, useContext, useMemo, type ReactNode } from 'react'
 import { useMotionPrefs } from '../../hooks/useMotionPrefs'
 import { stagger, viewport } from '../../lib/motion'
@@ -6,8 +6,8 @@ import { getRevealVariants, type RevealVariant } from './variants'
 
 const ItemVariants = createContext<Variants | null>(null)
 
-const tags = { div: motion.div, ul: motion.ul, ol: motion.ol, section: motion.section } as const
-const itemTags = { div: motion.div, li: motion.li, article: motion.article } as const
+const tags = { div: m.div, ul: m.ul, ol: m.ol, section: m.section } as const
+const itemTags = { div: m.div, li: m.li, article: m.article } as const
 
 export interface StaggerProps {
   children: ReactNode

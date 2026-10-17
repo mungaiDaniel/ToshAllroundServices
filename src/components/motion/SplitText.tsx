@@ -1,14 +1,14 @@
-import { motion, type Variants } from 'framer-motion'
+import { m, type Variants } from 'framer-motion'
 import { useMemo } from 'react'
 import { useMotionPrefs } from '../../hooks/useMotionPrefs'
 import { blur, distance, duration, ease, stagger, viewport } from '../../lib/motion'
 
 const tags = {
-  h1: motion.h1,
-  h2: motion.h2,
-  h3: motion.h3,
-  p: motion.p,
-  div: motion.div,
+  h1: m.h1,
+  h2: m.h2,
+  h3: m.h3,
+  p: m.p,
+  div: m.div,
 } as const
 
 export interface SplitTextProps {
@@ -72,17 +72,17 @@ export default function SplitText({ text, as = 'h2', by = 'words', delay = 0, cl
     >
       {by === 'lines'
         ? lines.map((line, i) => (
-            <motion.span key={i} aria-hidden="true" className="block" variants={piece}>
+            <m.span key={i} aria-hidden="true" className="block" variants={piece}>
               {line}
-            </motion.span>
+            </m.span>
           ))
         : lines.map((line, li) => (
             <span key={li} aria-hidden="true" className="block">
               {line.split(/\s+/).map((word, wi, arr) => (
                 <span key={wi}>
-                  <motion.span className="inline-block" variants={piece}>
+                  <m.span className="inline-block" variants={piece}>
                     {word}
-                  </motion.span>
+                  </m.span>
                   {wi < arr.length - 1 ? ' ' : null}
                 </span>
               ))}

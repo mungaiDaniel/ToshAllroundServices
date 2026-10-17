@@ -1,4 +1,4 @@
-import { motion, useMotionValue, useSpring } from 'framer-motion'
+import { m, useMotionValue, useSpring } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { useMotionPrefs } from '../../hooks/useMotionPrefs'
 import { cursor, features, spring } from '../../lib/motion'
@@ -37,7 +37,7 @@ export default function CustomCursor() {
 
   const size = hover ? cursor.ringHover : cursor.ring
   return (
-    <motion.div
+    <m.div
       aria-hidden="true"
       className="pointer-events-none fixed left-0 top-0 z-[70] rounded-full border border-emerald/70 bg-emerald/10 mix-blend-normal"
       style={{

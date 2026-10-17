@@ -2,10 +2,91 @@
 <html lang="de">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#070b1a" />
-    <title>Tosh Allround Services</title>
+
+    <!-- Icons -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!--
+      SEO tags below are the German defaults. At build time `scripts/prerender.mjs` writes a copy of this file
+      per page (dist/kontakt/index.html, ...) with that page's title/description/canonical from
+      src/i18n/seo.json, so crawlers and link previews see the right text without running JavaScript.
+      In the browser, src/hooks/useRouteMeta.ts keeps them in sync with the page and the chosen language.
+    -->
+    <title>Professionelle Reinigung in Berlin | Tosh Allround Services</title>
+    <meta
+      name="description"
+      content="Zuverlässige Reinigung in Berlin: Wohnung, Büro, Laden, Treppenhaus und IT-Geräte. Tosh Allround Services – Ihr Raum, unsere Sorgfalt, unser Versprechen!"
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://toshallroundservices.de/" />
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Tosh Allround Services" />
+    <meta property="og:locale" content="de_DE" />
+    <meta property="og:title" content="Professionelle Reinigung in Berlin | Tosh Allround Services" />
+    <meta
+      property="og:description"
+      content="Zuverlässige Reinigung in Berlin: Wohnung, Büro, Laden, Treppenhaus und IT-Geräte. Tosh Allround Services – Ihr Raum, unsere Sorgfalt, unser Versprechen!"
+    />
+    <meta property="og:url" content="https://toshallroundservices.de/" />
+    <meta property="og:image" content="https://toshallroundservices.de/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Tosh Allround Services – Professionelle Reinigung in Berlin" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Professionelle Reinigung in Berlin | Tosh Allround Services" />
+    <meta
+      name="twitter:description"
+      content="Zuverlässige Reinigung in Berlin: Wohnung, Büro, Laden, Treppenhaus und IT-Geräte. Tosh Allround Services – Ihr Raum, unsere Sorgfalt, unser Versprechen!"
+    />
+    <meta name="twitter:image" content="https://toshallroundservices.de/og-image.jpg" />
+
+    <!--
+      Structured data (LocalBusiness). Keep in sync with src/data/site.ts (address, phone, email, domain).
+      Opening hours are intentionally NOT included until the real hours are known.
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "@id": "https://toshallroundservices.de/#business",
+        "name": "Tosh Allround Services",
+        "description": "Professionelle Reinigung in Berlin: Wohnungs- und Hausreinigung, Büroreinigung, Laden- und Geschäftsreinigung, Treppenhausreinigung sowie IT- und Bürogerätereinigung.",
+        "url": "https://toshallroundservices.de/",
+        "image": "https://toshallroundservices.de/og-image.jpg",
+        "logo": "https://toshallroundservices.de/icon-512.png",
+        "telephone": "+491788779695",
+        "email": "toshdigitals2024@gmail.com",
+        "slogan": "Ihr Raum, unsere Sorgfalt, unser Versprechen!",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Richard-Strauss-Straße 34",
+          "postalCode": "14193",
+          "addressLocality": "Berlin",
+          "addressCountry": "DE"
+        },
+        "areaServed": { "@type": "City", "name": "Berlin" },
+        "knowsLanguage": ["de", "en"],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Reinigungsleistungen",
+          "itemListElement": [
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Wohnungs- & Hausreinigung" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Büroreinigung" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Laden- & Geschäftsreinigung" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Treppenhausreinigung" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "IT- & Bürogerätereinigung" } }
+          ]
+        }
+      }
+    </script>
+
     <noscript>
       <style>
         /* Never hide content if scripts fail */
