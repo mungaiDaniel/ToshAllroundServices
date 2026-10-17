@@ -1,0 +1,296 @@
+@import '@fontsource/jetbrains-mono/400.css';
+@import '@fontsource/jetbrains-mono/500.css';
+@import '@fontsource/jetbrains-mono/700.css';
+@import '@fontsource/jetbrains-mono/800.css';
+@import 'tailwindcss';
+
+@theme {
+  /* Dark surfaces */
+  --color-night: #070b1a;
+  --color-night-2: #0b1226;
+  --color-surface: #111830;
+
+  /* Accents */
+  --color-emerald: #10b981;
+  --color-emerald-deep: #047857; /* emerald text on light backgrounds (contrast) */
+  --color-periwinkle: #7c8fd6; /* eyebrow labels on dark */
+
+  /* Light surfaces and text */
+  --color-mint: #ecfdf5;
+  --color-ink: #0f172a;
+  --color-ink-muted: #475569;
+  --color-snow: #f8fafc;
+  --color-mist: #94a3b8;
+
+  /* Fonts – change --font-body to switch paragraphs (e.g. to 'Inter') */
+  --font-body: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-heading: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --shadow-soft: 0 10px 40px rgb(15 23 42 / 0.08);
+  --shadow-glass: 0 20px 60px rgb(0 0 0 / 0.35);
+  --shadow-glow: 0 0 0 1px rgb(16 185 129 / 0.35), 0 12px 50px rgb(16 185 129 / 0.35);
+
+  --animate-drift: drift 28s ease-in-out infinite alternate;
+}
+
+:root {
+  --glow: rgba(16, 185, 129, 0.35);
+  --border-dark: rgba(255, 255, 255, 0.08);
+  /* set from src/lib/motion.ts */
+  --dur-fast: 0.25s;
+  --dur-base: 0.6s;
+  --dur-slow: 1.1s;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --drift: 32px;
+}
+
+@layer base {
+  html {
+    scroll-padding-top: 5rem;
+  }
+  body {
+    @apply bg-white font-body text-ink antialiased;
+    line-height: 1.7;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-heading font-bold text-ink;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+  }
+  p {
+    max-width: 65ch;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-emerald);
+    outline-offset: 3px;
+  }
+}
+
+/* ---------- Lenis ---------- */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* ---------- Surfaces ---------- */
+@layer components {
+  .section-dark {
+    @apply relative isolate overflow-hidden bg-night text-snow;
+  }
+  .section-dark p {
+    @apply text-mist;
+  }
+  .section-dark h1,
+  .section-dark h2,
+  .section-dark h3,
+  .section-dark h4 {
+    @apply text-snow;
+  }
+  .section-light {
+    @apply bg-white text-ink;
+  }
+  .section-mint {
+    @apply bg-mint text-ink;
+  }
+
+  .glass {
+    @apply relative rounded-3xl border border-white/[0.08] bg-surface/60 shadow-glass backdrop-blur-md;
+    transition:
+      box-shadow var(--dur-base) var(--ease-out),
+      border-color var(--dur-base) var(--ease-out),
+      transform var(--dur-base) var(--ease-out);
+  }
+  .glass:hover {
+    border-color: rgba(16, 185, 129, 0.45);
+    box-shadow:
+      0 0 0 1px rgba(16, 185, 129, 0.25),
+      0 18px 60px var(--glow);
+  }
+  .glass-specialty {
+    border-color: rgba(16, 185, 129, 0.55);
+    box-shadow:
+      0 0 0 1px rgba(16, 185, 129, 0.35),
+      0 18px 70px var(--glow);
+    background-image: linear-gradient(160deg, rgba(16, 185, 129, 0.14), transparent 55%);
+  }
+
+  .card-light {
+    @apply relative rounded-3xl border border-slate-900/5 bg-white shadow-soft;
+    transition:
+      box-shadow var(--dur-base) var(--ease-out),
+      transform var(--dur-base) var(--ease-out);
+  }
+  .card-light:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 50px rgba(15, 23, 42, 0.12);
+  }
+
+  /* ---------- Buttons & links ---------- */
+  .btn {
+    @apply relative inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-bold select-none;
+    transition:
+      transform var(--dur-fast) var(--ease-out),
+      box-shadow var(--dur-base) var(--ease-out),
+      background-color var(--dur-fast) var(--ease-out),
+      border-color var(--dur-fast) var(--ease-out);
+  }
+  .btn:hover {
+    transform: translateY(-2px);
+  }
+  .btn:active {
+    transform: translateY(0) scale(0.97);
+  }
+  .btn-primary {
+    @apply bg-emerald text-night;
+  }
+  .btn-primary:hover {
+    box-shadow: 0 10px 36px var(--glow);
+  }
+  .btn-dark {
+    @apply bg-night text-snow;
+  }
+  .btn-dark:hover {
+    box-shadow: 0 10px 30px rgba(7, 11, 26, 0.35);
+  }
+  .btn-ghost-dark {
+    @apply border border-white/20 text-snow;
+  }
+  .btn-ghost-dark:hover {
+    @apply border-emerald/60 bg-white/5;
+    box-shadow: 0 8px 30px var(--glow);
+  }
+  .btn-ghost-light {
+    @apply border border-ink/15 text-ink;
+  }
+  .btn-ghost-light:hover {
+    @apply border-emerald bg-mint;
+  }
+  .btn .btn-arrow {
+    transition: transform var(--dur-fast) var(--ease-out);
+  }
+  .btn:hover .btn-arrow {
+    transform: translateX(4px);
+  }
+
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0% 1.5px;
+    transition: background-size var(--dur-base) var(--ease-out);
+  }
+  .link-underline:hover,
+  .link-underline:focus-visible {
+    background-size: 100% 1.5px;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-xs font-medium uppercase text-periwinkle;
+    letter-spacing: 0.2em;
+  }
+  .eyebrow-light {
+    @apply text-emerald-deep;
+  }
+}
+
+/* ---------- Ambient animations (CSS, transform/opacity only) ---------- */
+@keyframes drift {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(var(--dx, 6%), var(--dy, -8%), 0) scale(1.12);
+  }
+}
+@keyframes float {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(var(--fx, 8px), var(--fy, -22px), 0);
+  }
+}
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: scale(0.6) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1) rotate(45deg);
+  }
+}
+@keyframes beam {
+  from {
+    transform: translate3d(-4%, 0, 0);
+    opacity: 0.65;
+  }
+  to {
+    transform: translate3d(4%, 0, 0);
+    opacity: 1;
+  }
+}
+@keyframes marquee {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+@keyframes wave {
+  to {
+    transform: translate3d(-25%, 0, 0);
+  }
+}
+@keyframes pulse-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  100% {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+}
+@keyframes gradient-shift {
+  to {
+    background-position: 200% 50%;
+  }
+}
+
+.anim {
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+[data-paused='true'] .anim {
+  animation-play-state: paused;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* Safety nets: reduced motion and "still" intensity */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+[data-motion='still'] *,
+[data-motion='still'] *::before,
+[data-motion='still'] *::after {
+  animation: none !important;
+  transition-duration: 0.01ms !important;
+}
