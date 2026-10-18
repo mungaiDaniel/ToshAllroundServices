@@ -8,7 +8,9 @@ import { useTranslation } from '../../hooks/useTranslation'
 import type { TranslationKey } from '../../i18n/LanguageContext'
 import { distance, duration, ease } from '../../lib/motion'
 import { getSupabase, supabaseConfigured } from '../../lib/supabase'
+import { whatsappHref } from '../../lib/whatsapp'
 import Button from '../Button'
+import WhatsAppIcon from '../icons/WhatsAppIcon'
 import { Stagger, StaggerItem } from '../motion/Stagger'
 
 type FieldName = 'name' | 'email' | 'phone' | 'service' | 'message' | 'consent'
@@ -33,39 +35,6 @@ function validate(v: Values): Errors {
   if (v.message.trim().length < MIN_MESSAGE) e.message = 'contact.form.errors.message'
   if (!v.consent) e.consent = 'contact.form.errors.consent'
   return e
-}
-
-/** Sends the enquiry to the owner's inbox via Web3Forms. Throws on any failure. */
-async function sendToWeb3Forms(v: Values, service: string, language: string, botcheck: boolean) {
-  const key = import.meta.env.VITE_WEB3FORMS_KEY
-  if (!key) throw new Error('VITE_WEB3FORMS_KEY is not set (see .env.example)')
-
-  const ctrl = new AbortController()
-  const timer = setTimeout(() => ctrl.abort(), TIMEOUT_MS)
-  try {
-    const res = await fetch('https://api.web3forms.com/submit', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify({
-        access_key: key,
-        subject: `Neue Kontaktanfrage – ${service}`,
-        from_name: 'Website Tosh Allround Services',
-        name: v.name.trim(),
-        email: v.email.trim(),
-        phone: v.phone.trim() || '–',
-        service,
-        message: v.message.trim(),
-        sprache: language,
-        datenschutz_zugestimmt: 'Ja',
-        botcheck,
-      }),
-      signal: ctrl.signal,
-    })
-    const data = (await res.json()) as { success?: boolean; message?: string }
-    if (!res.ok || !data.success) throw new Error(data.message ?? `HTTP ${res.status}`)
-  } finally {
-    clearTimeout(timer)
-  }
 }
 
 /** Stores the enquiry in the Supabase `messages` table (the database only allows INSERT for visitors). */
@@ -173,7 +142,7 @@ function Celebration() {
 }
 
 export default function ContactForm() {
-  const { t, language } = useTranslation()
+  const { t } = useTranslation()
   const site = useSite()
   const { services } = useServices()
   const uid = useId()
@@ -182,6 +151,7 @@ export default function ContactForm() {
   const [submitted, setSubmitted] = useState(false)
   const [status, setStatus] = useState<Status>('idle')
   const [debugReason, setDebugReason] = useState('')
+  const [waUrl, setWaUrl] = useState('')
   const honeypot = useRef<HTMLInputElement>(null)
   const successRef = useRef<HTMLDivElement>(null)
 
@@ -211,23 +181,42 @@ export default function ContactForm() {
     }
     setStatus('sending')
     try {
-      // the notification email and the database copy go to the (German-speaking) owner: always German labels
+      // the owner reads the enquiry in German: the service label is always German
       const serviceLabel =
         values.service === 'other'
           ? 'Sonstiges'
           : (services.find((x) => x.slug === values.service)?.titleDe ?? values.service)
       const bot = Boolean(honeypot.current?.checked)
-      const tasks: Promise<unknown>[] = [sendToWeb3Forms(values, serviceLabel, language, bot)]
-      if (supabaseConfigured && !bot) tasks.push(saveToSupabase(values, serviceLabel))
-      const results = await Promise.allSettled(tasks)
-      const failed = results.filter((r): r is PromiseRejectedResult => r.status === 'rejected')
-      failed.forEach((r) => console.warn('[contact form]', r.reason?.message ?? r.reason))
-      // success as soon as the message reached at least one place (email inbox or database)
-      if (failed.length === results.length) throw failed[0].reason
+
+      // 1. keep a copy in the database (the owner's inbox in the admin). A failure must not lose the enquiry:
+      //    the visitor can still send it through WhatsApp.
+      if (supabaseConfigured && !bot) {
+        try {
+          await saveToSupabase(values, serviceLabel)
+        } catch (err) {
+          console.warn('[contact form]', err instanceof Error ? err.message : err)
+        }
+      }
+
+      // 2. open WhatsApp with the enquiry already typed in; the visitor only has to tap "send"
+      const lines = [
+        t('contact.form.whatsappIntro'),
+        '',
+        `${t('contact.form.name')}: ${values.name.trim()}`,
+        `${t('contact.form.service')}: ${serviceLabel}`,
+        `${t('contact.form.email')}: ${values.email.trim()}`,
+        ...(values.phone.trim() ? [`${t('contact.form.phone')}: ${values.phone.trim()}`] : []),
+        '',
+        values.message.trim(),
+      ]
+      const url = whatsappHref(lines.join('\n'), site.whatsapp.href)
+      setWaUrl(url)
       setStatus('success')
       setValues(EMPTY)
       setTouched({})
       setSubmitted(false)
+      // may be blocked by the browser (it is no longer a direct tap); the success screen has the button as fallback
+      if (!bot) window.open(url, '_blank', 'noopener,noreferrer')
       requestAnimationFrame(() => successRef.current?.focus())
     } catch (err) {
       setDebugReason(err instanceof Error ? err.message : String(err))
@@ -246,7 +235,11 @@ export default function ContactForm() {
         <Celebration />
         <h2 className="mt-6 text-2xl">{t('contact.form.success.title')}</h2>
         <p className="mx-auto mt-3 text-ink-muted">{t('contact.form.success.text')}</p>
-        <Button variant="ghost-light" className="mt-8" onClick={() => setStatus('idle')}>
+        <Button href={waUrl} variant="primary" className="mt-8">
+          <WhatsAppIcon size={18} />
+          {t('contact.form.success.whatsapp')}
+        </Button>
+        <Button variant="ghost-light" className="mt-4" onClick={() => setStatus('idle')}>
           {t('contact.form.success.again')}
         </Button>
       </div>
@@ -397,7 +390,7 @@ export default function ContactForm() {
         </StaggerItem>
       </Stagger>
 
-      {/* honeypot for bots (Web3Forms "botcheck"): hidden from people and assistive tech */}
+      {/* honeypot for bots: hidden from people and assistive tech */}
       <input
         ref={honeypot}
         type="checkbox"

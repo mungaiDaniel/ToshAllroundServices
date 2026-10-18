@@ -31,7 +31,6 @@ You do this once, in about 20 minutes.
    VITE_SUPABASE_URL=https://abcdefgh.supabase.co
    VITE_SUPABASE_ANON_KEY=eyJ...
    SUPABASE_SERVICE_ROLE_KEY=eyJ...
-   VITE_WEB3FORMS_KEY=...            (from the contact form setup)
    ```
    `.env` is git-ignored, so it is never uploaded to GitHub.
 
@@ -88,7 +87,7 @@ After seeding you can delete `SUPABASE_SERVICE_ROLE_KEY` from `.env`.
 ## 6. Put the keys on Vercel
 
 Vercel → your project → **Settings → Environment Variables**: add `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`
-(and `VITE_WEB3FORMS_KEY`). Then **Redeploy** (Vite bakes the values in at build time). Do **not** add the service_role key.
+. Then **Redeploy** (Vite bakes the values in at build time). Do **not** add the service_role key.
 
 ## 7. Delete contact messages after 12 months (privacy)
 
@@ -155,5 +154,5 @@ Changes appear on the website for new visitors within moments; returning visitor
 
 - **The site shows old content / the built-in content:** check `.env` / Vercel variables, that you ran the SQL and the seed, and the browser console (a message starting with `[content]` explains why the fallback is used).
 - **Seed says "Did you run 001_init.sql first?":** run step 3.
-- **Contact messages do not arrive in `messages`:** the email (Web3Forms) still works as a backup. Check the SQL ran without errors and that the message was at least 10 characters.
+- **Contact messages do not arrive in `messages`:** the form still opens WhatsApp with the prefilled message, so no enquiry is lost. Check the SQL ran without errors and that the message was at least 10 characters.
 - **Changing security rules:** edit `supabase/migrations/001_init.sql`, run `npm run test:db` (66 automatic checks), then run the file again in the SQL editor.

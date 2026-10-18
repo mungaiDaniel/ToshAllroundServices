@@ -268,7 +268,8 @@ const de = {
       messagePlaceholder: 'Wie können wir Ihnen helfen? z. B. Art und Größe der Räume, gewünschter Rhythmus …',
       consent: 'Ich habe die {link} gelesen und bin damit einverstanden, dass meine Angaben zur Bearbeitung meiner Anfrage verarbeitet werden. *',
       privacyLink: 'Datenschutzerklärung',
-      transmitNote: 'Ihre Nachricht wird über den Dienst Web3Forms an uns übermittelt.',
+      transmitNote: 'Wir speichern Ihre Anfrage und öffnen danach WhatsApp mit Ihrer vorbereiteten Nachricht. Gesendet wird sie erst, wenn Sie dort auf „Senden“ tippen.',
+      whatsappIntro: 'Hallo Tosh Allround Services, ich habe eine Anfrage über Ihre Website:',
       submit: 'Nachricht senden',
       sending: 'Wird gesendet …',
       errors: {
@@ -283,7 +284,8 @@ const de = {
       },
       success: {
         title: 'Vielen Dank für Ihre Nachricht!',
-        text: 'Wir haben Ihre Anfrage erhalten und melden uns so bald wie möglich bei Ihnen.',
+        text: 'Ihre Anfrage ist gespeichert. Bitte tippen Sie in WhatsApp auf „Senden“, damit wir Ihre Nachricht sofort sehen. Hat sich WhatsApp nicht geöffnet, nutzen Sie den Knopf unten.',
+        whatsapp: 'In WhatsApp senden',
         again: 'Weitere Nachricht senden',
       },
       error: {

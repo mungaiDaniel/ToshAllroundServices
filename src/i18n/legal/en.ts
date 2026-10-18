@@ -125,12 +125,12 @@ const en: LegalTexts = {
       },
       {
         id: 'kontaktformular',
-        heading: '5. Contact form (Web3Forms)',
+        heading: '5. Contact form',
         blocks: [
-          'If you send us an enquiry via the contact form, we process the data you enter: name, email address, optionally your phone number, the selected service and your message, as well as your consent to this privacy policy. We use this data solely to handle your enquiry and to contact you. Your message is stored in our database at Supabase (EU, Frankfurt – see section 4) and also delivered to us by email.',
-          'To transmit the form we use the service Web3Forms (web3forms.com) [add provider details and address from Web3Forms’ privacy policy]. When you submit the form, your input is transmitted to Web3Forms and forwarded from there by email to our inbox. Web3Forms may process technical data such as your IP address in the process. A transfer to third countries, in particular the USA, is possible [please check: safeguards / standard contractual clauses]. A [please check: data processing agreement with Web3Forms] is in place.',
+          'If you send us an enquiry via the contact form, we process the data you enter: name, email address, optionally your phone number, the selected service and your message, as well as your consent to this privacy policy. We use this data solely to handle your enquiry and to contact you. Your message is stored in our database at Supabase (EU, Frankfurt – see section 4).',
+          'After you submit, we open WhatsApp (wa.me) with your message ready. At this point your details are only inserted into the link that opens in your browser or WhatsApp app. They are only transmitted to WhatsApp when you yourself tap “Send” there; WhatsApp’s privacy terms then apply (see section 6). You can stop at this point; your enquiry remains stored in our database and we can contact you via the email address or phone number you gave.',
           'The legal basis is your consent (Art. 6 (1) (a) GDPR), which you give by ticking the box in the form, and – if your enquiry aims at a contract – Art. 6 (1) (b) GDPR. You can withdraw your consent at any time with effect for the future (see section 10).',
-          'Messages from the contact form are automatically deleted from the database 12 months after they are received [please check: automatic deletion is active in Supabase, see SUPABASE_SETUP.md]. We delete emails in our inbox once the enquiry is dealt with, unless statutory retention obligations apply (e.g. for contracts that were concluded).',
+          'Messages from the contact form are automatically deleted from the database 12 months after they are received [please check: automatic deletion is active in Supabase, see SUPABASE_SETUP.md]. Messages that reach us via WhatsApp are deleted once the enquiry is dealt with, unless statutory retention obligations apply (e.g. for contracts that were concluded).',
         ],
       },
       {

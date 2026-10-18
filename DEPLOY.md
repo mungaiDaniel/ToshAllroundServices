@@ -21,7 +21,6 @@
 2. **Add New… → Project → Import** `tosh-allround-services`.
 3. Vercel detects **Vite** automatically. Check: Build Command `npm run build`, Output Directory `dist`. Leave the rest.
 4. Open **Environment Variables** and add (Production and Preview):
-   - `VITE_WEB3FORMS_KEY` = your Web3Forms access key
    - `VITE_SUPABASE_URL` = your Supabase project URL
    - `VITE_SUPABASE_ANON_KEY` = your Supabase anon (public) key
    - Do **not** add the `service_role` key. Set up Supabase first: see [SUPABASE_SETUP.md](SUPABASE_SETUP.md).
@@ -61,7 +60,7 @@
 
 - [ ] Replace every `[bracketed]` placeholder in **Impressum** and **Datenschutz**, and have a legal generator or lawyer review them (see `src/i18n/legal/`). The yellow draft notice disappears once none are left.
 - [ ] Set the real opening hours in `src/data/site.ts` (`hours`).
-- [ ] Web3Forms + Supabase: add the keys (step 2.4), send a test message and check it arrives by email **and** in the Supabase `messages` table.
+- [ ] Contact form: send a test message on the live site. It must appear in the admin under Nachrichten and open WhatsApp with the text prefilled (the visitor then taps Send).
 - [ ] Supabase: pg_cron deletion of old messages is active (SUPABASE_SETUP.md step 7), sign-ups are disabled, Daniel can log in.
 - [ ] Admin panel (`/admin`): Supabase Auth URL configuration + SMTP done (SUPABASE_SETUP.md step 8); log in on a phone, upload a photo, change an opening hour, use "Passwort vergessen?"; send Daniel ADMIN_GUIDE.md. Check that `https://toshallroundservices.de/admin` answers with the header `X-Robots-Tag: noindex` and is not in the sitemap.
 - [ ] Replace remaining stock photos (marked in `src/data/` and `public/images/CREDITS.md`).

@@ -270,7 +270,8 @@ const en: Translations = {
       messagePlaceholder: 'How can we help? e.g. type and size of the rooms, preferred schedule …',
       consent: 'I have read the {link} and agree that my details are processed to handle my enquiry. *',
       privacyLink: 'Privacy Policy',
-      transmitNote: 'Your message is sent to us via the Web3Forms service.',
+      transmitNote: 'We save your enquiry and then open WhatsApp with your message ready. It is only sent once you tap “Send” there.',
+      whatsappIntro: 'Hello Tosh Allround Services, I have an enquiry via your website:',
       submit: 'Send message',
       sending: 'Sending …',
       errors: {
@@ -285,7 +286,8 @@ const en: Translations = {
       },
       success: {
         title: 'Thank you for your message!',
-        text: 'We have received your enquiry and will get back to you as soon as possible.',
+        text: 'Your enquiry is saved. Please tap “Send” in WhatsApp so we see your message straight away. If WhatsApp did not open, use the button below.',
+        whatsapp: 'Send in WhatsApp',
         again: 'Send another message',
       },
       error: {
