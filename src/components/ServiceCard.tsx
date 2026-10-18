@@ -1,6 +1,6 @@
 import { ArrowRight, Building2, Home, Layers, Monitor, Sparkles, Store, type LucideIcon } from 'lucide-react'
 import { Link } from 'react-router-dom'
-import type { Service } from '../data/site'
+import type { ServiceView } from '../data/content/types'
 import { useTranslation } from '../hooks/useTranslation'
 import Photo from './Photo'
 
@@ -9,10 +9,10 @@ const zoom =
   'transition-transform [transition-duration:var(--dur-slow)] [transition-timing-function:var(--ease-out)] group-hover:scale-105'
 
 /** Service teaser. The specialty (IT & office equipment) is wide, dark and glowing, with a badge. */
-export default function ServiceCard({ service }: { service: Service }) {
+export default function ServiceCard({ service }: { service: ServiceView }) {
   const { t } = useTranslation()
   const Icon = icons[service.icon] ?? Sparkles
-  const title = t(`services.${service.id}.title`)
+  const title = service.title
 
   if (service.specialty) {
     return (
@@ -29,7 +29,7 @@ export default function ServiceCard({ service }: { service: Service }) {
             <Icon size={26} className="shrink-0 text-sky" aria-hidden="true" />
             {title}
           </h3>
-          <p className="mt-3 text-sm !text-mist lg:mt-5 lg:text-base">{t(`services.${service.id}.description`)}</p>
+          <p className="mt-3 text-sm !text-mist lg:mt-5 lg:text-base">{service.description}</p>
           <Link
             to="/leistungen"
             aria-label={`${t('common.learnMore')}: ${title}`}
@@ -53,7 +53,8 @@ export default function ServiceCard({ service }: { service: Service }) {
           <Icon size={22} aria-hidden="true" />
         </span>
         <h3 className="mt-4 text-xl">{title}</h3>
-        <p className="mt-2 text-sm text-ink-muted">{t(`services.${service.id}.description`)}</p>
+        {service.priceFrom && <p className="mt-1 text-sm font-bold text-brand">{service.priceFrom}</p>}
+        <p className="mt-2 text-sm text-ink-muted">{service.description}</p>
         <Link
           to="/leistungen"
           aria-label={`${t('common.learnMore')}: ${title}`}

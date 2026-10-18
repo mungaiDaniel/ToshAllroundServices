@@ -227,7 +227,7 @@ const de = {
   },
   servicesPage: {
     eyebrow: 'Was wir für Sie tun',
-    title: 'Fünf Leistungen, ein Anspruch: Sorgfalt',
+    title: 'Unsere Leistungen, ein Anspruch: Sorgfalt',
     text: 'Ob Zuhause, Büro, Laden, Treppenhaus oder Arbeitsplatz-Technik: Hier sehen Sie, was wir für Sie übernehmen – und was jeweils enthalten ist.',
     included: 'Das ist enthalten',
     quote: 'Angebot per WhatsApp anfragen',
@@ -319,6 +319,12 @@ const de = {
     text: 'Der Link ist vielleicht veraltet oder die Adresse falsch geschrieben. Zurück zur Startseite finden Sie schnell, was Sie suchen.',
     home: 'Zur Startseite',
   },
+  testimonials: {
+    eyebrow: 'Kundenstimmen',
+    title: 'Das sagen unsere Kunden',
+    stars: '{n} von 5 Sternen',
+  },
+  announcement: { label: 'Hinweis', dismiss: 'Hinweis schließen' },
   pages: {
     home: { title: 'Willkommen' },
     about: { title: 'Über uns' },

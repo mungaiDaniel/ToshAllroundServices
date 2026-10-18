@@ -1,20 +1,19 @@
 import { AnimatePresence } from 'framer-motion'
 import { BadgeCheck, FileText, Maximize2 } from 'lucide-react'
 import { useState, type MouseEvent } from 'react'
-import type { Certificate } from '../../data/site'
+import type { CertificateView } from '../../data/content/types'
 import { useTranslation } from '../../hooks/useTranslation'
-import type { TranslationKey } from '../../i18n/LanguageContext'
 import Button from '../Button'
 import Eyebrow from '../Eyebrow'
 import TiltCard from '../motion/TiltCard'
 import CertificateLightbox from './CertificateLightbox'
 
 /** Framed "document card" for one certificate: tilt on hover, click opens the zoomable viewer, plus a PDF button. */
-export default function CertificateViewer({ certificate }: { certificate: Certificate }) {
+export default function CertificateViewer({ certificate }: { certificate: CertificateView }) {
   const { t } = useTranslation()
   const [origin, setOrigin] = useState<{ x: number; y: number } | null>(null)
-  const key = (name: 'title' | 'institution' | 'alt') =>
-    `founder.certificates.${certificate.id}.${name}` as TranslationKey
+  // a certificate added in the admin as PDF only has no picture
+  const hasImage = Boolean(certificate.thumb.src)
 
   const open = (e: MouseEvent<HTMLButtonElement>) => {
     const r = e.currentTarget.getBoundingClientRect()
@@ -27,17 +26,18 @@ export default function CertificateViewer({ certificate }: { certificate: Certif
         {t('founder.certificates.eyebrow')}
       </Eyebrow>
 
+      {hasImage ? (
       <TiltCard className="relative mt-3 rounded-2xl">
         <button
           type="button"
           onClick={open}
           aria-haspopup="dialog"
-          aria-label={`${t('founder.certificates.open')}: ${t(key('title'))}`}
+          aria-label={`${t('founder.certificates.open')}: ${certificate.title}`}
           className="group/doc relative block w-full cursor-zoom-in rounded-2xl border border-slate-900/10 bg-white p-2 shadow-[0_2px_4px_rgb(15_23_42/0.06),0_14px_34px_rgb(15_23_42/0.14)] transition-shadow [transition-duration:var(--dur-base)] hover:shadow-[0_2px_4px_rgb(15_23_42/0.06),0_22px_50px_rgb(15_23_42/0.2),0_0_40px_var(--glow)]"
         >
           <img
             src={certificate.thumb.src}
-            alt={t(key('alt'))}
+            alt={certificate.alt}
             width={certificate.thumb.width}
             height={certificate.thumb.height}
             loading="lazy"
@@ -52,17 +52,24 @@ export default function CertificateViewer({ certificate }: { certificate: Certif
           </span>
         </button>
       </TiltCard>
+      ) : (
+        <div className="mt-3 flex aspect-[3/4] w-full items-center justify-center rounded-2xl border border-slate-900/10 bg-white text-brand shadow-soft">
+          <FileText size={44} aria-hidden="true" />
+        </div>
+      )}
 
       <figcaption className="mt-4">
-        <p className="text-sm font-bold text-ink">{t(key('title'))}</p>
+        <p className="text-sm font-bold text-ink">{certificate.title}</p>
         <p className="mt-1 text-xs text-ink-muted">
-          {t(key('institution'))} · {certificate.year}
+          {certificate.institution} · {certificate.year}
         </p>
-        <p className="mt-1 text-xs text-ink-muted">{t('founder.certificates.enlarge')}</p>
-        <Button href={certificate.pdf} variant="ghost-light" className="mt-4 w-full !px-4 !py-2.5 !text-xs">
-          <FileText size={14} aria-hidden="true" />
-          {t('founder.certificates.pdf')}
-        </Button>
+        {hasImage && <p className="mt-1 text-xs text-ink-muted">{t('founder.certificates.enlarge')}</p>}
+        {certificate.pdf && (
+          <Button href={certificate.pdf} variant="ghost-light" className="mt-4 w-full !px-4 !py-2.5 !text-xs">
+            <FileText size={14} aria-hidden="true" />
+            {t('founder.certificates.pdf')}
+          </Button>
+        )}
       </figcaption>
 
       <AnimatePresence>

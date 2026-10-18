@@ -2,10 +2,9 @@ import { m } from 'framer-motion'
 import { FileText, RotateCcw, X, ZoomIn, ZoomOut } from 'lucide-react'
 import { useCallback, useEffect, useRef, useState, type PointerEvent, type WheelEvent } from 'react'
 import { createPortal } from 'react-dom'
-import type { Certificate } from '../../data/site'
+import type { CertificateView } from '../../data/content/types'
 import { useMotionPrefs } from '../../hooks/useMotionPrefs'
 import { useTranslation } from '../../hooks/useTranslation'
-import type { TranslationKey } from '../../i18n/LanguageContext'
 import { duration, spring } from '../../lib/motion'
 
 const MAX_SCALE = 4
@@ -21,7 +20,7 @@ interface View {
 const clamp = (v: number, min: number, max: number) => Math.min(max, Math.max(min, v))
 
 export interface CertificateLightboxProps {
-  certificate: Certificate
+  certificate: CertificateView
   /** viewport point (px) the viewer scales open from */
   origin: { x: number; y: number }
   onClose: () => void
@@ -44,7 +43,6 @@ export default function CertificateLightbox({ certificate, origin, onClose }: Ce
   const pointers = useRef(new Map<number, { x: number; y: number }>())
   const gesture = useRef({ startDist: 0, startScale: 1, moved: 0, pinched: false })
 
-  const key = (name: 'title' | 'alt') => `founder.certificates.${certificate.id}.${name}` as TranslationKey
 
   /** keep the zoomed image from being dragged away from the stage */
   const constrain = useCallback((v: View): View => {
@@ -182,7 +180,7 @@ export default function CertificateLightbox({ certificate, origin, onClose }: Ce
       exit={{ opacity: 0, transition: { duration: duration.fast } }}
     >
       <div className="relative z-10 flex items-center justify-between gap-3 p-4">
-        <p className="min-w-0 truncate text-sm font-bold text-snow">{t(key('title'))}</p>
+        <p className="min-w-0 truncate text-sm font-bold text-snow">{certificate.title}</p>
         <div className="flex shrink-0 items-center gap-2">
           <button type="button" onClick={() => zoomBy(1 / 1.5)} disabled={view.scale <= 1} aria-label={t('founder.certificates.zoomOut')} className={tool}>
             <ZoomOut size={20} aria-hidden="true" />
@@ -193,9 +191,9 @@ export default function CertificateLightbox({ certificate, origin, onClose }: Ce
           <button type="button" onClick={reset} disabled={view.scale === 1} aria-label={t('founder.certificates.zoomReset')} className={`${tool} hidden sm:flex`}>
             <RotateCcw size={18} aria-hidden="true" />
           </button>
-          <a href={certificate.pdf} target="_blank" rel="noopener noreferrer" aria-label={t('founder.certificates.pdf')} className={tool}>
+          {certificate.pdf && <a href={certificate.pdf} target="_blank" rel="noopener noreferrer" aria-label={t('founder.certificates.pdf')} className={tool}>
             <FileText size={20} aria-hidden="true" />
-          </a>
+          </a>}
           <button ref={closeBtn} type="button" onClick={onClose} aria-label={t('founder.certificates.close')} className={tool}>
             <X size={22} aria-hidden="true" />
           </button>
@@ -217,7 +215,7 @@ export default function CertificateLightbox({ certificate, origin, onClose }: Ce
         <img
           ref={img}
           src={certificate.full.src}
-          alt={t(key('alt'))}
+          alt={certificate.alt}
           width={certificate.full.width}
           height={certificate.full.height}
           draggable={false}

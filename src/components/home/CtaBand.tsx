@@ -1,5 +1,5 @@
 import { Phone } from 'lucide-react'
-import { site } from '../../data/site'
+import { useSite } from '../../data/content/hooks'
 import { useTranslation } from '../../hooks/useTranslation'
 import { useWhatsAppHref } from '../../hooks/useWhatsAppHref'
 import { loopDuration } from '../../lib/motion'
@@ -10,6 +10,7 @@ import Reveal from '../motion/Reveal'
 import SplitText from '../motion/SplitText'
 
 export default function CtaBand() {
+  const site = useSite()
   const { t } = useTranslation()
   const whatsapp = useWhatsAppHref()
   return (

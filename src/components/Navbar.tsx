@@ -4,7 +4,7 @@ import { useEffect, useRef, useState, type KeyboardEvent } from 'react'
 import { createPortal } from 'react-dom'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { navLinks } from '../data/nav'
-import { site } from '../data/site'
+import { useSite } from '../data/content/hooks'
 import { useMotionPrefs } from '../hooks/useMotionPrefs'
 import { useTranslation } from '../hooks/useTranslation'
 import { distance, duration, ease, stagger } from '../lib/motion'
@@ -14,6 +14,7 @@ import Button from './Button'
 const SCROLL_THRESHOLD = 16
 
 function Logo({ onClick }: { onClick?: () => void }) {
+  const site = useSite()
   const { t } = useTranslation()
   return (
     <Link
@@ -29,6 +30,7 @@ function Logo({ onClick }: { onClick?: () => void }) {
 }
 
 export default function Navbar() {
+  const site = useSite()
   const { t, language, toggleLanguage } = useTranslation()
   const { reduced } = useMotionPrefs()
   const { pathname } = useLocation()

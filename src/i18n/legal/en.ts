@@ -93,7 +93,7 @@ const en: LegalTexts = {
         id: 'ueberblick',
         heading: '2. Overview: no cookies, no tracking',
         blocks: [
-          'This website does not use cookies and does not use any analytics, tracking or advertising services. We do not automatically embed third-party content (such as maps, videos, font servers or social media plugins). For this reason, no cookie banner is required.',
+          'This website does not use cookies and does not use any analytics, tracking or advertising services. We do not automatically embed maps, videos, font servers or social media plugins. The texts and images of this website are loaded from our own database at Supabase (see section 4). No cookies are set, so no cookie banner is required.',
           'We process personal data only as described in the following sections.',
         ],
       },
@@ -113,18 +113,29 @@ const en: LegalTexts = {
         ],
       },
       {
-        id: 'kontaktformular',
-        heading: '4. Contact form (Web3Forms)',
+        id: 'datenbank',
+        heading: '4. Database and content (Supabase)',
         blocks: [
-          'If you send us an enquiry via the contact form, we process the data you enter: name, email address, optionally your phone number, the selected service and your message, as well as your consent to this privacy policy. We use this data solely to handle your enquiry and to contact you.',
+          'The content of this website (e.g. services, texts, photos, certificates and business details) is maintained in a database and loaded from there. For this we use the service Supabase [check and add provider details and address from Supabase’s privacy policy]. Our Supabase project is operated in the European Union (Frankfurt, Germany region).',
+          'When you open the website, your browser loads texts, images and documents directly from Supabase’s servers. Technically necessary connection data is processed in the process, in particular your IP address as well as the date, time and requested content. The legal basis is Art. 6 (1) (f) GDPR. Our legitimate interest is the reliable and secure delivery of the website content. No cookies are set, and visitors do not have to log in.',
+          'For faster display, your browser stores a copy of this content in local storage (see section 8). This copy contains no personal data about you.',
+          'Messages sent through the contact form are also stored in this database (see section 5). Access is restricted to the website operator by access rules (Row Level Security); visitors can only submit messages, not read, change or delete them.',
+          'Because Supabase Inc. is based outside the EU, access to data by the provider may constitute a transfer to a third country. It relies on [please check: EU Standard Contractual Clauses and/or certification under the EU-US Data Privacy Framework]. A [please check: data processing agreement (DPA) under Art. 28 GDPR, available in the Supabase dashboard] is in place with the provider.',
+        ],
+      },
+      {
+        id: 'kontaktformular',
+        heading: '5. Contact form (Web3Forms)',
+        blocks: [
+          'If you send us an enquiry via the contact form, we process the data you enter: name, email address, optionally your phone number, the selected service and your message, as well as your consent to this privacy policy. We use this data solely to handle your enquiry and to contact you. Your message is stored in our database at Supabase (EU, Frankfurt – see section 4) and also delivered to us by email.',
           'To transmit the form we use the service Web3Forms (web3forms.com) [add provider details and address from Web3Forms’ privacy policy]. When you submit the form, your input is transmitted to Web3Forms and forwarded from there by email to our inbox. Web3Forms may process technical data such as your IP address in the process. A transfer to third countries, in particular the USA, is possible [please check: safeguards / standard contractual clauses]. A [please check: data processing agreement with Web3Forms] is in place.',
-          'The legal basis is your consent (Art. 6 (1) (a) GDPR), which you give by ticking the box in the form, and – if your enquiry aims at a contract – Art. 6 (1) (b) GDPR. You can withdraw your consent at any time with effect for the future (see section 9).',
-          'We store your enquiry for as long as necessary to handle it and delete it afterwards [define retention period, e.g. 6 months after the enquiry is closed], unless statutory retention obligations apply.',
+          'The legal basis is your consent (Art. 6 (1) (a) GDPR), which you give by ticking the box in the form, and – if your enquiry aims at a contract – Art. 6 (1) (b) GDPR. You can withdraw your consent at any time with effect for the future (see section 10).',
+          'Messages from the contact form are automatically deleted from the database 12 months after they are received [please check: automatic deletion is active in Supabase, see SUPABASE_SETUP.md]. We delete emails in our inbox once the enquiry is dealt with, unless statutory retention obligations apply (e.g. for contracts that were concluded).',
         ],
       },
       {
         id: 'kontakt-direkt',
-        heading: '5. Contact by phone, email and WhatsApp',
+        heading: '6. Contact by phone, email and WhatsApp',
         blocks: [
           'If you call us or write us an email, we process your phone number or email address and the content of your message in order to answer your enquiry. The legal basis is Art. 6 (1) (b) GDPR (pre-contractual measures) or Art. 6 (1) (f) GDPR (legitimate interest in answering enquiries).',
           'This website contains links that open WhatsApp (wa.me). These are mere links: simply visiting our site does not transmit any data to WhatsApp. Only when you click such a link are you forwarded to WhatsApp. If you send us a message there, WhatsApp processes your data (including phone number, metadata and message content) under its own privacy terms. The provider is WhatsApp Ireland Limited / Meta Platforms Ireland Limited, Merrion Road, Dublin 4, D04 X2K5, Ireland. A transfer of data to the USA is possible. See whatsapp.com/legal/privacy-policy-eea. [Please confirm: the business’s use of WhatsApp or WhatsApp Business.]',
@@ -133,28 +144,28 @@ const en: LegalTexts = {
       },
       {
         id: 'schriftarten',
-        heading: '6. Fonts (self-hosted)',
+        heading: '7. Fonts (self-hosted)',
         blocks: [
           'This website uses the font “JetBrains Mono”. The font files are delivered from our own server (hosting see section 3) and are not loaded from external servers such as Google Fonts. No connection to third-party servers is made for this, and no data is transmitted to third parties.',
         ],
       },
       {
         id: 'speicher',
-        heading: '7. Local storage (language setting)',
+        heading: '8. Local storage (language setting and content cache)',
         blocks: [
-          'When you switch the website language (German/English), we save your choice in your browser’s local storage (localStorage) so that it is kept for your next visit. No personal data is stored, and the information does not leave your device. It is technically necessary to provide the function you requested (§ 25 (2) no. 2 TDDDG). You can delete the entry at any time in your browser settings.',
+          'When you switch the website language (German/English), we save your choice in your browser’s local storage (localStorage) so that it is kept for your next visit. No personal data is stored, and the information does not leave your device. It is technically necessary to provide the function you requested (§ 25 (2) no. 2 TDDDG). In addition, your browser stores a copy of the website content (texts and details from the database) so the page appears faster on your next visit. This copy contains no personal data. You can delete both entries at any time in your browser settings.',
         ],
       },
       {
         id: 'externe-links',
-        heading: '8. External links (e.g. Google Maps)',
+        heading: '9. External links (e.g. Google Maps)',
         blocks: [
           'We link our address with a simple link to Google Maps. No map is embedded. Only when you click the link does Google Maps open in a new tab, and Google processes data under its own privacy policy (policies.google.com/privacy). No data is transmitted to Google before you click.',
         ],
       },
       {
         id: 'rechte',
-        heading: '9. Your rights',
+        heading: '10. Your rights',
         blocks: [
           'Under the GDPR you have the following rights towards us as the controller:',
           [
@@ -172,14 +183,14 @@ const en: LegalTexts = {
       },
       {
         id: 'sicherheit',
-        heading: '10. Data security',
+        heading: '11. Data security',
         blocks: [
           'For security reasons this website uses SSL/TLS encryption. You can recognise an encrypted connection by “https://” in your browser’s address bar.',
         ],
       },
       {
         id: 'aktualitaet',
-        heading: '11. Currency and changes',
+        heading: '12. Currency and changes',
         blocks: [
           'We will update this privacy policy if the website or the legal requirements change. The version published here applies.',
           'Last updated: [enter date]',

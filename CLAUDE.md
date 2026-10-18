@@ -11,6 +11,7 @@ Tagline: "Your space, our care, our commitment!" (DE: "Ihr Raum, unsere Sorgfalt
 - Fonts self-hosted via @fontsource (NO Google Fonts CDN – GDPR requirement in Germany)
 - No embedded Google Maps or other third-party embeds without consent (GDPR). Use a "Open in Google Maps" link instead.
 - No cookies or tracking, so no cookie banner is needed.
+- Content backend: Supabase (EU / Frankfurt) with @supabase/supabase-js – see "Content architecture" below. The only third-party connections visitors make are to our own Supabase project (documented in the Datenschutz page).
 
 ## Languages
 - German is the default language, English via a DE/EN toggle in the navbar.
@@ -19,7 +20,7 @@ Tagline: "Your space, our care, our commitment!" (DE: "Ihr Raum, unsere Sorgfalt
 
 ## Pages
 Home, Über uns / About Us, Leistungen / Our Services, Galerie / Gallery, Kontakt / Contact,
-plus Impressum and Datenschutz (linked in footer).
+plus Impressum and Datenschutz (linked in footer). Plus the owner's admin panel at `/admin` (not linked, noindex) – see "Admin panel" below.
 A floating WhatsApp button on every page.
 
 ## Business details
@@ -75,7 +76,32 @@ Design principle: the hero is dark, cinematic and 3D. Inner sections are light (
 - Real photos of the owner: /images/team/ (portrait, each with a large file and a "-sm" file for phones). Use the Photo component (srcset + focal point), never stretch: crop with object-cover and a sensible object-position. Data and bilingual alt text live in src/data/site.ts (`photos`), gallery entries in src/data/gallery.ts (real photos first).
 - Stock photos are placeholders (marked `placeholder: true`, credited in public/images/CREDITS.md). Replace them with real photos when available.
 
+## Content architecture (Supabase)
+The client edits the website through Supabase (Table Editor + Storage); the site loads that content at runtime.
+- **Setup docs:** SUPABASE_SETUP.md (step by step). Schema + security: supabase/migrations/001_init.sql (paste into the SQL editor). Seed: `npm run seed` (scripts/seed-supabase.ts, uses the built-in content).
+- **Keys (.env, git-ignored; also set in Vercel):** `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` (public, safe in the browser). `SUPABASE_SERVICE_ROLE_KEY` is only for `npm run seed`, never a VITE_ variable, never committed.
+- **Tables:** gallery_photos (soft delete via deleted_at, before/after via before_after_pair_id), services, site_texts, business_info (single row), testimonials, certificates, cv_entries, messages (contact form). **Buckets:** `site-images` (images) and `documents` (PDFs), both public-read.
+- **Security (Row Level Security on every table):** visitors (anon) can only READ visible, non-deleted content and only INSERT into `messages` (length limits). Only the admin (a row in `admins`, created with `select public.make_admin('email')`) can write or read messages. Sign-ups are disabled; there is exactly one admin user. Security tests:  (supabase/tests/policies.test.mjs, 66 checks on a real Postgres engine) – re-run after ANY change to the migration or policies.
+- **Data flow:** one request `rpc get_public_content` returns all visible content as JSON. `src/data/content/`: `ContentProvider` (fetch after first paint, cache in localStorage `tosh-content-v1`, stale-while-revalidate), `fallback.ts` (the built-in static content, built from site.ts / gallery.ts / i18n; also the seed source), `normalize.ts` (rows → language-specific views), `hooks.ts` (`useServices`, `useGallery`, `useBusiness`, `useSite`, `useTestimonials`, `useCertificates`, `useCv`).
+- **Fallback:** if Supabase is not configured, unreachable, or not seeded, the site shows the built-in content from `src/data/site.ts`, `src/data/gallery.ts` and `src/i18n`. Keep those files in sync with the seed meaning: they are the safety net, not the primary source.
+- **Texts:** `site_texts.key` maps to a translation key through `textKeyMap` in fallback.ts (e.g. `hero_title` → `home.hero.title`); a non-empty DB value overrides the built-in translation. Unmapped keys are ignored. All other UI strings stay in src/i18n.
+- **Skeletons:** first-time visitors (no cache) see skeleton loaders (src/components/Skeletons.tsx) that mirror the real layout (same aspect ratios and min-heights, so no layout shift) for at most ~2.5 s, then the built-in content. Returning visitors get the cached content instantly. Never add a new DB-driven block without a matching skeleton.
+- **Contact form:** saves to `messages` AND sends the Web3Forms email; it succeeds if at least one of the two worked. The email/DB always use the German service title.
+- **Images:** DB paths are storage keys (`gallery/x.webp`) or local `/images/...` paths; `mediaUrl()` in src/lib/supabase.ts builds the public URL. Always store width/height (and an optional `_sm` file) so the layout does not shift.
+- **Privacy:** Datenschutz (src/i18n/legal) documents Supabase (EU hosting), IP processing when loading content, and deletion of messages after 12 months (pg_cron job in the migration). Update it whenever data handling changes.
+
+## Admin panel (/admin)
+Daniel (the owner, not technical, mostly on his phone) edits the site at `/admin`. Guide for him: ADMIN_GUIDE.md and `/admin/hilfe` (source: `src/admin/guide.ts`, keep both in step).
+- **Separate app inside the same build:** `src/admin/` is one lazy chunk (`{ path: '/admin/*' }` in App.tsx), outside the public `Layout` (no navbar / WhatsApp button / ContentProvider fetch). Public bundle size is unaffected. Never link to it from the public site. Excluded from search engines three ways: `<meta robots noindex>` (AdminRoot), `X-Robots-Tag` header + `no-store` (vercel.json), `Disallow: /admin` (robots.txt).
+- **Auth:** `src/admin/lib/auth.tsx` + `client.ts`. Own Supabase client with `persistSession: true` (storage key `tosh-admin-auth`), separate from the public client (which never keeps a session). After sign-in `rpc('is_admin')` must return true, otherwise the user is signed out. Password reset e-mail redirects to `/admin` (needs Redirect URL + working SMTP in Supabase, see SUPABASE_SETUP.md); the recovery hash is detected in `auth.tsx`. All writes are protected by RLS, the UI is only a convenience.
+- **UI language:** German by default, EN toggle, stored in `tosh-admin-lang`. Strings are written inline as `t('Deutsch', 'English')` (`lib/i18n.tsx`), so a language can never be forgotten. Not part of src/i18n.
+- **Design:** light theme, system sans-serif (`.admin-root` in `admin.css`), brand colours, every tap target >= 44px, inputs 16px (no iOS zoom), bottom navigation on phones (+ "Mehr" sheet), sidebar from `lg`. Shared pieces: `ui/kit.tsx` (Button, fields with live character counters, Toggle, Sheet, PageHead with the "?" tip, SaveBar), `ui/feedback.tsx` (toasts, confirm dialogs, unsaved-changes registry `useDirty`), `ui/Sortable.tsx` (@dnd-kit, drag only from the handle so scrolling still works) + `ui/MoveButtons.tsx` (arrows as alternative).
+- **Rules every section follows:** save shows a success toast, failures show a friendly toast (`toast.failed`), every delete goes through `useConfirmDelete`/`useConfirm`, forms register with `useDirty` (route blocker + beforeunload in AdminShell), every write calls `touchSite()` (drops the localStorage content cache so the live site refetches), list loaders use `rowsOf`/`must` from `lib/data.ts`.
+- **Sections:** Dashboard, Galerie (multi-upload from camera/gallery, `lib/images.ts` resizes to max 1600 px WebP ~80 % + 640 px small copy -> `image_path_sm`, JPEG fallback on iPhone Safari; drag reorder; hide; before/after pairs via `before_after_pair_id`; trash = `deleted_at`, purged after 30 days when the gallery page opens), Leistungen, Texte (`site_texts` upsert by key, built-in text shown/restorable), Kontakt & Öffnungszeiten (`business_info` row id 1, announcement with live preview), Nachrichten, Bewertungen, Qualifikationen & Lebenslauf (certificate = image and/or PDF, CV entries per type, CV PDF = `site_texts.founder_cv_pdf`), Einstellungen, Hilfe.
+- **Public-site touches made for the admin:** `CertificateViewer` copes with PDF-only certificates; English price text turns "ab " into "from "; `ContentProvider` skips its fetch on `/admin`.
+- **Testing:** the admin was verified in a real browser (Playwright, 375 px phone + 320 px + desktop) against a mocked Supabase (auth, PostgREST, storage); RLS itself is covered by `npm run test:db` (no migration change was needed for the admin). After touching admin code run `npx tsc -b`, `npm run build`, and re-check at 375 px: every tap target >= 44 px, no horizontal overflow.
+
 ## Code rules
 - Small reusable components in src/components, pages in src/pages.
-- Business details and services in one config file (src/data/site.ts) so they're easy to change.
+- Business details and services live in Supabase; src/data/site.ts is the static fallback / seed source (and keeps constants like name, domain, URL).
 - Use placeholder images from /public/images with clear filenames until real photos arrive.

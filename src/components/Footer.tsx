@@ -1,7 +1,7 @@
 import { Mail, MapPin, Phone } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { legalLinks, navLinks } from '../data/nav'
-import { site } from '../data/site'
+import { useSite } from '../data/content/hooks'
 import { useTranslation } from '../hooks/useTranslation'
 import BrandLogo from './BrandLogo'
 import AuroraBackground from './effects/AuroraBackground'
@@ -13,6 +13,7 @@ const YEAR = new Date().getFullYear()
 const linkCls = 'link-underline inline-block py-1 text-snow/90 hover:text-sky'
 
 export default function Footer() {
+  const site = useSite()
   const { t } = useTranslation()
   const { address } = site
 

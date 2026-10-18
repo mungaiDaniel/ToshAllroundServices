@@ -2,12 +2,12 @@ import { AnimatePresence, m } from 'framer-motion'
 import { AlertCircle, CheckCircle2, Loader2, Send, Sparkles } from 'lucide-react'
 import { useId, useMemo, useRef, useState, type ChangeEvent, type FormEvent, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
-import { serviceIds, site } from '../../data/site'
+import { useServices, useSite } from '../../data/content/hooks'
 import { useMotionPrefs } from '../../hooks/useMotionPrefs'
 import { useTranslation } from '../../hooks/useTranslation'
-import de from '../../i18n/de'
 import type { TranslationKey } from '../../i18n/LanguageContext'
 import { distance, duration, ease } from '../../lib/motion'
+import { getSupabase, supabaseConfigured } from '../../lib/supabase'
 import Button from '../Button'
 import { Stagger, StaggerItem } from '../motion/Stagger'
 
@@ -36,12 +36,10 @@ function validate(v: Values): Errors {
 }
 
 /** Sends the enquiry to the owner's inbox via Web3Forms. Throws on any failure. */
-async function sendToWeb3Forms(v: Values, language: string, botcheck: boolean) {
+async function sendToWeb3Forms(v: Values, service: string, language: string, botcheck: boolean) {
   const key = import.meta.env.VITE_WEB3FORMS_KEY
   if (!key) throw new Error('VITE_WEB3FORMS_KEY is not set (see .env.example)')
 
-  // the email goes to the business owner, so labels are always German
-  const service = v.service === 'other' ? 'Sonstiges' : de.services[v.service as keyof typeof de.services].title
   const ctrl = new AbortController()
   const timer = setTimeout(() => ctrl.abort(), TIMEOUT_MS)
   try {
@@ -65,6 +63,28 @@ async function sendToWeb3Forms(v: Values, language: string, botcheck: boolean) {
     })
     const data = (await res.json()) as { success?: boolean; message?: string }
     if (!res.ok || !data.success) throw new Error(data.message ?? `HTTP ${res.status}`)
+  } finally {
+    clearTimeout(timer)
+  }
+}
+
+/** Stores the enquiry in the Supabase `messages` table (the database only allows INSERT for visitors). */
+async function saveToSupabase(v: Values, service: string) {
+  const client = await getSupabase()
+  const ctrl = new AbortController()
+  const timer = setTimeout(() => ctrl.abort(), TIMEOUT_MS)
+  try {
+    const { error } = await client
+      .from('messages')
+      .insert({
+        name: v.name.trim(),
+        phone: v.phone.trim() || null,
+        email: v.email.trim(),
+        service,
+        message: v.message.trim(),
+      })
+      .abortSignal(ctrl.signal)
+    if (error) throw new Error(error.message)
   } finally {
     clearTimeout(timer)
   }
@@ -154,6 +174,8 @@ function Celebration() {
 
 export default function ContactForm() {
   const { t, language } = useTranslation()
+  const site = useSite()
+  const { services } = useServices()
   const uid = useId()
   const [values, setValues] = useState<Values>(EMPTY)
   const [touched, setTouched] = useState<Partial<Record<FieldName, boolean>>>({})
@@ -189,7 +211,19 @@ export default function ContactForm() {
     }
     setStatus('sending')
     try {
-      await sendToWeb3Forms(values, language, Boolean(honeypot.current?.checked))
+      // the notification email and the database copy go to the (German-speaking) owner: always German labels
+      const serviceLabel =
+        values.service === 'other'
+          ? 'Sonstiges'
+          : (services.find((x) => x.slug === values.service)?.titleDe ?? values.service)
+      const bot = Boolean(honeypot.current?.checked)
+      const tasks: Promise<unknown>[] = [sendToWeb3Forms(values, serviceLabel, language, bot)]
+      if (supabaseConfigured && !bot) tasks.push(saveToSupabase(values, serviceLabel))
+      const results = await Promise.allSettled(tasks)
+      const failed = results.filter((r): r is PromiseRejectedResult => r.status === 'rejected')
+      failed.forEach((r) => console.warn('[contact form]', r.reason?.message ?? r.reason))
+      // success as soon as the message reached at least one place (email inbox or database)
+      if (failed.length === results.length) throw failed[0].reason
       setStatus('success')
       setValues(EMPTY)
       setTouched({})
@@ -301,9 +335,9 @@ export default function ContactForm() {
               className={inputCls(Boolean(showError('service')))}
             >
               <option value="">{t('contact.form.servicePlaceholder')}</option>
-              {serviceIds.map((s) => (
-                <option key={s} value={s}>
-                  {t(`services.${s}.title`)}
+              {services.map((s) => (
+                <option key={s.slug} value={s.slug}>
+                  {s.title}
                 </option>
               ))}
               <option value="other">{t('contact.form.serviceOther')}</option>

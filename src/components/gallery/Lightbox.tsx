@@ -192,7 +192,9 @@ export default function Lightbox({ items, index, origin, onClose, onIndexChange 
                   />
                 )}
               </div>
-              <figcaption className="mt-4 max-w-xl px-2 text-center text-sm text-snow/80">{alt}</figcaption>
+              <figcaption className="mt-4 max-w-xl px-2 text-center text-sm text-snow/80">
+                {item.caption?.[language] || alt}
+              </figcaption>
             </m.figure>
           </AnimatePresence>
         </m.div>

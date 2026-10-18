@@ -9,7 +9,7 @@
  */
 import { TriangleAlert } from 'lucide-react'
 import { Fragment, type ReactNode } from 'react'
-import { site } from '../../data/site'
+import { useSite } from '../../data/content/hooks'
 import { useTranslation } from '../../hooks/useTranslation'
 import legalDe from '../../i18n/legal/de'
 import legalEn from '../../i18n/legal/en'
@@ -19,7 +19,9 @@ import Reveal from '../motion/Reveal'
 
 const PLACEHOLDER = /(\[[^\]]+\])/g
 
-const tokens: Record<string, string> = {
+type Tokens = Record<string, string>
+
+const makeTokens = (site: ReturnType<typeof useSite>): Tokens => ({
   '{name}': site.name,
   '{street}': site.address.street,
   '{zip}': site.address.zip,
@@ -27,13 +29,13 @@ const tokens: Record<string, string> = {
   '{phone}': site.phone.display,
   '{email}': site.email,
   '{domain}': site.domain,
-}
+})
 
-const fill = (text: string) => text.replace(/\{[a-z]+\}/g, (m) => tokens[m] ?? m)
+const fill = (text: string, tokens: Tokens) => text.replace(/\{[a-z]+\}/g, (m) => tokens[m] ?? m)
 
 /** Text with site.ts values filled in and [placeholders] highlighted. */
-function LegalText({ text }: { text: string }): ReactNode {
-  return fill(text)
+function LegalText({ text, tokens }: { text: string; tokens: Tokens }): ReactNode {
+  return fill(text, tokens)
     .split(PLACEHOLDER)
     .map((part, i) =>
       part.startsWith('[') && part.endsWith(']') ? (
@@ -54,6 +56,8 @@ function countPlaceholders(doc: LegalDoc) {
 }
 
 export default function LegalPage({ kind }: { kind: 'impressum' | 'datenschutz' }) {
+  const site = useSite()
+  const tokens = makeTokens(site)
   const { t, language } = useTranslation()
   const doc = (language === 'de' ? legalDe : legalEn)[kind]
   const title = t(`pages.${kind}.title`)
@@ -114,13 +118,13 @@ export default function LegalPage({ kind }: { kind: 'impressum' | 'datenschutz' 
                       <ul key={i} className="list-disc space-y-1.5 pl-6">
                         {b.map((li, j) => (
                           <li key={j}>
-                            <LegalText text={li} />
+                            <LegalText text={li} tokens={tokens} />
                           </li>
                         ))}
                       </ul>
                     ) : (
                       <p key={i} className="whitespace-pre-line">
-                        <LegalText text={b} />
+                        <LegalText text={b} tokens={tokens} />
                       </p>
                     ),
                   )}

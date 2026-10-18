@@ -6,7 +6,9 @@ import CtaBand from '../components/home/CtaBand'
 import Reveal from '../components/motion/Reveal'
 import PageHeader from '../components/PageHeader'
 import Photo from '../components/Photo'
-import { gallery, galleryCategories, type GalleryCategory, type GalleryImage } from '../data/gallery'
+import { GallerySkeleton } from '../components/Skeletons'
+import { useGallery } from '../data/content/hooks'
+import { galleryCategories, type GalleryCategory, type GalleryImage } from '../data/gallery'
 import { useMotionPrefs } from '../hooks/useMotionPrefs'
 import { useTranslation } from '../hooks/useTranslation'
 import { duration, ease } from '../lib/motion'
@@ -37,8 +39,6 @@ function distribute(items: GalleryImage[], count: number) {
   return cols
 }
 
-const categories = galleryCategories.filter((c) => gallery.some((g) => g.category === c))
-
 export default function Gallery() {
   // layout animations (filter) and drag (lightbox swipe) need the larger feature set, only loaded on this page
   return (
@@ -56,7 +56,11 @@ function GalleryContent() {
   const [origin, setOrigin] = useState({ x: 0, y: 0 })
 
   const columnCount = useColumnCount()
-  const items = useMemo(() => (filter === 'all' ? gallery : gallery.filter((g) => g.category === filter)), [filter])
+  const { items: gallery, loading } = useGallery()
+  const categories = useMemo(() => galleryCategories.filter((c) => gallery.some((g) => g.category === c)), [gallery])
+  // if the chosen category disappears (e.g. content changed), show everything again
+  const activeFilter: Filter = filter === 'all' || categories.includes(filter) ? filter : 'all'
+  const items = useMemo(() => (activeFilter === 'all' ? gallery : gallery.filter((g) => g.category === activeFilter)), [gallery, activeFilter])
 
   const columns = useMemo(() => distribute(items, columnCount), [items, columnCount])
 
@@ -85,7 +89,7 @@ function GalleryContent() {
           <Reveal delay={0.1}>
             <div role="group" aria-label={t('gallery.filterLabel')} className="mt-8 flex flex-wrap gap-2">
               {tabs.map((tab) => {
-                const active = filter === tab
+                const active = activeFilter === tab
                 return (
                   <button
                     key={tab}
@@ -110,6 +114,11 @@ function GalleryContent() {
           </p>
 
           {/* masonry: photos keep their own proportions (tall portraits are never cropped or stretched) */}
+          {loading ? (
+            <div className="mt-10">
+              <GallerySkeleton columns={columnCount} />
+            </div>
+          ) : (
           <div className="mt-10 flex items-start gap-4 sm:gap-6">
             {columns.map((col, c) => (
               <ul key={c} className="flex min-w-0 flex-1 flex-col gap-4 sm:gap-6">
@@ -163,6 +172,7 @@ function GalleryContent() {
               </ul>
             ))}
           </div>
+          )}
         </div>
       </section>
 

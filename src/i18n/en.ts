@@ -229,7 +229,7 @@ const en: Translations = {
   },
   servicesPage: {
     eyebrow: 'What we do for you',
-    title: 'Five services, one standard: care',
+    title: 'Our services, one standard: care',
     text: 'Whether it is your home, office, shop, stairwell or workplace tech: here is what we take care of for you – and what each service includes.',
     included: "What's included",
     quote: 'Request a quote on WhatsApp',
@@ -321,6 +321,12 @@ const en: Translations = {
     text: 'The link may be outdated or the address mistyped. Head back to the home page to find what you are looking for.',
     home: 'Back to home',
   },
+  testimonials: {
+    eyebrow: 'Testimonials',
+    title: 'What our customers say',
+    stars: '{n} out of 5 stars',
+  },
+  announcement: { label: 'Notice', dismiss: 'Dismiss notice' },
   pages: {
     home: { title: 'Welcome' },
     about: { title: 'About Us' },

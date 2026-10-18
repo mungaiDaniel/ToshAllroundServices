@@ -35,6 +35,9 @@ export interface GalleryImage extends Photo {
   placeholder: boolean
   /** optional before/after pair */
   before?: { src: string; alt?: { de: string; en: string } }
+  /** optional caption shown in the lightbox (falls back to the alt text) */
+  caption?: { de: string; en: string }
+  featured?: boolean
 }
 
 const real = (id: string, category: GalleryCategory, photo: Photo): GalleryImage => ({

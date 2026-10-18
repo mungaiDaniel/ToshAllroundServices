@@ -1,17 +1,19 @@
-import { gallery } from '../../data/gallery'
+import { useGallery } from '../../data/content/hooks'
 import { useTranslation } from '../../hooks/useTranslation'
 import Button from '../Button'
 import Photo from '../Photo'
+import { GalleryPreviewSkeleton } from '../Skeletons'
 import SectionHeading from '../SectionHeading'
 import Parallax from '../motion/Parallax'
 import Reveal from '../motion/Reveal'
 import { Stagger, StaggerItem } from '../motion/Stagger'
 
-const previewIds = ['real-vacuuming', 'real-bathroom', 'real-mopping', 'real-it']
-const preview = previewIds.map((id) => gallery.find((g) => g.id === id)!)
 
 export default function GalleryPreview() {
   const { t } = useTranslation()
+  const { items, loading } = useGallery()
+  // featured photos first, then the rest, 4 in total (portrait photos look best here)
+  const preview = [...items.filter((g) => g.featured), ...items.filter((g) => !g.featured)].slice(0, 4)
   return (
     <section className="section-mint py-20 sm:py-24">
       <div className="mx-auto max-w-6xl px-4">
@@ -28,6 +30,11 @@ export default function GalleryPreview() {
           </Reveal>
         </div>
 
+        {loading ? (
+          <div className="mt-12">
+            <GalleryPreviewSkeleton />
+          </div>
+        ) : (
         <Stagger className="mt-12 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4" gap="loose">
           {preview.map((img) => (
             <StaggerItem key={img.id}>
@@ -41,6 +48,7 @@ export default function GalleryPreview() {
             </StaggerItem>
           ))}
         </Stagger>
+        )}
 
         <Reveal className="mt-8 sm:hidden">
           <Button to="/galerie" variant="ghost-light" arrow className="w-full">

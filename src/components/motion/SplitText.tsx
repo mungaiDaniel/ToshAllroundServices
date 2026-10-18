@@ -47,9 +47,10 @@ export default function SplitText({ text, as = 'h2', by = 'words', delay = 0, cl
     }
     const b = mobile ? blur.reveal / 2 : blur.reveal
     return {
-      hidden: { opacity: 0, y: distance.sm, filter: `blur(${b}px)` },
+      // words stay visible (blurred, slightly low) instead of transparent: the text is painted right away,
+      // which keeps first-paint metrics fast while the blur-to-sharp effect still plays
+      hidden: { y: distance.sm, filter: `blur(${b}px)` },
       show: {
-        opacity: 1,
         y: 0,
         filter: 'blur(0px)',
         transition: { duration: duration.base, ease: ease.out },
@@ -59,12 +60,15 @@ export default function SplitText({ text, as = 'h2', by = 'words', delay = 0, cl
 
   const Tag = tags[as]
   const lines = text.split('\n')
+  // aria-label is only allowed on headings; other elements simply keep their real words readable
+  const labelled = as === 'h1' || as === 'h2' || as === 'h3'
+  const hidden = labelled ? ('true' as const) : undefined
 
   return (
     <Tag
       data-reveal
       className={className}
-      aria-label={lines.join(' ')}
+      aria-label={labelled ? lines.join(' ') : undefined}
       variants={container}
       initial="hidden"
       whileInView="show"
@@ -72,12 +76,12 @@ export default function SplitText({ text, as = 'h2', by = 'words', delay = 0, cl
     >
       {by === 'lines'
         ? lines.map((line, i) => (
-            <m.span key={i} aria-hidden="true" className="block" variants={piece}>
+            <m.span key={i} aria-hidden={hidden} className="block" variants={piece}>
               {line}
             </m.span>
           ))
         : lines.map((line, li) => (
-            <span key={li} aria-hidden="true" className="block">
+            <span key={li} aria-hidden={hidden} className="block">
               {line.split(/\s+/).map((word, wi, arr) => (
                 <span key={wi}>
                   <m.span className="inline-block" variants={piece}>

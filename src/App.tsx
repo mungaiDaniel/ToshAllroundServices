@@ -1,5 +1,6 @@
 import { domAnimation, LazyMotion } from 'framer-motion'
 import { createBrowserRouter, RouterProvider, type RouteObject } from 'react-router-dom'
+import { ContentProvider } from './data/content/ContentProvider'
 import { LanguageProvider } from './i18n/LanguageContext'
 import Layout from './components/Layout'
 import Home from './pages/Home'
@@ -25,15 +26,19 @@ const router = createBrowserRouter([
       { path: '*', ...page(() => import('./pages/NotFound')) },
     ],
   },
+  // Admin panel for the owner: its own bundle, no public layout, never linked from the site, noindex.
+  { path: '/admin/*', ...page(() => import('./admin/AdminRoot')) },
 ])
 
 export default function App() {
   return (
-    <LanguageProvider>
-      {/* `m` components + the small feature set; the Gallery page adds layout/drag on its own */}
-      <LazyMotion features={domAnimation} strict>
-        <RouterProvider router={router} />
-      </LazyMotion>
-    </LanguageProvider>
+    <ContentProvider>
+      <LanguageProvider>
+        {/* `m` components + the small feature set; the Gallery page adds layout/drag on its own */}
+        <LazyMotion features={domAnimation} strict>
+          <RouterProvider router={router} />
+        </LazyMotion>
+      </LanguageProvider>
+    </ContentProvider>
   )
 }

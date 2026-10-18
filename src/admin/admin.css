@@ -1,0 +1,36 @@
+/* Admin panel look: calm, light, system sans-serif (the public site's mono font would be harder to read in forms). */
+.admin-root {
+  font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.5;
+  color: var(--color-ink);
+  -webkit-tap-highlight-color: transparent;
+}
+.admin-root h1,
+.admin-root h2,
+.admin-root h3,
+.admin-root h4 {
+  font-family: inherit;
+  letter-spacing: normal;
+  line-height: 1.25;
+}
+.admin-root p {
+  max-width: none;
+}
+.admin-root button,
+.admin-root a,
+.admin-root [role='switch'] {
+  touch-action: manipulation;
+}
+.admin-root :focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--color-brand) 55%, white);
+  outline-offset: 2px;
+}
+.admin-root input[type='time'] {
+  min-width: 7.5rem;
+}
+@media (prefers-reduced-motion: reduce) {
+  .admin-root * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

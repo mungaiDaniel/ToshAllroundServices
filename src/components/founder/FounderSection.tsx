@@ -1,37 +1,18 @@
 import { Briefcase, Download, GraduationCap, Languages, Phone, Sparkles, UserRound, type LucideIcon } from 'lucide-react'
 import { useEffect, type ReactNode } from 'react'
 import { useLocation } from 'react-router-dom'
-import { certificates, founder, site } from '../../data/site'
+import { useCertificates, useCv, useSite } from '../../data/content/hooks'
+import { founder } from '../../data/site'
 import { useTranslation } from '../../hooks/useTranslation'
 import { useWhatsAppHref } from '../../hooks/useWhatsAppHref'
-import type { TranslationKey } from '../../i18n/LanguageContext'
 import Button from '../Button'
 import WhatsAppIcon from '../icons/WhatsAppIcon'
 import Reveal from '../motion/Reveal'
 import { Stagger, StaggerItem } from '../motion/Stagger'
 import SectionHeading from '../SectionHeading'
+import { CertificateSkeleton, ChipsSkeleton, TimelineSkeleton } from '../Skeletons'
 import CertificateViewer from './CertificateViewer'
 import Timeline from './Timeline'
-
-const skills: TranslationKey[] = [
-  'founder.skills.residential',
-  'founder.skills.office',
-  'founder.skills.shop',
-  'founder.skills.staircase',
-  'founder.skills.it',
-  'founder.skills.electrical',
-  'founder.skills.reliability',
-  'founder.skills.detail',
-]
-
-const languages: TranslationKey[] = [
-  'founder.languages.german',
-  'founder.languages.english',
-  'founder.languages.swahili',
-]
-
-/** Which skills are the company specialty (highlighted chip) */
-const specialtySkills = new Set<TranslationKey>(['founder.skills.it'])
 
 function CvBlock({ icon: Icon, title, children }: { icon: LucideIcon; title: string; children: ReactNode }) {
   return (
@@ -47,26 +28,24 @@ function CvBlock({ icon: Icon, title, children }: { icon: LucideIcon; title: str
   )
 }
 
-function Chips({ items, specialty }: { items: TranslationKey[]; specialty?: Set<TranslationKey> }) {
-  const { t } = useTranslation()
+function Chips({ items }: { items: { key: string; label: string; highlight?: boolean }[] }) {
   return (
     <Stagger as="ul" gap="tight" variant="scale" className="flex flex-wrap gap-2">
-      {items.map((key) => {
-        const isSpecialty = specialty?.has(key)
-        const isPlaceholder = t(key).startsWith('[')
+      {items.map(({ key, label, highlight }) => {
+        const isPlaceholder = label.startsWith('[')
         return (
           <StaggerItem as="li" key={key}>
             <span
               className={`inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-xs font-medium ${
-                isSpecialty
+                highlight
                   ? 'border-leaf/50 bg-mint text-brand'
                   : isPlaceholder
                     ? 'border-dashed border-ink-muted/50 text-ink-muted'
                     : 'border-slate-900/10 bg-slate-50 text-ink'
               }`}
             >
-              {isSpecialty && <Sparkles size={12} aria-hidden="true" />}
-              {t(key)}
+              {highlight && <Sparkles size={12} aria-hidden="true" />}
+              {label}
             </span>
           </StaggerItem>
         )
@@ -78,8 +57,11 @@ function Chips({ items, specialty }: { items: TranslationKey[]; specialty?: Set<
 /** "Meet the founder": portrait + contact on the left, CV blocks and certificate viewer on the right. */
 export default function FounderSection() {
   const { t } = useTranslation()
+  const site = useSite()
   const whatsapp = useWhatsAppHref()
   const { hash } = useLocation()
+  const cv = useCv()
+  const { items: certificates, loading: certsLoading } = useCertificates()
 
   // deep link from the home preview (/ueber-uns#gruender)
   useEffect(() => {
@@ -93,7 +75,7 @@ export default function FounderSection() {
       <div className="mx-auto max-w-6xl px-4">
         <SectionHeading eyebrow={t('founder.eyebrow')} title={t('founder.title')} />
         <div className="mt-5">
-          <a href="/docs/daniel-gitonga-wahome-cv.pdf" download className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-white px-4 py-2 text-sm font-medium text-brand shadow-sm transition hover:border-brand/40 hover:bg-mint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand">
+          <a href={cv.cvPdf ?? '/docs/daniel-gitonga-wahome-cv.pdf'} download className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-white px-4 py-2 text-sm font-medium text-brand shadow-sm transition hover:border-brand/40 hover:bg-mint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand">
             <Download size={16} aria-hidden="true" />
             {t('founder.downloadCv')}
           </a>
@@ -146,49 +128,57 @@ export default function FounderSection() {
 
             <CvBlock icon={GraduationCap} title={t('founder.education.title')}>
               <div className="grid items-start gap-8 sm:grid-cols-[minmax(0,1fr)_15rem]">
-                <Timeline
-                  items={[
-                    {
-                      key: 'education',
-                      period: founder.education.year,
-                      title: t('founder.education.degree'),
-                      place: founder.education.institution,
-                      children: (
-                        <p className="mt-4 rounded-2xl border border-leaf/30 bg-mint p-4 text-sm text-ink">
-                          {t('founder.education.note')}
-                        </p>
-                      ),
-                    },
-                  ]}
-                />
+                {cv.loading ? (
+                  <TimelineSkeleton count={1} />
+                ) : (
+                  <Timeline
+                    items={cv.education.map((e) => ({
+                      key: e.id,
+                      period: e.years,
+                      title: e.title,
+                      place: e.place,
+                      children: e.details ? (
+                        <p className="mt-4 rounded-2xl border border-leaf/30 bg-mint p-4 text-sm text-ink">{e.details}</p>
+                      ) : undefined,
+                    }))}
+                  />
+                )}
                 <div className="space-y-8">
-                  {certificates.map((c) => (
-                    <Reveal key={c.id} variant="scale" delay={0.15}>
-                      <CertificateViewer certificate={c} />
-                    </Reveal>
-                  ))}
+                  {certsLoading ? (
+                    <CertificateSkeleton />
+                  ) : (
+                    certificates.map((c) => (
+                      <Reveal key={c.id} variant="scale" delay={0.15}>
+                        <CertificateViewer certificate={c} />
+                      </Reveal>
+                    ))
+                  )}
                 </div>
               </div>
             </CvBlock>
 
             <CvBlock icon={Briefcase} title={t('founder.experience.title')}>
-              <Timeline
-                items={(['item1', 'item2'] as const).map((k) => ({
-                  key: k,
-                  period: t(`founder.experience.${k}.period`),
-                  title: t(`founder.experience.${k}.role`),
-                  place: t(`founder.experience.${k}.place`),
-                  children: <p className="mt-3 text-sm text-ink-muted">{t(`founder.experience.${k}.details`)}</p>,
-                }))}
-              />
+              {cv.loading ? (
+                <TimelineSkeleton count={2} />
+              ) : (
+                <Timeline
+                  items={cv.experience.map((e) => ({
+                    key: e.id,
+                    period: e.years,
+                    title: e.title,
+                    place: e.place,
+                    children: e.details ? <p className="mt-3 text-sm text-ink-muted">{e.details}</p> : undefined,
+                  }))}
+                />
+              )}
             </CvBlock>
 
             <CvBlock icon={Sparkles} title={t('founder.skills.title')}>
-              <Chips items={skills} specialty={specialtySkills} />
+              {cv.loading ? <ChipsSkeleton count={8} /> : <Chips items={cv.skill.map((e) => ({ key: e.id, label: e.title, highlight: e.highlight }))} />}
             </CvBlock>
 
             <CvBlock icon={Languages} title={t('founder.languages.title')}>
-              <Chips items={languages} />
+              {cv.loading ? <ChipsSkeleton count={3} /> : <Chips items={cv.language.map((e) => ({ key: e.id, label: e.title }))} />}
             </CvBlock>
           </div>
         </div>

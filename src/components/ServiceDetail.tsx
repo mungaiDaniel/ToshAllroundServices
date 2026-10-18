@@ -1,8 +1,8 @@
 import { Building2, Check, Home, Layers, Monitor, Sparkles, Store, type LucideIcon } from 'lucide-react'
-import type { Service } from '../data/site'
+import type { ServiceView } from '../data/content/types'
 import { useTranslation } from '../hooks/useTranslation'
 import Photo from './Photo'
-import { whatsappHref } from '../lib/whatsapp'
+import { useWhatsAppLink } from '../hooks/useWhatsAppHref'
 import FloatingBubbles from './effects/FloatingBubbles'
 import Button from './Button'
 import WhatsAppIcon from './icons/WhatsAppIcon'
@@ -11,23 +11,23 @@ import Reveal from './motion/Reveal'
 import { Stagger, StaggerItem } from './motion/Stagger'
 
 const icons: Record<string, LucideIcon> = { Home, Building2, Store, Layers, Monitor }
-const bullets = ['b1', 'b2', 'b3', 'b4'] as const
 
 interface Props {
-  service: Service
+  service: ServiceView
   /** flips image/text sides on desktop (regular rows only) */
   reverse?: boolean
 }
 
-function useServiceContent(service: Service) {
+function useServiceContent(service: ServiceView) {
   const { t } = useTranslation()
-  const title = t(`services.${service.id}.title`)
+  const link = useWhatsAppLink()
+  const title = service.title
   return {
     t,
     title,
-    details: t(`services.${service.id}.details`),
-    items: bullets.map((b) => t(`services.${service.id}.${b}`)),
-    quoteHref: whatsappHref(t('servicesPage.quoteMessage').replace('{service}', title)),
+    details: service.details,
+    items: service.included,
+    quoteHref: link(t('servicesPage.quoteMessage').replace('{service}', title)),
     Icon: icons[service.icon] ?? Sparkles,
   }
 }
@@ -38,7 +38,7 @@ export function FeaturedServiceDetail({ service }: Props) {
   return (
     <Reveal variant="scale">
       <article
-        id={service.id}
+        id={service.slug}
         className="glass glass-specialty relative grid scroll-mt-24 overflow-hidden !bg-night text-snow lg:grid-cols-[0.9fr_1.1fr]"
       >
         <FloatingBubbles variant="edges" seed={5} />
@@ -54,6 +54,7 @@ export function FeaturedServiceDetail({ service }: Props) {
             <Icon size={32} className="shrink-0 text-sky" aria-hidden="true" />
             {title}
           </h2>
+          {service.priceFrom && <p className="mt-3 text-sm font-bold text-sky">{service.priceFrom}</p>}
           <p className="mt-5 text-snow/80">{details}</p>
 
           <h3 className="eyebrow mt-8 text-xs">{t('servicesPage.included')}</h3>
@@ -84,7 +85,7 @@ export function ServiceDetail({ service, reverse = false }: Props) {
   const { t, title, details, items, quoteHref, Icon } = useServiceContent(service)
   return (
     <article
-      id={service.id}
+      id={service.slug}
       className="grid scroll-mt-24 items-center gap-8 lg:grid-cols-2 lg:gap-16"
     >
       <Reveal variant={reverse ? 'right' : 'left'} className={reverse ? 'lg:order-2' : ''}>
@@ -110,6 +111,7 @@ export function ServiceDetail({ service, reverse = false }: Props) {
           <Icon size={28} aria-hidden="true" />
         </span>
         <h2 className="mt-5 text-2xl sm:text-3xl">{title}</h2>
+        {service.priceFrom && <p className="mt-2 text-sm font-bold text-brand">{service.priceFrom}</p>}
         <p className="mt-4 text-ink-muted">{details}</p>
 
         <h3 className="eyebrow eyebrow-light mt-7 text-xs">{t('servicesPage.included')}</h3>

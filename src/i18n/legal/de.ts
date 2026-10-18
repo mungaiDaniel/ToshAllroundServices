@@ -99,7 +99,7 @@ const de: LegalTexts = {
         id: 'ueberblick',
         heading: '2. Überblick: Keine Cookies, kein Tracking',
         blocks: [
-          'Diese Website verwendet keine Cookies und setzt keine Analyse-, Tracking- oder Werbedienste ein. Wir binden keine Inhalte von Drittanbietern (z. B. Karten, Videos, Schriftarten-Server, Social-Media-Plugins) automatisch ein. Aus diesem Grund ist kein Cookie-Banner erforderlich.',
+          'Diese Website verwendet keine Cookies und setzt keine Analyse-, Tracking- oder Werbedienste ein. Wir binden keine Karten, Videos, Schriftarten-Server oder Social-Media-Plugins automatisch ein. Die Texte und Bilder dieser Website laden wir aus unserer eigenen Datenbank bei Supabase (siehe Abschnitt 4). Es werden keine Cookies gesetzt, daher ist kein Cookie-Banner erforderlich.',
           'Personenbezogene Daten verarbeiten wir nur, soweit dies in den folgenden Abschnitten beschrieben ist.',
         ],
       },
@@ -119,18 +119,29 @@ const de: LegalTexts = {
         ],
       },
       {
-        id: 'kontaktformular',
-        heading: '4. Kontaktformular (Web3Forms)',
+        id: 'datenbank',
+        heading: '4. Datenbank und Inhalte (Supabase)',
         blocks: [
-          'Wenn Sie uns über das Kontaktformular eine Anfrage senden, verarbeiten wir die von Ihnen eingegebenen Daten: Name, E-Mail-Adresse, optional Telefonnummer, gewählte Leistung und Ihre Nachricht sowie Ihre Zustimmung zur Datenschutzerklärung. Die Angaben verwenden wir ausschließlich, um Ihre Anfrage zu bearbeiten und mit Ihnen in Kontakt zu treten.',
+          'Die Inhalte dieser Website (z. B. Leistungen, Texte, Fotos, Zertifikate und Geschäftsangaben) werden in einer Datenbank gepflegt und von dort geladen. Dafür nutzen wir den Dienst Supabase [Anbieterangaben und Anschrift laut Datenschutzerklärung von Supabase prüfen und ergänzen]. Unser Supabase-Projekt wird in der Europäischen Union betrieben (Region Frankfurt, Deutschland).',
+          'Beim Aufruf der Website lädt Ihr Browser Texte, Bilder und Dokumente direkt von den Servern von Supabase. Dabei werden technisch notwendige Verbindungsdaten verarbeitet, insbesondere Ihre IP-Adresse sowie Datum, Uhrzeit und der angeforderte Inhalt. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse liegt in der zuverlässigen und sicheren Bereitstellung der Website-Inhalte. Es werden keine Cookies gesetzt, und Besucher müssen sich nicht anmelden.',
+          'Zur schnelleren Anzeige speichert Ihr Browser eine Kopie dieser Inhalte im lokalen Speicher (siehe Abschnitt 8). Diese Kopie enthält keine personenbezogenen Daten von Ihnen.',
+          'Über das Kontaktformular gesendete Nachrichten werden ebenfalls in dieser Datenbank gespeichert (siehe Abschnitt 5). Der Zugriff darauf ist durch Zugriffsregeln (Row Level Security) ausschließlich auf den Betreiber dieser Website beschränkt; Besucher können Nachrichten nur absenden, aber nicht lesen, ändern oder löschen.',
+          'Da Supabase Inc. seinen Sitz außerhalb der EU hat, kann der Zugriff auf Daten durch den Anbieter eine Übermittlung in ein Drittland darstellen. Diese stützt sich auf [bitte prüfen: EU-Standardvertragsklauseln bzw. Zertifizierung unter dem EU-US Data Privacy Framework]. Mit dem Anbieter besteht [bitte prüfen: Auftragsverarbeitungsvertrag (AVV/DPA) gemäß Art. 28 DSGVO, im Supabase-Dashboard abschließbar].',
+        ],
+      },
+      {
+        id: 'kontaktformular',
+        heading: '5. Kontaktformular (Web3Forms)',
+        blocks: [
+          'Wenn Sie uns über das Kontaktformular eine Anfrage senden, verarbeiten wir die von Ihnen eingegebenen Daten: Name, E-Mail-Adresse, optional Telefonnummer, gewählte Leistung und Ihre Nachricht sowie Ihre Zustimmung zur Datenschutzerklärung. Die Angaben verwenden wir ausschließlich, um Ihre Anfrage zu bearbeiten und mit Ihnen in Kontakt zu treten. Ihre Nachricht wird dazu in unserer Datenbank bei Supabase (EU, Frankfurt – siehe Abschnitt 4) gespeichert und zusätzlich per E-Mail an uns zugestellt.',
           'Für die Übermittlung des Formulars nutzen wir den Dienst Web3Forms (web3forms.com) [Anbieterangaben und Anschrift laut Datenschutzerklärung von Web3Forms ergänzen]. Beim Absenden werden Ihre Eingaben an Web3Forms übertragen und von dort per E-Mail an unser Postfach weitergeleitet. Dabei kann Web3Forms technische Daten wie Ihre IP-Adresse verarbeiten. Eine Übermittlung in Drittländer, insbesondere die USA, ist möglich [bitte prüfen: Garantien/Standardvertragsklauseln]. Es besteht [bitte prüfen: Auftragsverarbeitungsvertrag mit Web3Forms].',
-          'Rechtsgrundlage ist Ihre Einwilligung (Art. 6 Abs. 1 lit. a DSGVO), die Sie durch das Setzen des Häkchens im Formular erteilen, sowie – wenn Ihre Anfrage auf einen Vertrag abzielt – Art. 6 Abs. 1 lit. b DSGVO. Sie können Ihre Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen (siehe Abschnitt 9).',
-          'Wir speichern Ihre Anfrage, solange es zur Bearbeitung erforderlich ist, und löschen sie danach [Speicherdauer festlegen, z. B. 6 Monate nach Abschluss der Anfrage], sofern keine gesetzlichen Aufbewahrungspflichten entgegenstehen.',
+          'Rechtsgrundlage ist Ihre Einwilligung (Art. 6 Abs. 1 lit. a DSGVO), die Sie durch das Setzen des Häkchens im Formular erteilen, sowie – wenn Ihre Anfrage auf einen Vertrag abzielt – Art. 6 Abs. 1 lit. b DSGVO. Sie können Ihre Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen (siehe Abschnitt 10).',
+          'Nachrichten aus dem Kontaktformular werden 12 Monate nach Eingang automatisch aus der Datenbank gelöscht [bitte prüfen: automatische Löschung in Supabase ist aktiv, siehe SUPABASE_SETUP.md]. E-Mails in unserem Postfach löschen wir, sobald die Anfrage erledigt ist, sofern keine gesetzlichen Aufbewahrungspflichten entgegenstehen (z. B. bei zustande gekommenen Verträgen).',
         ],
       },
       {
         id: 'kontakt-direkt',
-        heading: '5. Kontakt per Telefon, E-Mail und WhatsApp',
+        heading: '6. Kontakt per Telefon, E-Mail und WhatsApp',
         blocks: [
           'Wenn Sie uns anrufen oder eine E-Mail schreiben, verarbeiten wir Ihre Telefonnummer bzw. E-Mail-Adresse und den Inhalt Ihrer Nachricht, um Ihre Anfrage zu beantworten. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (vorvertragliche Maßnahmen) bzw. Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der Beantwortung von Anfragen).',
           'Auf dieser Website finden Sie Links, die WhatsApp öffnen (wa.me). Es handelt sich dabei nur um Verweise: Allein durch den Besuch unserer Seite werden keine Daten an WhatsApp übertragen. Erst wenn Sie einen solchen Link anklicken, werden Sie zu WhatsApp weitergeleitet. Wenn Sie uns dort eine Nachricht senden, verarbeitet WhatsApp Ihre Daten (u. a. Telefonnummer, Metadaten, Nachrichteninhalt) nach eigenen Datenschutzbestimmungen. Anbieter ist WhatsApp Ireland Limited bzw. Meta Platforms Ireland Limited, Merrion Road, Dublin 4, D04 X2K5, Irland. Eine Datenübermittlung in die USA ist möglich. Informationen finden Sie unter whatsapp.com/legal/privacy-policy-eea. [Bitte bestätigen: Nutzung von WhatsApp bzw. WhatsApp Business durch das Unternehmen.]',
@@ -139,28 +150,28 @@ const de: LegalTexts = {
       },
       {
         id: 'schriftarten',
-        heading: '6. Schriftarten (lokal eingebunden)',
+        heading: '7. Schriftarten (lokal eingebunden)',
         blocks: [
           'Diese Website verwendet die Schriftart „JetBrains Mono“. Die Schriftdateien werden von unserem eigenen Server (Hosting siehe Abschnitt 3) ausgeliefert und nicht von externen Servern wie Google Fonts geladen. Es findet daher keine Verbindung zu Servern Dritter statt, und es werden dafür keine Daten an Dritte übermittelt.',
         ],
       },
       {
         id: 'speicher',
-        heading: '7. Lokaler Speicher (Spracheinstellung)',
+        heading: '8. Lokaler Speicher (Spracheinstellung und Inhalts-Zwischenspeicher)',
         blocks: [
-          'Wenn Sie die Sprache der Website umschalten (Deutsch/Englisch), speichern wir Ihre Auswahl im lokalen Speicher (localStorage) Ihres Browsers, damit sie beim nächsten Besuch erhalten bleibt. Dabei werden keine personenbezogenen Daten gespeichert, und die Information verlässt Ihr Gerät nicht. Sie ist technisch erforderlich, um die von Ihnen gewünschte Funktion bereitzustellen (§ 25 Abs. 2 Nr. 2 TDDDG). Sie können den Eintrag jederzeit über die Einstellungen Ihres Browsers löschen.',
+          'Wenn Sie die Sprache der Website umschalten (Deutsch/Englisch), speichern wir Ihre Auswahl im lokalen Speicher (localStorage) Ihres Browsers, damit sie beim nächsten Besuch erhalten bleibt. Dabei werden keine personenbezogenen Daten gespeichert, und die Information verlässt Ihr Gerät nicht. Sie ist technisch erforderlich, um die von Ihnen gewünschte Funktion bereitzustellen (§ 25 Abs. 2 Nr. 2 TDDDG). Außerdem speichert Ihr Browser eine Kopie der Website-Inhalte (Texte und Angaben aus der Datenbank), damit die Seite beim nächsten Besuch schneller erscheint. Diese Kopie enthält keine personenbezogenen Daten. Sie können beide Einträge jederzeit über die Einstellungen Ihres Browsers löschen.',
         ],
       },
       {
         id: 'externe-links',
-        heading: '8. Externe Links (z. B. Google Maps)',
+        heading: '9. Externe Links (z. B. Google Maps)',
         blocks: [
           'Unsere Adresse verlinken wir mit einem einfachen Link zu Google Maps. Es wird keine Karte eingebettet. Erst wenn Sie den Link anklicken, öffnet sich Google Maps in einem neuen Tab, und Google verarbeitet Daten nach eigener Datenschutzerklärung (policies.google.com/privacy). Vor dem Klick werden keine Daten an Google übermittelt.',
         ],
       },
       {
         id: 'rechte',
-        heading: '9. Ihre Rechte',
+        heading: '10. Ihre Rechte',
         blocks: [
           'Sie haben nach der DSGVO folgende Rechte gegenüber uns als Verantwortlichem:',
           [
@@ -178,14 +189,14 @@ const de: LegalTexts = {
       },
       {
         id: 'sicherheit',
-        heading: '10. Datensicherheit',
+        heading: '11. Datensicherheit',
         blocks: [
           'Diese Website nutzt aus Sicherheitsgründen eine SSL- bzw. TLS-Verschlüsselung. Eine verschlüsselte Verbindung erkennen Sie an „https://“ in der Adresszeile Ihres Browsers.',
         ],
       },
       {
         id: 'aktualitaet',
-        heading: '11. Aktualität und Änderungen',
+        heading: '12. Aktualität und Änderungen',
         blocks: [
           'Wir passen diese Datenschutzerklärung an, wenn sich die Website oder die rechtlichen Vorgaben ändern. Es gilt die jeweils hier veröffentlichte Fassung.',
           'Stand: [Datum eintragen]',

@@ -1,6 +1,6 @@
 import { Mail, MapPin, Phone, type LucideIcon } from 'lucide-react'
 import type { ReactNode } from 'react'
-import { site } from '../../data/site'
+import { useSite } from '../../data/content/hooks'
 import { useTranslation } from '../../hooks/useTranslation'
 import { useWhatsAppHref } from '../../hooks/useWhatsAppHref'
 import type { TranslationKey } from '../../i18n/LanguageContext'
@@ -35,6 +35,7 @@ function SmallCard({
 
 /** WhatsApp is the primary, biggest card; phone, email and address follow. */
 export default function ContactCards() {
+  const site = useSite()
   const { t } = useTranslation()
   const whatsapp = useWhatsAppHref()
   const { address } = site

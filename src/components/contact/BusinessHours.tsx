@@ -1,5 +1,6 @@
 import { Clock } from 'lucide-react'
-import { hours, weekdays } from '../../data/site'
+import { useBusiness } from '../../data/content/hooks'
+import { weekdays } from '../../data/site'
 import { useTranslation } from '../../hooks/useTranslation'
 import Reveal from '../motion/Reveal'
 
@@ -7,6 +8,7 @@ import Reveal from '../motion/Reveal'
 const todayIndex = () => (new Date().getDay() + 6) % 7
 
 export default function BusinessHours() {
+  const { hours } = useBusiness()
   const { t } = useTranslation()
   const today = todayIndex()
   const suffix = t('contact.hours.oClock')

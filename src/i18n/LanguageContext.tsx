@@ -1,4 +1,5 @@
 import { createContext, useCallback, useEffect, useMemo, useState, type ReactNode } from 'react'
+import { useTextOverrides } from '../data/content/ContentProvider'
 import de, { type Translations } from './de'
 import en from './en'
 
@@ -34,6 +35,8 @@ export const LanguageContext = createContext<LanguageContextValue | null>(null)
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguage] = useState<Language>(readStoredLanguage)
+  // texts edited in the database (site_texts) replace the built-in translation of the same key
+  const overrides = useTextOverrides(language)
 
   useEffect(() => {
     document.documentElement.lang = language
@@ -46,13 +49,15 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
   const t = useCallback(
     (key: TranslationKey) => {
+      const override = overrides[key]
+      if (override) return override
       let node: unknown = dictionaries[language]
       for (const part of key.split('.')) {
         node = (node as Record<string, unknown> | undefined)?.[part]
       }
       return typeof node === 'string' ? node : key
     },
-    [language],
+    [language, overrides],
   )
 
   const value = useMemo<LanguageContextValue>(
