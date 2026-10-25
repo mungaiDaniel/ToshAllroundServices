@@ -29,6 +29,9 @@ await db.exec(`
 // ---- run the migration twice (must be idempotent) ----
 await db.exec(sql)
 await db.exec(sql)
+const sql2 = readFileSync(fileURLToPath(new URL('../migrations/002_activity.sql', import.meta.url)), 'utf-8')
+await db.exec(sql2)
+await db.exec(sql2)
 ok('migration runs (twice, idempotent)', true)
 
 // ---- sample data (as superuser) ----
@@ -122,6 +125,19 @@ r = await tryQ(`insert into certificates (title_de,title_en,institution,year,pdf
 r = await tryQ(`insert into cv_entries (type,title_de,title_en,is_highlight,sort_order) values ('skill','Fenster','Windows',true,990)`); ok('admin panel: add CV entry', r.ok, r.err)
 r = await tryQ(`delete from messages where is_read = true`); ok('admin panel: delete messages', r.ok, r.err)
 r = await tryQ(`select public.is_admin() as a`); ok('rpc is_admin() is true for the admin (login check of the panel)', r.ok && r.rows[0].a === true, JSON.stringify(r.rows))
+// ---- activity counters (002_activity.sql) ----
+await asRole('anon')
+r = await tryQ(`select public.track_event('view','/leistungen')`); ok('anon can count a page view', r.ok, r.err)
+r = await tryQ(`select public.track_event('view','/leistungen')`); ok('anon can count it again', r.ok, r.err)
+r = await tryQ(`select public.track_event('view','/evil-' || repeat('x', 500))`); ok('track_event ignores unknown keys silently', r.ok, r.err)
+r = await tryQ(`select public.track_event('hack','x')`); ok('track_event ignores unknown kinds silently', r.ok, r.err)
+r = await tryQ(`select count(*)::int c from activity_daily`); ok('anon CANNOT read activity counters', !r.ok, r.err)
+r = await tryQ(`insert into activity_daily (day,kind,key,count) values (current_date,'view','/',999999)`); ok('anon CANNOT write counters directly', !r.ok, r.err)
+await asRole('authenticated', '22222222-2222-2222-2222-222222222222')
+r = await tryQ(`select count(*)::int c from activity_daily`); ok('non-admin user reads 0 activity rows', r.ok && r.rows[0].c === 0, JSON.stringify(r.rows))
+await asRole('authenticated', '11111111-1111-1111-1111-111111111111')
+r = await tryQ(`select sum(count)::int c, count(*)::int n from activity_daily`); ok('admin reads activity: 1 row, count 2, junk ignored', r.ok && r.rows[0].c === 2 && r.rows[0].n === 1, JSON.stringify(r.rows))
+r = await tryQ(`update activity_daily set count = 0`); ok('admin CANNOT edit counters', !r.ok, r.err)
 await db.exec('reset role')
 r = await tryQ(`select updated_at > created_at as bumped from services where slug='a'`); ok('updated_at trigger works', r.ok && r.rows[0].bumped === true)
 r = await tryQ(`select relname, relrowsecurity from pg_class where relname in ('gallery_photos','services','site_texts','business_info','testimonials','certificates','cv_entries','messages','admins') order by 1`)

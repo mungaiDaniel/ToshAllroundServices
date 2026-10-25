@@ -97,9 +97,9 @@ const de: LegalTexts = {
       },
       {
         id: 'ueberblick',
-        heading: '2. Überblick: Keine Cookies, kein Tracking',
+        heading: '2. Überblick: Keine Cookies, kein Personen-Tracking',
         blocks: [
-          'Diese Website verwendet keine Cookies und setzt keine Analyse-, Tracking- oder Werbedienste ein. Wir binden keine Karten, Videos, Schriftarten-Server oder Social-Media-Plugins automatisch ein. Die Texte und Bilder dieser Website laden wir aus unserer eigenen Datenbank bei Supabase (siehe Abschnitt 4). Es werden keine Cookies gesetzt, daher ist kein Cookie-Banner erforderlich.',
+          'Diese Website verwendet keine Cookies und setzt keine Analyse-, Tracking- oder Werbedienste von Dritten ein. Wir zählen lediglich anonym, wie oft Seiten aufgerufen und Kontaktlinks angetippt werden (siehe Abschnitt 4). Wir binden keine Karten, Videos, Schriftarten-Server oder Social-Media-Plugins automatisch ein. Die Texte und Bilder dieser Website laden wir aus unserer eigenen Datenbank bei Supabase (siehe Abschnitt 4). Es werden keine Cookies gesetzt, daher ist kein Cookie-Banner erforderlich.',
           'Personenbezogene Daten verarbeiten wir nur, soweit dies in den folgenden Abschnitten beschrieben ist.',
         ],
       },
@@ -126,6 +126,7 @@ const de: LegalTexts = {
           'Beim Aufruf der Website lädt Ihr Browser Texte, Bilder und Dokumente direkt von den Servern von Supabase. Dabei werden technisch notwendige Verbindungsdaten verarbeitet, insbesondere Ihre IP-Adresse sowie Datum, Uhrzeit und der angeforderte Inhalt. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse liegt in der zuverlässigen und sicheren Bereitstellung der Website-Inhalte. Es werden keine Cookies gesetzt, und Besucher müssen sich nicht anmelden.',
           'Zur schnelleren Anzeige speichert Ihr Browser eine Kopie dieser Inhalte im lokalen Speicher (siehe Abschnitt 8). Diese Kopie enthält keine personenbezogenen Daten von Ihnen.',
           'Über das Kontaktformular gesendete Nachrichten werden ebenfalls in dieser Datenbank gespeichert (siehe Abschnitt 5). Der Zugriff darauf ist durch Zugriffsregeln (Row Level Security) ausschließlich auf den Betreiber dieser Website beschränkt; Besucher können Nachrichten nur absenden, aber nicht lesen, ändern oder löschen.',
+          'Anonyme Nutzungszahlen: Beim Aufruf einer Seite oder beim Antippen eines Kontaktlinks (WhatsApp, Telefon, E-Mail, Karte, Lebenslauf) erhöht Ihr Browser einen anonymen Tageszähler in unserer Datenbank (z. B. „Seite Leistungen: 17 Aufrufe am Tag X“). Zusätzlich zählen wir pro Aufruf grob die Gerätegröße (Handy oder Computer), die Sprache und die Art der Herkunft (direkt, Suchmaschine, soziale Netzwerke, andere). Es werden keine IP-Adressen, Kennungen, Cookies oder Einträge zu einzelnen Besuchern gespeichert, und es wird nichts auf Ihrem Gerät abgelegt. Die Zähler lassen sich keiner Person zuordnen und werden nach 24 Monaten gelöscht. Wenn Ihr Browser „Do Not Track“ oder „Global Privacy Control“ sendet, zählen wir nicht. Technisch fällt dabei – wie bei jedem Seitenaufruf – kurzzeitig Ihre IP-Adresse beim Hosting-Anbieter an (siehe oben).',
           'Da Supabase Inc. seinen Sitz außerhalb der EU hat, kann der Zugriff auf Daten durch den Anbieter eine Übermittlung in ein Drittland darstellen. Diese stützt sich auf [bitte prüfen: EU-Standardvertragsklauseln bzw. Zertifizierung unter dem EU-US Data Privacy Framework]. Mit dem Anbieter besteht [bitte prüfen: Auftragsverarbeitungsvertrag (AVV/DPA) gemäß Art. 28 DSGVO, im Supabase-Dashboard abschließbar].',
         ],
       },

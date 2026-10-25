@@ -39,6 +39,7 @@ You do this once, in about 20 minutes.
 1. In Supabase open **SQL Editor** → **New query**.
 2. Open `supabase/migrations/001_init.sql` from this project, copy **everything**, paste it into the editor, click **Run**.
 3. You should see "Success. No rows returned". (A notice about `pg_cron` is explained in step 7.)
+4. Do the same with `supabase/migrations/002_activity.sql` (anonymous visitor counters for the admin page **Aktivität**). Run it after 001; it is safe to run again.
 
 This creates all tables, turns on Row Level Security everywhere, creates the two storage buckets
 (`site-images`, `documents`) and the rules described below. It is safe to run again.

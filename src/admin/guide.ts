@@ -94,6 +94,24 @@ export const guide: GuideSection[] = [
     ],
   },
   {
+    id: 'aktivitaet',
+    titleDe: 'Aktivität ansehen',
+    titleEn: 'See website activity',
+    to: '/admin/aktivitaet',
+    stepsDe: [
+      'Tippen Sie unten auf „Mehr“ und dann auf „Aktivität“.',
+      'Wählen Sie oben 7, 30 oder 90 Tage.',
+      'Sie sehen Besuche, Seitenaufrufe, Kontakt-Taps (WhatsApp, Anruf, E-Mail) und Nachrichten. Der Pfeil vergleicht mit dem Zeitraum davor.',
+      'Darunter finden Sie die beliebtesten Seiten, die Herkunft der Besucher sowie Gerät und Sprache. Es werden nur anonyme Tageszahlen gezählt, keine Personen.',
+    ],
+    stepsEn: [
+      'Tap “More” at the bottom, then “Activity”.',
+      'Choose 7, 30 or 90 days at the top.',
+      'You see visits, page views, contact taps (WhatsApp, phone, email) and messages. The arrow compares with the period before.',
+      'Below are the most viewed pages, where visitors come from, plus device and language. Only anonymous daily totals are counted, never people.',
+    ],
+  },
+  {
     id: 'nachrichten',
     titleDe: 'Nachrichten lesen und beantworten',
     titleEn: 'Read and answer messages',

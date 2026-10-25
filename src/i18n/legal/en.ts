@@ -91,9 +91,9 @@ const en: LegalTexts = {
       },
       {
         id: 'ueberblick',
-        heading: '2. Overview: no cookies, no tracking',
+        heading: '2. Overview: no cookies, no tracking of individuals',
         blocks: [
-          'This website does not use cookies and does not use any analytics, tracking or advertising services. We do not automatically embed maps, videos, font servers or social media plugins. The texts and images of this website are loaded from our own database at Supabase (see section 4). No cookies are set, so no cookie banner is required.',
+          'This website does not use cookies and does not use any third-party analytics, tracking or advertising services. We only count anonymously how often pages are viewed and contact links are tapped (see section 4). We do not automatically embed maps, videos, font servers or social media plugins. The texts and images of this website are loaded from our own database at Supabase (see section 4). No cookies are set, so no cookie banner is required.',
           'We process personal data only as described in the following sections.',
         ],
       },
@@ -120,6 +120,7 @@ const en: LegalTexts = {
           'When you open the website, your browser loads texts, images and documents directly from Supabase’s servers. Technically necessary connection data is processed in the process, in particular your IP address as well as the date, time and requested content. The legal basis is Art. 6 (1) (f) GDPR. Our legitimate interest is the reliable and secure delivery of the website content. No cookies are set, and visitors do not have to log in.',
           'For faster display, your browser stores a copy of this content in local storage (see section 8). This copy contains no personal data about you.',
           'Messages sent through the contact form are also stored in this database (see section 5). Access is restricted to the website operator by access rules (Row Level Security); visitors can only submit messages, not read, change or delete them.',
+          'Anonymous usage numbers: when a page is opened or a contact link (WhatsApp, phone, email, map, CV) is tapped, your browser increases an anonymous daily counter in our database (e.g. “Services page: 17 views on day X”). For each visit we also roughly count the device size (phone or computer), the language and the type of origin (direct, search engine, social networks, other). No IP addresses, identifiers, cookies or entries about individual visitors are stored, and nothing is saved on your device. The counters cannot be linked to a person and are deleted after 24 months. If your browser sends “Do Not Track” or “Global Privacy Control”, we do not count. Technically, as with any page request, your IP address briefly reaches the hosting provider (see above).',
           'Because Supabase Inc. is based outside the EU, access to data by the provider may constitute a transfer to a third country. It relies on [please check: EU Standard Contractual Clauses and/or certification under the EU-US Data Privacy Framework]. A [please check: data processing agreement (DPA) under Art. 28 GDPR, available in the Supabase dashboard] is in place with the provider.',
         ],
       },

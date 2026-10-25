@@ -84,6 +84,17 @@ Anfragen aus dem Kontaktformular kommen **zusätzlich per E-Mail** bei Ihnen an.
 
 ---
 
+## 5a. Aktivität: Was passiert auf der Website?
+
+1. Tippen Sie unten auf **„Mehr“** und dann auf **„Aktivität“**.
+2. Oben wählen Sie **7, 30 oder 90 Tage**.
+3. Sie sehen: **Besuche**, **Seitenaufrufe**, **Kontakt-Taps** (WhatsApp, Anruf, E-Mail) und **Nachrichten** aus dem Formular. Der Pfeil vergleicht mit dem Zeitraum davor.
+4. Darunter: Besuche pro Tag, beliebteste Seiten, Aktionen, Herkunft der Besucher sowie Gerät und Sprache.
+
+Es werden nur **anonyme Tageszahlen** gezählt (keine Personen, keine IP-Adressen, keine Cookies). Wer „Do Not Track“ aktiviert hat, wird nicht gezählt.
+
+---
+
 ## 6. Weitere Bereiche in Kürze
 
 | Bereich | Wofür? |

@@ -1,4 +1,5 @@
 import {
+  ChartColumn,
   Ellipsis,
   ExternalLink,
   GraduationCap,
@@ -34,6 +35,7 @@ import { LinkButton, Sheet, Spinner } from './ui/kit'
 import LangSwitch from './ui/LangSwitch'
 
 const Dashboard = lazy(() => import('./pages/Dashboard'))
+const ActivityPage = lazy(() => import('./pages/Activity'))
 const Gallery = lazy(() => import('./pages/Gallery'))
 const Services = lazy(() => import('./pages/Services'))
 const Texts = lazy(() => import('./pages/Texts'))
@@ -63,6 +65,7 @@ const items: NavItem[] = [
   { to: '/admin', icon: LayoutDashboard, de: 'Übersicht', en: 'Overview', end: true },
   { to: '/admin/galerie', icon: Images, de: 'Galerie', en: 'Gallery' },
   { to: '/admin/nachrichten', icon: Mail, de: 'Nachrichten', en: 'Messages', shortDe: 'Post', shortEn: 'Inbox' },
+  { to: '/admin/aktivitaet', icon: ChartColumn, de: 'Aktivität', en: 'Activity' },
   { to: '/admin/leistungen', icon: Sparkles, de: 'Leistungen', en: 'Services' },
   { to: '/admin/texte', icon: Type, de: 'Texte', en: 'Texts' },
   { to: '/admin/kontakt', icon: Phone, de: 'Kontaktdaten & Öffnungszeiten', en: 'Contact & opening hours', shortDe: 'Kontakt', shortEn: 'Contact' },
@@ -254,6 +257,7 @@ export default function AdminShell() {
                   <Route path="texte" element={<Texts />} />
                   <Route path="kontakt" element={<Contact />} />
                   <Route path="nachrichten" element={<Messages />} />
+                  <Route path="aktivitaet" element={<ActivityPage />} />
                   <Route path="bewertungen" element={<Reviews />} />
                   <Route path="qualifikationen" element={<Qualifications />} />
                   <Route path="einstellungen" element={<SettingsPage />} />

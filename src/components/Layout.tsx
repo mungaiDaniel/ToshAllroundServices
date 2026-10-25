@@ -4,6 +4,7 @@ import Navbar from './Navbar'
 import Footer from './Footer'
 import WhatsAppButton from './WhatsAppButton'
 import CustomCursor from './motion/CustomCursor'
+import { useActivityTracking } from '../hooks/useActivityTracking'
 import { useRouteMeta } from '../hooks/useRouteMeta'
 import PageTransition from './motion/PageTransition'
 import ScrollProgress from './motion/ScrollProgress'
@@ -13,6 +14,7 @@ export default function Layout() {
   const outlet = useOutlet()
   const { pathname } = useLocation()
   useRouteMeta()
+  useActivityTracking()
   return (
     <div className="flex min-h-screen flex-col">
       <SmoothScroll />
