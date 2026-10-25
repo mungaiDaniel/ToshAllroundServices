@@ -61,11 +61,11 @@ export default function About() {
           <Reveal variant="right" className="relative mx-auto w-full max-w-sm pb-8 sm:max-w-md lg:max-w-none">
             <div aria-hidden="true" className="absolute -bottom-2 -right-6 -z-10 h-44 w-44 rounded-full bg-mint" />
             <Parallax clip speed={0.6} className="mx-auto aspect-[4/5] w-[86%] rotate-2 rounded-3xl shadow-soft lg:mr-0">
-              <Photo photo={photos.mopping} sizes="(min-width: 1024px) 420px, 80vw" />
+              <Photo photo={photos.lobbyMopping} sizes="(min-width: 1024px) 420px, 80vw" />
             </Parallax>
             <div className="absolute -bottom-2 left-0 w-[44%] -rotate-3 overflow-hidden rounded-2xl border-4 border-white shadow-soft lg:left-[6%]">
               <div className="aspect-[3/4]">
-                <Photo photo={photos.itEquipment} sizes="220px" />
+                <Photo photo={photos.itLaptop} sizes="220px" />
               </div>
             </div>
           </Reveal>

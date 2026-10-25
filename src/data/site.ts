@@ -70,97 +70,124 @@ export const logo = {
  * Each has a large file and a "-sm" file for phones.
  */
 export const photos = {
-  vacuuming: {
-    src: '/images/team/tosh-residential-vacuuming.webp',
-    srcSm: '/images/team/tosh-residential-vacuuming-sm.webp',
-    width: 900,
-    height: 1600,
-    smWidth: 700,
+  officeVacuuming: {
+    src: '/images/team/tosh-office-vacuuming.webp',
+    srcSm: '/images/team/tosh-office-vacuuming-sm.webp',
+    width: 948,
+    height: 1044,
+    smWidth: 640,
+    position: '50% 25%',
+    alt: {
+      de: 'Reinigungsprofi in gelben Handschuhen saugt den Teppichboden eines modernen Büros mit Glaswänden',
+      en: 'Cleaning professional in yellow gloves vacuuming the carpet of a modern office with glass walls',
+    },
+  },
+  shopfront: {
+    src: '/images/team/tosh-shopfront-window.webp',
+    srcSm: '/images/team/tosh-shopfront-window-sm.webp',
+    width: 946,
+    height: 1052,
+    smWidth: 640,
+    position: '50% 40%',
+    alt: {
+      de: 'Reinigungsprofi zieht mit einem Abzieher das Schaufenster eines Ladens sauber',
+      en: 'Cleaning professional squeegeeing the window of a shop front',
+    },
+  },
+  retailShelf: {
+    src: '/images/team/tosh-retail-shelf-cleaning.webp',
+    srcSm: '/images/team/tosh-retail-shelf-cleaning-sm.webp',
+    width: 903,
+    height: 1580,
+    smWidth: 640,
     position: '50% 28%',
     alt: {
-      de: 'Der Reinigungsprofi von Tosh Allround Services saugt lächelnd den Boden eines hellen Wohnzimmers',
-      en: 'The Tosh Allround Services cleaning professional smiling while vacuuming the floor of a bright living room',
+      de: 'Reinigungsprofi reinigt mit Sprühflasche und Tuch die Regale in einem Geschäft',
+      en: 'Cleaning professional wiping shelves in a store with a spray bottle and cloth',
+    },
+  },
+  lobbyMopping: {
+    src: '/images/team/tosh-lobby-mopping.webp',
+    srcSm: '/images/team/tosh-lobby-mopping-sm.webp',
+    width: 871,
+    height: 1580,
+    smWidth: 640,
+    position: '50% 28%',
+    alt: {
+      de: 'Lächelnder Reinigungsprofi wischt mit einem Flachwischer den glänzenden Boden einer hellen Eingangshalle',
+      en: 'Smiling cleaning professional mopping the shiny floor of a bright entrance hall with a flat mop',
+    },
+  },
+  itLaptop: {
+    src: '/images/team/tosh-it-laptop-cleaning.webp',
+    srcSm: '/images/team/tosh-it-laptop-cleaning-sm.webp',
+    width: 882,
+    height: 1580,
+    smWidth: 640,
+    position: '50% 30%',
+    alt: {
+      de: 'Reinigungsprofi in Schutzhandschuhen reinigt in einem Büro einen Laptop mit Mikrofasertuch und Spray',
+      en: 'Cleaning professional in protective gloves cleaning a laptop in an office with a microfibre cloth and spray',
     },
   },
   bathroom: {
     src: '/images/team/tosh-bathroom-cleaning.webp',
     srcSm: '/images/team/tosh-bathroom-cleaning-sm.webp',
-    width: 900,
-    height: 1600,
-    smWidth: 700,
-    position: '50% 55%',
+    width: 890,
+    height: 1580,
+    smWidth: 640,
+    position: '50% 45%',
     alt: {
-      de: 'Reinigungsprofi in gelben Handschuhen reinigt mit Sprühflasche und Tuch die gefliesten Wände einer Dusche',
-      en: 'Cleaning professional in yellow gloves cleaning the tiled walls of a shower with a spray bottle and cloth',
+      de: 'Reinigungsprofi in gelben Handschuhen reinigt mit Tuch und Sprühflasche ein Bad mit Marmorfliesen',
+      en: 'Cleaning professional in yellow gloves cleaning a marble bathroom with a cloth and spray bottle',
     },
   },
-  mopping: {
-    src: '/images/team/tosh-floor-mopping.webp',
-    srcSm: '/images/team/tosh-floor-mopping-sm.webp',
-    width: 900,
-    height: 1600,
-    smWidth: 700,
+  itWorkstation: {
+    src: '/images/team/tosh-it-workstation-cleaning.webp',
+    srcSm: '/images/team/tosh-it-workstation-cleaning-sm.webp',
+    width: 1000,
+    height: 1435,
+    smWidth: 640,
     position: '50% 30%',
     alt: {
-      de: 'Reinigungsprofi in gelben Handschuhen wischt mit einem Flachwischer den Boden in einem hellen Flur',
-      en: 'Cleaning professional in yellow gloves mopping the floor of a bright hallway with a flat mop',
+      de: 'Reinigungsprofi in Schutzhandschuhen reinigt Monitor und Tastatur an einem Arbeitsplatz, daneben ein Set mit Spezialreiniger und Bürsten',
+      en: 'Cleaning professional in protective gloves cleaning a monitor and keyboard at a workstation, with a kit of specialist cleaner and brushes beside them',
     },
   },
-  itEquipment: {
-    src: '/images/team/tosh-it-equipment-cleaning.webp',
-    srcSm: '/images/team/tosh-it-equipment-cleaning-sm.webp',
-    width: 1124,
-    height: 1599,
-    smWidth: 700,
+  itPrinter: {
+    src: '/images/team/tosh-it-printer-cleaning.webp',
+    srcSm: '/images/team/tosh-it-printer-cleaning-sm.webp',
+    width: 1000,
+    height: 1465,
+    smWidth: 640,
     position: '50% 30%',
     alt: {
-      de: 'Reinigungsprofi in Schutzhandschuhen reinigt an einem weißen Tisch einen Laptop und einen Drucker',
-      en: 'Cleaning professional in protective gloves cleaning a laptop and a printer at a white table',
+      de: 'Reinigungsprofi in Schutzhandschuhen reinigt einen Laptop an einem Glastisch mit Drucker und Präzisionswerkzeug',
+      en: 'Cleaning professional in protective gloves cleaning a laptop at a glass desk with a printer and precision tools',
     },
   },
-  clothingCare: {
-    src: '/images/team/tosh-clothing-care-sewing.webp',
-    srcSm: '/images/team/tosh-clothing-care-sewing-sm.webp',
-    width: 900,
-    height: 1600,
-    smWidth: 700,
-    position: '50% 28%',
-    alt: {
-      de: 'Der Mann hinter Tosh Allround Services sitzt lächelnd an einem Tisch mit Nähmaschine, Bügeleisen und Dampfglätter und misst roten Stoff mit einem Maßband',
-      en: 'The man behind Tosh Allround Services smiling at a table with a sewing machine, iron and garment steamer while measuring red fabric with a tape measure',
-    },
-  },
-} satisfies Record<string, Photo>
-
-/**
- * STOCK placeholders (see public/images/CREDITS.md) – only where no real photo exists yet.
- * To replace one: swap the file and delete `placeholder: true`. To remove: delete the entry and its file.
- */
-export const stock = {
-  office: {
-    src: '/images/service-office.webp',
-    srcSm: '/images/service-office-sm.webp',
-    smWidth: 800,
+  carpet: {
+    src: '/images/team/tosh-carpet-vacuuming.webp',
+    srcSm: '/images/team/tosh-carpet-vacuuming-sm.webp',
     width: 1000,
-    height: 800,
-    placeholder: true,
-    position: '50% 40%',
-    alt: {
-      de: 'Reinigungskraft saugt ein modernes Büro',
-      en: 'Cleaner vacuuming a modern office',
-    },
-  },
-  retail: {
-    src: '/images/service-retail.webp',
-    srcSm: '/images/service-retail-sm.webp',
-    smWidth: 800,
-    width: 1000,
-    height: 1500,
-    placeholder: true,
+    height: 1414,
+    smWidth: 640,
     position: '50% 35%',
     alt: {
-      de: 'Reinigungskraft putzt ein Schaufenster',
-      en: 'Cleaner washing a shop window',
+      de: 'Lächelnder Reinigungsprofi saugt mit einem Bürstsauger den roten Teppichboden eines Wartebereichs',
+      en: 'Smiling cleaning professional vacuuming the red carpet of a waiting area with a brush vacuum',
+    },
+  },
+  stairs: {
+    src: '/images/team/tosh-staircase-mopping.webp',
+    srcSm: '/images/team/tosh-staircase-mopping-sm.webp',
+    width: 873,
+    height: 1580,
+    smWidth: 640,
+    position: '50% 22%',
+    alt: {
+      de: 'Reinigungsprofi wischt mit einem Flachwischer die Marmorstufen eines Treppenhauses mit Glasgeländer',
+      en: 'Cleaning professional mopping the marble steps of a staircase with a glass balustrade',
     },
   },
 } satisfies Record<string, Photo>
@@ -177,20 +204,20 @@ export interface Service {
 }
 
 export const services: Service[] = [
-  { id: 'residential', icon: 'Home', image: photos.vacuuming, extraImage: photos.bathroom },
-  { id: 'office', icon: 'Building2', image: stock.office },
-  { id: 'retail', icon: 'Store', image: stock.retail },
-  { id: 'staircase', icon: 'Layers', image: photos.mopping },
-  { id: 'it', icon: 'Monitor', image: photos.itEquipment, specialty: true },
+  { id: 'residential', icon: 'Home', image: photos.bathroom },
+  { id: 'office', icon: 'Building2', image: photos.officeVacuuming, extraImage: photos.carpet },
+  { id: 'retail', icon: 'Store', image: photos.shopfront, extraImage: photos.retailShelf },
+  { id: 'staircase', icon: 'Layers', image: photos.stairs, extraImage: photos.lobbyMopping },
+  { id: 'it', icon: 'Monitor', image: photos.itPrinter, extraImage: photos.itLaptop, specialty: true },
 ]
 
 export const founder = {
   name: 'Daniel Gitonga Wahome',
   image: {
-    src: '/images/team/tosh-it-equipment-cleaning.webp',
-    srcSm: '/images/team/tosh-it-equipment-cleaning-sm.webp',
-    width: 1124,
-    height: 1599,
+    src: '/images/team/tosh-it-workstation-cleaning.webp',
+    srcSm: '/images/team/tosh-it-workstation-cleaning-sm.webp',
+    width: 1000,
+    height: 1435,
   },
   /** Education timeline entry (text lives in the translation files) */
   education: { year: '1996–2000', institution: 'Mombasa Polytechnic, Kenya' },

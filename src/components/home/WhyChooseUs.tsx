@@ -27,7 +27,7 @@ export default function WhyChooseUs() {
           </Parallax>
           <div className="absolute -bottom-2 right-0 w-[42%] rotate-3 overflow-hidden rounded-2xl border-4 border-white shadow-soft lg:right-[8%]">
             <div className="aspect-[3/4]">
-              <Photo photo={photos.mopping} sizes="220px" />
+              <Photo photo={photos.stairs} sizes="220px" />
             </div>
           </div>
         </Reveal>

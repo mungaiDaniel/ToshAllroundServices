@@ -70,7 +70,7 @@ for (const [path, key] of Object.entries(routes)) {
   if (path === '/') {
     out = out.replace(
       '</head>',
-      '    <link rel="preload" as="image" href="/images/team/tosh-residential-vacuuming.webp" imagesrcset="/images/team/tosh-residential-vacuuming-sm.webp 700w, /images/team/tosh-residential-vacuuming.webp 900w" imagesizes="(min-width: 1024px) 34vw, (min-width: 640px) 360px, 70vw" type="image/webp" fetchpriority="high" />\n  </head>',
+      '    <link rel="preload" as="image" href="/images/team/tosh-lobby-mopping.webp" imagesrcset="/images/team/tosh-lobby-mopping-sm.webp 640w, /images/team/tosh-lobby-mopping.webp 871w" imagesizes="(min-width: 1024px) 34vw, (min-width: 640px) 360px, 70vw" type="image/webp" fetchpriority="high" />\n  </head>',
     )
   }
 

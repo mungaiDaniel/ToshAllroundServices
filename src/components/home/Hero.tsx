@@ -69,7 +69,7 @@ export default function Hero() {
           {/* main photo */}
           <div className="relative ml-auto w-[80%] rotate-2 overflow-hidden rounded-3xl border border-white/15 shadow-glass">
             <Parallax clip speed={0.4} className="aspect-[3/4]">
-              <Photo photo={photos.vacuuming} eager priority sizes="(min-width: 1024px) 34vw, (min-width: 640px) 360px, 70vw" />
+              <Photo photo={photos.lobbyMopping} eager priority sizes="(min-width: 1024px) 34vw, (min-width: 640px) 360px, 70vw" />
             </Parallax>
             <div
               aria-hidden="true"
@@ -80,7 +80,7 @@ export default function Hero() {
           {/* second photo: the specialty */}
           <div className="absolute bottom-0 left-0 w-[44%] -rotate-6 overflow-hidden rounded-2xl border-4 border-night shadow-glass">
             <div className="relative aspect-[3/4]">
-              <Photo photo={photos.itEquipment} sizes="(min-width: 1024px) 15vw, 30vw" />
+              <Photo photo={photos.itPrinter} sizes="(min-width: 1024px) 15vw, 30vw" />
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-night/90 to-transparent p-2.5 pt-8">
                 <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-leaf sm:text-xs">
                   <Sparkles size={12} aria-hidden="true" />

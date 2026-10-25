@@ -74,7 +74,7 @@ Design principle: the hero is dark, cinematic and 3D. Inner sections are light (
 ## Brand assets
 - Logo: /images/logo/tosh-logo-512.webp (round, transparent; also -256 and -96). Use the BrandLogo component: navbar (44px), footer, and floating in the home hero.
 - Real photos of the owner: /images/team/ (portrait, each with a large file and a "-sm" file for phones). Use the Photo component (srcset + focal point), never stretch: crop with object-cover and a sensible object-position. Data and bilingual alt text live in src/data/site.ts (`photos`), gallery entries in src/data/gallery.ts (real photos first).
-- Stock photos are placeholders (marked `placeholder: true`, credited in public/images/CREDITS.md). Replace them with real photos when available.
+- All site photos are real (client's own, 10 photos in /images/team/, `tosh-*.webp` + `-sm`). No stock placeholders remain.
 
 ## Content architecture (Supabase)
 The client edits the website through Supabase (Table Editor + Storage); the site loads that content at runtime.
